@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Integration | Administration Guide | SUSE CaaS Platform 4.5.1</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.0.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.0.17 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE CaaS Platform" /><meta name="product-number" content="4.5.1" /><meta name="book-title" content="Administration Guide" /><meta name="chapter-title" content="Chapter 10. Integration" /><meta name="description" content="Integration with external systems might require you to install additional packages to the base OS. Please refer to Section 3.1, “Software Installation”." /><meta name="tracker-url" content="https://github.com/SUSE/doc-caasp/issues/new" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-labels" content="AdminGuide" /><link rel="home" href="index.html" title="Administration Guide" /><link rel="up" href="index.html" title="Administration Guide" /><link rel="prev" href="_storage.html" title="Chapter 9. Storage" /><link rel="next" href="_gpu_dependent_workloads.html" title="Chapter 11. GPU-Dependent Workloads" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="Administration Guide"><span class="book-icon">Administration Guide</span></a><span> › </span><a class="crumb" href="_integration.html">Integration</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="pr01.html"><span class="number"> </span><span class="name"></span></a></li><li class="inactive"><a href="_about_this_guide.html"><span class="number">1 </span><span class="name">About This Guide</span></a></li><li class="inactive"><a href="_cluster_management.html"><span class="number">2 </span><span class="name">Cluster Management</span></a></li><li class="inactive"><a href="_software_management.html"><span class="number">3 </span><span class="name">Software Management</span></a></li><li class="inactive"><a href="_cluster_updates.html"><span class="number">4 </span><span class="name">Cluster Updates</span></a></li><li class="inactive"><a href="_upgrading_suse_caas_platform.html"><span class="number">5 </span><span class="name">Upgrading SUSE CaaS Platform</span></a></li><li class="inactive"><a href="_security.html"><span class="number">6 </span><span class="name">Security</span></a></li><li class="inactive"><a href="_logging.html"><span class="number">7 </span><span class="name">Logging</span></a></li><li class="inactive"><a href="_monitoring.html"><span class="number">8 </span><span class="name">Monitoring</span></a></li><li class="inactive"><a href="_storage.html"><span class="number">9 </span><span class="name">Storage</span></a></li><li class="inactive"><a href="_integration.html"><span class="number">10 </span><span class="name">Integration</span></a></li><li class="inactive"><a href="_gpu_dependent_workloads.html"><span class="number">11 </span><span class="name">GPU-Dependent Workloads</span></a></li><li class="inactive"><a href="_cluster_disaster_recovery.html"><span class="number">12 </span><span class="name">Cluster Disaster Recovery</span></a></li><li class="inactive"><a href="backup-and-restore-with-velero.html"><span class="number">13 </span><span class="name">Backup and Restore with Velero</span></a></li><li class="inactive"><a href="_miscellaneous.html"><span class="number">14 </span><span class="name">Miscellaneous</span></a></li><li class="inactive"><a href="_troubleshooting_3.html"><span class="number">15 </span><span class="name">Troubleshooting</span></a></li><li class="inactive"><a href="_glossary.html"><span class="number">16 </span><span class="name">Glossary</span></a></li><li class="inactive"><a href="_contributors.html"><span class="number">A </span><span class="name">Contributors</span></a></li><li class="inactive"><a href="_gnu_licenses.html"><span class="number">B </span><span class="name">GNU Licenses</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 9. Storage" href="_storage.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 11. GPU-Dependent Workloads" href="_gpu_dependent_workloads.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="Administration Guide"><span class="book-icon">Administration Guide</span></a><span> › </span><a class="crumb" href="_integration.html">Integration</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 9. Storage" href="_storage.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 11. GPU-Dependent Workloads" href="_gpu_dependent_workloads.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="_integration"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE CaaS Platform</span> <span class="productnumber ">4.5.1</span></div><div><h1 class="title"><span class="number">10 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Integration</span> <a title="Permalink" class="permalink" href="_integration.html#">#</a></h1></div></div></div><div class="line"><div class="toc"><dl><dt><span class="section"><a href="_integration.html#ses-integration"><span class="number">10.1 </span><span class="name">SUSE Enterprise Storage Integration</span></a></span></dt><dt><span class="section"><a href="_integration.html#_suse_cloud_application_platform_integration"><span class="number">10.2 </span><span class="name">SUSE Cloud Application Platform Integration</span></a></span></dt></dl></div></div><div id="id-1.12.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Integration with external systems might require you to install additional packages to the base OS.
+Please refer to <a class="xref" href="_software_management.html#software-installation" title="3.1. Software Installation">Section 3.1, “Software Installation”</a>.</p></div><div class="sect1" id="ses-integration"><div class="titlepage"><div><div><h2 class="title"><span class="number">10.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">SUSE Enterprise Storage Integration</span> <a title="Permalink" class="permalink" href="_integration.html#ses-integration">#</a></h2></div></div></div><p>SUSE CaaS Platform offers SUSE Enterprise Storage as a storage solution for its containers.
+This chapter describes the steps required for successful integration.</p><div class="sect2" id="_prerequisites_6"><div class="titlepage"><div><div><h3 class="title"><span class="number">10.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prerequisites</span> <a title="Permalink" class="permalink" href="_integration.html#_prerequisites_6">#</a></h3></div></div></div><p>Before you start with integrating SUSE Enterprise Storage, you need to ensure the following:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>The SUSE CaaS Platform cluster must have <code class="literal">ceph-common</code> and <code class="literal">xfsprogs</code> installed on all nodes.
+You can check this by running <code class="literal">rpm -q ceph-common</code> and <code class="literal">rpm -q xfsprogs</code>.</p></li><li class="listitem "><p>The SUSE CaaS Platform cluster can communicate with all of the following SUSE Enterprise Storage nodes:
+master, monitoring nodes, OSD nodes and the metadata server (in case you need a shared file system).
+For more details refer to the SUSE Enterprise Storage documentation:
+<a class="link" href="https://documentation.suse.com/ses/6/" target="_blank">https://documentation.suse.com/ses/6/</a>.</p></li><li class="listitem "><p>The SUSE Enterprise Storage cluster has a pool with RADOS Block Device (RBD) enabled.</p></li></ul></div></div><div class="sect2" id="_procedures_according_to_type_of_integration"><div class="titlepage"><div><div><h3 class="title"><span class="number">10.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Procedures According to Type of Integration</span> <a title="Permalink" class="permalink" href="_integration.html#_procedures_according_to_type_of_integration">#</a></h3></div></div></div><p>The steps will differ in small details depending on whether you are using RBD or
+CephFS and dynamic or static persistent volumes.</p><div class="sect3" id="_using_rbd_in_a_pod"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using RBD in a Pod</span> <a title="Permalink" class="permalink" href="_integration.html#_using_rbd_in_a_pod">#</a></h4></div></div></div><p>RBD, also known as the Ceph Block Device or RADOS Block Device,
+is software that facilitates the storage of block-based data in the open source
+Ceph distributed storage system.
+The procedure below describes steps to take when you need to use a RADOS Block Device in a pod.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Retrieve the Ceph admin secret.
+You can get the key value using the following command:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-key client.admin</pre></div><p>or directly from <code class="literal">/etc/ceph/ceph.client.admin.keyring</code>.</p></li><li class="listitem "><p>Apply the configuration that includes the Ceph secret by running <code class="literal">kubectl apply</code>.
+Replace <code class="literal">&lt;CEPH_SECRET&gt;</code> with your own Ceph secret and run the following:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret
+type: "kubernetes.io/rbd"
+data:
+  key: "$(echo &lt;CEPH_SECRET&gt; | base64)"
+*EOF*</pre></div></li><li class="listitem "><p>Create an image in the SES cluster.
+To do that, run the following command on the master node,
+replacing <code class="literal">&lt;SIZE&gt;</code> with the size of the image, for example <code class="literal">2G</code>,
+and <code class="literal">&lt;YOUR_VOLUME&gt;</code> with the name of the image.</p><div class="verbatim-wrap"><pre class="screen">rbd create -s &lt;SIZE&gt; &lt;YOUR_VOLUME&gt;</pre></div></li><li class="listitem "><p>Create a pod that uses the image by executing the command below.
+This example is the minimal configuration for using a RADOS Block Device.
+Fill in the IP addresses and ports of your monitor nodes under <code class="literal">&lt;MONITOR_IP&gt;</code> and <code class="literal">&lt;MONITOR_PORT&gt;</code>. The default port number is <span class="strong"><strong>6789</strong></span>.
+Substitute <code class="literal">&lt;POD_NAME&gt;</code> and <code class="literal">&lt;CONTAINER_NAME&gt;</code> for a Kubernetes container and pod name of your choice.
+<code class="literal">&lt;IMAGE_NAME&gt;</code> is the name you decide to give your container image, for example "opensuse/leap".
+<code class="literal">&lt;RBD_POOL&gt;.</code> is the RBD pool name,
+please refer to the RBD documentation for instructions on how to create the RBD pool:
+<a class="link" href="https://docs.ceph.com/docs/mimic/rbd/rados-rbd-cmds/#create-a-block-device-pool" target="_blank">https://docs.ceph.com/docs/mimic/rbd/rados-rbd-cmds/#create-a-block-device-pool</a></p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Pod
+metadata:
+  name: &lt;POD_NAME&gt;
+spec:
+  containers:
+  - name: &lt;CONTAINER_NAME&gt;
+    image: &lt;IMAGE_NAME&gt;
+    volumeMounts:
+    - mountPath: /mnt/rbdvol
+      name: rbdvol
+  volumes:
+  - name: rbdvol
+    rbd:
+      monitors:
+      - '&lt;MONITOR1_IP:MONITOR1_PORT&gt;'
+      - '&lt;MONITOR2_IP:MONITOR2_PORT&gt;'
+      - '&lt;MONITOR3_IP:MONITOR3_PORT&gt;'
+      pool: &lt;RBD_POOL&gt;
+      image: &lt;YOUR_VOLUME&gt;
+      user: admin
+      secretRef:
+        name: ceph-secret
+      fsType: ext4
+      readOnly: false
+*EOF*</pre></div></li><li class="listitem "><p>Verify that the pod exists and check its status:</p><div class="verbatim-wrap"><pre class="screen">kubectl get pod</pre></div></li><li class="listitem "><p>Once the pod is running, check the mounted volume:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it CONTAINER_NAME -- df -k ...
+Filesystem             1K-block    Used    Available Used%   Mounted on
+/dev/rbd1              999320      1284    929224    0%      /mnt/rbdvol
+...</pre></div></li></ol></div><p>In case you need to delete the pod, run the following command:</p><div class="verbatim-wrap"><pre class="screen">kubectl delete pod &lt;POD_NAME&gt;</pre></div></div><div class="sect3" id="_using_rbd_with_static_persistent_volumes"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using RBD with Static Persistent Volumes</span> <a title="Permalink" class="permalink" href="_integration.html#_using_rbd_with_static_persistent_volumes">#</a></h4></div></div></div><p>The following procedure describes how to attach a pod to an RBD static persistent volume:</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Retrieve the Ceph admin secret.
+You can get the key value using the following command:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-key client.admin</pre></div><p>or directly from <code class="literal">/etc/ceph/ceph.client.admin.keyring</code>.</p></li><li class="listitem "><p>Apply the configuration that includes the Ceph secret by using <code class="literal">kubectl apply</code>.
+Replace <code class="literal">&lt;CEPH_SECRET&gt;</code> with your Ceph secret.</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret
+type: "kubernetes.io/rbd"
+data:
+  key: "$(echo &lt;CEPH_SECRET&gt; | base64)"
+*EOF*</pre></div></li><li class="listitem "><p>Create an image in the SES cluster. On the master node, run the following command:</p><div class="verbatim-wrap"><pre class="screen">rbd create -s &lt;SIZE&gt; &lt;YOUR_VOLUME&gt;</pre></div><p>Replace <code class="literal">&lt;SIZE&gt;</code> with the size of the image, for example <code class="literal">2G</code> (2 gigabytes),
+and <code class="literal">&lt;YOUR_VOLUME&gt;</code> with the name of the image.</p></li><li class="listitem "><p>Create the persistent volume:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: &lt;PV_NAME&gt;
+spec:
+  capacity:
+    storage: &lt;SIZE&gt;
+  accessModes:
+    - ReadWriteOnce
+  rbd:
+    monitors:
+    - '&lt;MONITOR1_IP:MONITOR1_PORT&gt;'
+    - '&lt;MONITOR2_IP:MONITOR2_PORT&gt;'
+    - '&lt;MONITOR3_IP:MONITOR3_PORT&gt;'
+    pool: &lt;RBD_POOL&gt;
+    image: &lt;YOUR_VOLUME&gt;
+    user: admin
+    secretRef:
+      name: ceph-secret
+    fsType: ext4
+    readOnly: false
+*EOF*</pre></div><p>Replace <code class="literal">&lt;SIZE&gt;</code> with the desired size of the volume.
+Use the <span class="emphasis"><em>gibibit</em></span> notation, for example <code class="literal">2Gi</code>.</p></li><li class="listitem "><p>Create a persistent volume claim:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: &lt;PVC_NAME&gt;
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: SIZE
+*EOF*</pre></div><p>Replace <code class="literal">&lt;SIZE&gt;</code> with the desired size of the volume.
+Use the <span class="emphasis"><em>gibibit</em></span> notation, for example <code class="literal">2Gi</code>.</p><div id="id-1.12.3.4.4.3.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note: Listing Volumes</h6><p>This persistent volume claim does not explicitly list the volume.
+Persistent volume claims work by picking any volume that meets the criteria from a pool.
+In this case we specified any volume with a size of 2G or larger.
+When the claim is removed, the recycling policy will be followed.</p></div></li><li class="listitem "><p>Create a pod that uses the persistent volume claim:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt;*EOF*
+apiVersion: v1
+kind: Pod
+metadata:
+  name: &lt;POD_NAME&gt;
+spec:
+  containers:
+  - name: &lt;CONTAINER_NAME&gt;
+    image: &lt;IMAGE_NAME&gt;
+    volumeMounts:
+    - mountPath: /mnt/rbdvol
+      name: rbdvol
+  volumes:
+  - name: rbdvol
+    persistentVolumeClaim:
+      claimName: &lt;PV_NAME&gt;
+*EOF*</pre></div></li><li class="listitem "><p>Verify that the pod exists and its status:</p><div class="verbatim-wrap"><pre class="screen">kubectl get pod</pre></div></li><li class="listitem "><p>Once the pod is running, check the volume:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it CONTAINER_NAME -- df -k ...
+/dev/rbd3               999320      1284    929224   0% /mnt/rbdvol
+...</pre></div></li></ol></div><p>In case you need to delete the pod, run the following command:</p><div class="verbatim-wrap"><pre class="screen">kubectl delete pod &lt;CONTAINER_NAME&gt;</pre></div><div id="id-1.12.3.4.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note: Deleting A Pod</h6><p>When you delete the pod, the persistent volume claim is deleted as well.
+The RBD is not deleted.</p></div></div><div class="sect3" id="RBD-dynamic-persistent-volumes"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using RBD with Dynamic Persistent Volumes</span> <a title="Permalink" class="permalink" href="_integration.html#RBD-dynamic-persistent-volumes">#</a></h4></div></div></div><p>The following procedure describes how to attach a pod to an RBD dynamic persistent volume.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Retrieve the Ceph <span class="strong"><strong>admin</strong></span> secret.
+You can get the key value using the following command:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-key client.admin</pre></div><p>or directly from <code class="literal">/etc/ceph/ceph.client.admin.keyring</code>.</p></li><li class="listitem "><p>Apply the configuration that includes the Ceph secret by using <code class="literal">kubectl apply</code>.
+Replace <code class="literal">&lt;CEPH_SECRET&gt;</code> with your Ceph secret.</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret-admin
+type: "kubernetes.io/rbd"
+data:
+  key: "$(echo &lt;CEPH_SECRET&gt; | base64)"
+*EOF*</pre></div></li><li class="listitem "><p>Create Ceph user on the SES cluster.</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-or-create client.user mon "allow r" osd "allow class-read object_prefix rbd_children,
+allow rwx pool=&lt;RBD_POOL&gt;" -o ceph.client.user.keyring</pre></div><p>Replace <code class="literal">&lt;RBD_POOL&gt;</code> with the RBD pool name.</p></li><li class="listitem "><p>For a dynamic persistent volume, you will also need a user key.
+Retrieve the Ceph <span class="strong"><strong>user</strong></span> secret by running:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-key client.user</pre></div><p>or directly from <code class="literal">/etc/ceph/ceph.client.user.keyring</code></p></li><li class="listitem "><p>Apply the configuration that includes the Ceph secret by running the <code class="literal">kubectl apply</code> command,
+replacing <code class="literal">&lt;CEPH_SECRET&gt;</code> with your own Ceph secret.</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret-user
+type: "kubernetes.io/rbd"
+data:
+  key: "$(echo &lt;CEPH_SECRET&gt; | base64)"
+*EOF*</pre></div></li><li class="listitem "><p>Create the storage class:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: &lt;SC_NAME&gt;
+  annotations:
+    storageclass.beta.kubernetes.io/is-default-class: "true"
+provisioner: kubernetes.io/rbd
+parameters:
+  monitors: &lt;MONITOR1_IP:MONITOR1_PORT&gt;, &lt;MONITOR2_IP:MONITOR2_PORT&gt;, &lt;MONITOR3_IP:MONITOR3_PORT&gt;
+  adminId: admin
+  adminSecretName: ceph-secret-admin
+  adminSecretNamespace: default
+  pool: &lt;RBD_POOL&gt;
+  userId: user
+  userSecretName: ceph-secret-user
+*EOF*</pre></div></li><li class="listitem "><p>Create the persistent volume claim:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: &lt;PVC_NAME&gt;
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: &lt;SIZE&gt;
+*EOF*</pre></div><p>Replace <code class="literal">&lt;SIZE&gt;</code> with the desired size of the volume.
+Use the <span class="emphasis"><em>gibibit</em></span> notation, for example <code class="literal">2Gi</code>.</p></li><li class="listitem "><p>Create a pod that uses the persistent volume claim.</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Pod
+metadata:
+  name: &lt;POD_NAME&gt;
+spec:
+  containers:
+  - name: &lt;CONTAINER_NAME&gt;
+    image: &lt;IMAGE_NAME&gt;
+    volumeMounts:
+    - name: rbdvol
+      mountPath: /mnt/rbdvol
+      readOnly: false
+  volumes:
+  - name: rbdvol
+    persistentVolumeClaim:
+      claimName: &lt;PVC_NAME&gt;
+*EOF*</pre></div></li><li class="listitem "><p>Verify that the pod exists and check its status.</p><div class="verbatim-wrap"><pre class="screen">kubectl get pod</pre></div></li><li class="listitem "><p>Once the pod is running, check the volume:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it &lt;CONTAINER_NAME&gt; -- df -k ...
+/dev/rbd3               999320      1284    929224   0% /mnt/rbdvol
+...</pre></div></li></ol></div><p>In case you need to delete the pod, run the following command:</p><div class="verbatim-wrap"><pre class="screen">kubectl delete pod &lt;CONTAINER_NAME&gt;</pre></div><div id="id-1.12.3.4.5.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note: Deleting A Pod</h6><p>When you delete the pod, the persistent volume claim is deleted as well.
+The RBD is not deleted.</p></div></div><div class="sect3" id="_using_cephfs_in_a_pod"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using CephFS in a Pod</span> <a title="Permalink" class="permalink" href="_integration.html#_using_cephfs_in_a_pod">#</a></h4></div></div></div><p>The procedure below describes steps to take when you need to use a CephFS in a pod.</p><div class="orderedlist "><div class="orderedlist-title-wrap"><h6 class="orderedlist-title"><span class="name">Procedure: Using CephFS In A Pod </span><a title="Permalink" class="permalink" href="_integration.html#id-1.12.3.4.6.3">#</a></h6></div><ol class="orderedlist" type="1"><li class="listitem "><p>Retrieve the Ceph admin secret.
+You can get the key value using the following command:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-key client.admin</pre></div><p>or directly from <code class="literal">/etc/ceph/ceph.client.admin.keyring</code>.</p></li><li class="listitem "><p>Apply the configuration that includes the Ceph secret by running <code class="literal">kubectl apply</code>.
+Replace <code class="literal">&lt;CEPH_SECRET&gt;</code> with your own Ceph secret and run the following:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret
+type: "kubernetes.io/rbd"
+data:
+  key: "$(echo &lt;CEPH_SECRET&gt; | base64)"
+*EOF*</pre></div></li><li class="listitem "><p>Create a pod that uses the CephFS filesystem by executing the following command.
+This example shows the minimal configuration for a <code class="literal">CephFS</code> volume.
+Fill in the IP addresses and ports of your monitor nodes. The default port number is <code class="literal">6789</code>.</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Pod
+metadata:
+  name: &lt;POD_NAME&gt;
+spec:
+  containers:
+  - name: &lt;CONTAINER_NAME&gt;
+    image: &lt;IMAGE_NAME&gt;
+    volumeMounts:
+    - mountPath: /mnt/cephfsvol
+      name: ceph-vol
+  volumes:
+  - name: ceph-vol
+    cephfs:
+      monitors:
+      - '&lt;MONITOR1_IP:MONITOR1_PORT&gt;'
+      - '&lt;MONITOR2_IP:MONITOR2_PORT&gt;'
+      - '&lt;MONITOR3_IP:MONITOR3_PORT&gt;'
+      user: admin
+      secretRef:
+        name: ceph-secret-admin
+      readOnly: false
+*EOF*</pre></div></li><li class="listitem "><p>Verify that the pod exists and check its status:</p><div class="verbatim-wrap"><pre class="screen">kubectl get pod</pre></div></li><li class="listitem "><p>Once the pod is running, check the mounted volume:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it &lt;CONTAINER_NAME&gt; -- df -k ...
+172.28.0.6:6789,172.28.0.14:6789,172.28.0.7:6789:/  59572224       0  59572224   0% /mnt/cephfsvol
+...</pre></div></li></ol></div><p>In case you need to delete the pod, run the following command:</p><div class="verbatim-wrap"><pre class="screen">kubectl delete pod &lt;POD_NAME&gt;</pre></div></div><div class="sect3" id="_using_cephfs_with_static_persistent_volumes"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using CephFS with Static Persistent Volumes</span> <a title="Permalink" class="permalink" href="_integration.html#_using_cephfs_with_static_persistent_volumes">#</a></h4></div></div></div><p>The following procedure describes how to attach a CephFS static persistent volume to a pod:</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Retrieve the Ceph admin secret.
+You can get the key value using the following command:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-key client.admin</pre></div><p>or directly from <code class="literal">/etc/ceph/ceph.client.admin.keyring</code>.</p></li><li class="listitem "><p>Apply the configuration that includes the Ceph secret by running <code class="literal">kubectl apply</code>.
+Replace <code class="literal">&lt;CEPH_SECRET&gt;</code> with your own Ceph secret and run the following:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret
+type: "kubernetes.io/rbd"
+data:
+  key: "$(echo &lt;CEPH_SECRET&gt; | base64)"
+*EOF*</pre></div></li><li class="listitem "><p>Create the persistent volume:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: &lt;PV_NAME&gt;
+spec:
+  capacity:
+    storage: &lt;SIZE&gt;
+  accessModes:
+    - ReadWriteOnce
+  cephfs:
+    monitors:
+    - '&lt;MONITOR1_IP:MONITOR1_PORT&gt;'
+    - '&lt;MONITOR2_IP:MONITOR2_PORT&gt;'
+    - '&lt;MONITOR3_IP:MONITOR3_PORT&gt;'
+    user: admin
+    secretRef:
+      name: ceph-secret-admin
+    readOnly: false
+*EOF*</pre></div><p>Replace <code class="literal">&lt;SIZE&gt;</code> with the desired size of the volume.
+Use the <span class="emphasis"><em>gibibit</em></span> notation, for example <code class="literal">2Gi</code>.</p></li><li class="listitem "><p>Create a persistent volume claim:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: &lt;PVC_NAME&gt;
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: &lt;SIZE&gt;
+*EOF*</pre></div><p>Replace <code class="literal">&lt;SIZE&gt;</code> with the desired size of the volume.
+Use the <span class="emphasis"><em>gibibit</em></span> notation, for example <code class="literal">2Gi</code>.</p></li><li class="listitem "><p>Create a pod that uses the persistent volume claim.</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f - &lt;&lt; *EOF*
+apiVersion: v1
+kind: Pod
+metadata:
+  name: &lt;POD_NAME&gt;
+spec:
+  containers:
+  - name: &lt;CONTAINER_NAME&gt;
+    image: &lt;IMAGE_NAME&gt;
+    volumeMounts:
+    - mountPath: /mnt/cephfsvol
+      name: cephfsvol
+  volumes:
+  - name: cephfsvol
+    persistentVolumeClaim:
+      claimName: &lt;PVC_NAME&gt;
+
+*EOF*</pre></div></li><li class="listitem "><p>Verify that the pod exists and check its status.</p><div class="verbatim-wrap"><pre class="screen">kubectl get pod</pre></div></li><li class="listitem "><p>Once the pod is running, check the volume by running:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it &lt;CONTAINER_NAME&gt; -- df -k ...
+172.28.0.25:6789,172.28.0.21:6789,172.28.0.6:6789:/  76107776       0  76107776   0% /mnt/cephfsvol
+...</pre></div></li></ol></div><p>In case you need to delete the pod, run the following command:</p><div class="verbatim-wrap"><pre class="screen">kubectl delete pod &lt;CONTAINER_NAME&gt;</pre></div><div id="id-1.12.3.4.7.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note: Deleting A Pod</h6><p>When you delete the pod, the persistent volume claim is deleted as well.
+The cephFS is not deleted.</p></div></div></div></div><div class="sect1" id="_suse_cloud_application_platform_integration"><div class="titlepage"><div><div><h2 class="title"><span class="number">10.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">SUSE Cloud Application Platform Integration</span> <a title="Permalink" class="permalink" href="_integration.html#_suse_cloud_application_platform_integration">#</a></h2></div></div></div><p>For integration with SUSE Cloud Application Platform, refer to: <a class="link" href="https://documentation.suse.com/suse-cap/1.5.2/single-html/cap-guides/#cha-cap-depl-caasp" target="_blank">Deploying SUSE Cloud Application Platform on SUSE CaaS Platform</a>.</p></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="_gpu_dependent_workloads.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 11 </span>GPU-Dependent Workloads</span></a><a class="nav-link" href="_storage.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 9 </span>Storage</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2020 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

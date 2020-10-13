@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Backup and Restore with Velero | Administration Guide | SUSE CaaS Platform 4.5.1</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.0.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.0.17 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE CaaS Platform" /><meta name="product-number" content="4.5.1" /><meta name="book-title" content="Administration Guide" /><meta name="chapter-title" content="Chapter 13. Backup and Restore with Velero" /><meta name="description" content="Velero is a solution for supporting Kubernetes cluster disaster recovery, data migration and data protection by backing up Kubernetes cluster resources and persistent volumes to externally supported storage backend on-demand or by schedule." /><meta name="tracker-url" content="https://github.com/SUSE/doc-caasp/issues/new" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-labels" content="AdminGuide" /><link rel="home" href="index.html" title="Administration Guide" /><link rel="up" href="index.html" title="Administration Guide" /><link rel="prev" href="_cluster_disaster_recovery.html" title="Chapter 12. Cluster Disaster Recovery" /><link rel="next" href="_miscellaneous.html" title="Chapter 14. Miscellaneous" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #FABEBE;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="Administration Guide"><span class="book-icon">Administration Guide</span></a><span> › </span><a class="crumb" href="backup-and-restore-with-velero.html">Backup and Restore with Velero</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="pr01.html"><span class="number"> </span><span class="name"></span></a></li><li class="inactive"><a href="_about_this_guide.html"><span class="number">1 </span><span class="name">About This Guide</span></a></li><li class="inactive"><a href="_cluster_management.html"><span class="number">2 </span><span class="name">Cluster Management</span></a></li><li class="inactive"><a href="_software_management.html"><span class="number">3 </span><span class="name">Software Management</span></a></li><li class="inactive"><a href="_cluster_updates.html"><span class="number">4 </span><span class="name">Cluster Updates</span></a></li><li class="inactive"><a href="_upgrading_suse_caas_platform.html"><span class="number">5 </span><span class="name">Upgrading SUSE CaaS Platform</span></a></li><li class="inactive"><a href="_security.html"><span class="number">6 </span><span class="name">Security</span></a></li><li class="inactive"><a href="_logging.html"><span class="number">7 </span><span class="name">Logging</span></a></li><li class="inactive"><a href="_monitoring.html"><span class="number">8 </span><span class="name">Monitoring</span></a></li><li class="inactive"><a href="_storage.html"><span class="number">9 </span><span class="name">Storage</span></a></li><li class="inactive"><a href="_integration.html"><span class="number">10 </span><span class="name">Integration</span></a></li><li class="inactive"><a href="_gpu_dependent_workloads.html"><span class="number">11 </span><span class="name">GPU-Dependent Workloads</span></a></li><li class="inactive"><a href="_cluster_disaster_recovery.html"><span class="number">12 </span><span class="name">Cluster Disaster Recovery</span></a></li><li class="inactive"><a href="backup-and-restore-with-velero.html"><span class="number">13 </span><span class="name">Backup and Restore with Velero</span></a></li><li class="inactive"><a href="_miscellaneous.html"><span class="number">14 </span><span class="name">Miscellaneous</span></a></li><li class="inactive"><a href="_troubleshooting_3.html"><span class="number">15 </span><span class="name">Troubleshooting</span></a></li><li class="inactive"><a href="_glossary.html"><span class="number">16 </span><span class="name">Glossary</span></a></li><li class="inactive"><a href="_contributors.html"><span class="number">A </span><span class="name">Contributors</span></a></li><li class="inactive"><a href="_gnu_licenses.html"><span class="number">B </span><span class="name">GNU Licenses</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 12. Cluster Disaster Recovery" href="_cluster_disaster_recovery.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 14. Miscellaneous" href="_miscellaneous.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #FABEBE;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="Administration Guide"><span class="book-icon">Administration Guide</span></a><span> › </span><a class="crumb" href="backup-and-restore-with-velero.html">Backup and Restore with Velero</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 12. Cluster Disaster Recovery" href="_cluster_disaster_recovery.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 14. Miscellaneous" href="_miscellaneous.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="backup-and-restore-with-velero"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE CaaS Platform</span> <span class="productnumber ">4.5.1</span></div><div><h1 class="title"><span class="number">13 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Backup and Restore with Velero</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#">#</a></h1></div></div></div><div class="line"><div class="toc"><dl><dt><span class="section"><a href="backup-and-restore-with-velero.html#_limitations_2"><span class="number">13.1 </span><span class="name">Limitations</span></a></span></dt><dt><span class="section"><a href="backup-and-restore-with-velero.html#_prerequisites_8"><span class="number">13.2 </span><span class="name">Prerequisites</span></a></span></dt><dt><span class="section"><a href="backup-and-restore-with-velero.html#_known_issues"><span class="number">13.3 </span><span class="name">Known Issues</span></a></span></dt><dt><span class="section"><a href="backup-and-restore-with-velero.html#_deployment_2"><span class="number">13.4 </span><span class="name">Deployment</span></a></span></dt><dt><span class="section"><a href="backup-and-restore-with-velero.html#_operations"><span class="number">13.5 </span><span class="name">Operations</span></a></span></dt><dt><span class="section"><a href="backup-and-restore-with-velero.html#_backup"><span class="number">13.6 </span><span class="name">Backup</span></a></span></dt><dt><span class="section"><a href="backup-and-restore-with-velero.html#_restore"><span class="number">13.7 </span><span class="name">Restore</span></a></span></dt><dt><span class="section"><a href="backup-and-restore-with-velero.html#_use_cases"><span class="number">13.8 </span><span class="name">Use Cases</span></a></span></dt><dt><span class="section"><a href="backup-and-restore-with-velero.html#_uninstall"><span class="number">13.9 </span><span class="name">Uninstall</span></a></span></dt></dl></div></div><p><a class="link" href="https://velero.io/" target="_blank">Velero</a> is a solution for supporting Kubernetes cluster disaster recovery,
+data migration and data protection by backing up Kubernetes cluster resources and persistent volumes to externally supported storage backend on-demand or by schedule.</p><p>The major functions include:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Backup Kubernetes resources and persistent volumes for supported storage providers.</p></li><li class="listitem "><p>Restore Kubernetes resources and persistent volumes for supported storage providers.</p></li><li class="listitem "><p>When backing up persistent volumes w/o supported storage provider, Velero leverages <a class="link" href="https://github.com/restic/restic" target="_blank">restic</a> as an agnostic solution to back up this sort of persistent volumes under some known limitations.</p></li></ul></div><p>User can leverage these fundamental functions to achieve user stories:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Backup whole Kubernetes cluster resources then restore if any Kubernetes resources loss.</p></li><li class="listitem "><p>Backup selected Kubernetes resources then restore if the selected Kubernetes resources loss.</p></li><li class="listitem "><p>Backup selected Kubernetes resources and persistent volumes then restore if the Kubernetes selected Kubernetes resources loss or data loss.</p></li><li class="listitem "><p>Replicate or migrate a cluster for any purpose, for example replicating a production cluster to a development cluster for testing.</p></li></ul></div><p>Velero consists of below components:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>A Velero server that runs on your Kubernetes cluster.</p></li><li class="listitem "><p>A <code class="literal">restic</code> deployed on each worker nodes that run on your Kubernetes cluster (optional).</p></li><li class="listitem "><p>A command-line client that runs locally.</p></li></ul></div><div class="sect1" id="_limitations_2"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Limitations</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_limitations_2">#</a></h2></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Velero doesn’t overwrite objects in-cluster if they already exist.</p></li><li class="listitem "><p>Velero supports a single set of credentials <span class="emphasis"><em>per provider</em></span>.
+It’s not yet possible to use different credentials for different object storage locations for the same provider.</p></li><li class="listitem "><p>Volume snapshots are limited by where your provider allows you to create snapshots.
+For example, AWS and Azure do not allow you to create a volume snapshot in a different region than where the volume is located.
+If you try to take a Velero backup using a volume snapshot location with a different region than where your cluster’s volume is, the backup will fail.</p></li><li class="listitem "><p>It is not yet possible to send a single Velero backup to multiple backup storage locations simultaneously, or a single volume snapshot to multiple locations simultaneously.
+However, you can set up multiple backups manually or scheduled that differ only in the storage locations.</p></li><li class="listitem "><p>Cross-provider snapshots are not supported. If you have a cluster with more than one type of volume (e.g. NFS and Ceph), but you only have a volume snapshot location configured for NFS, then Velero will <span class="emphasis"><em>only</em></span> snapshot the NFS volumes.</p></li><li class="listitem "><p><code class="literal">Restic</code> data is stored under a prefix/subdirectory of the main Velero bucket and will go into the bucket corresponding backup storage location selected by the user at backup creation time.</p></li><li class="listitem "><p>When recovering, the Kubernetes version, Velero version (includes container version), and Helm version have to be <span class="emphasis"><em>exactly</em></span> the same as the original cluster.</p></li><li class="listitem "><p>When performing cluster migration, the new cluster number of nodes should be equal or greater than the original cluster.</p></li></ol></div><p>For more information about storage and snapshot locations, refer to <a class="link" href="https://velero.io/docs/v1.3.1/locations/" target="_blank">Velero: Backup Storage Locations and Volume Snapshot Locations</a></p></div><div class="sect1" id="_prerequisites_8"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prerequisites</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_prerequisites_8">#</a></h2></div></div></div><div class="sect2" id="_helm_2"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Helm</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_helm_2">#</a></h3></div></div></div><p>To successfully use Velero to backup and restore the Kubernetes cluster, you first need to install Helm and Tiller.
+Refer to <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>.</p><p>Add SUSE helm chart repository URL:</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm repo add suse https://kubernetes-charts.suse.com</pre></div></div><div class="sect2" id="_object_storage_and_its_credentials"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Object Storage And It’s Credentials</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_object_storage_and_its_credentials">#</a></h3></div></div></div><p>Velero uses object storage to store backups and associated artifacts.
+It can also optionally create snapshots of persistent volume and store them in object storage by <code class="literal">restic</code>, if there is no supported volume snapshot provider.</p><p>Choose one of the object storage providers, which fits your environment, from the list below for backing up and restoring the Kubernetes cluster.</p><p>The object storage server checks access permission, so it is vital to have credentials ready. Provide the credentials file <code class="literal">credentials-velero</code> to the velero server, so that it has the permission to write or read the backup data from the object storage.</p><div id="id-1.15.10.3.5" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>Make sure the object storage is created before you install Velero. Otherwise, the Velero server won’t be able to start successfully. This is because the Velero server checks that the object storage exists and needs to have the permission to access it during server boot.</p></div><div class="sect3" id="_public_cloud_providers"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.2.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Public Cloud Providers</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_public_cloud_providers">#</a></h4></div></div></div><div class="informaltable"><table class="informaltable" border="1"><colgroup><col class="col_1" /><col class="col_2" /><col class="col_3" /></colgroup><thead><tr><th align="left" valign="top">Provider</th><th align="left" valign="top">Object Storage</th><th align="left" valign="top">Plugin Provider Repo</th></tr></thead><tbody><tr><td align="left" valign="top"><p>Amazon Web Services (AWS)</p></td><td align="left" valign="top"><p>AWS S3</p></td><td align="left" valign="top"><p><a class="link" href="https://github.com/vmware-tanzu/velero-plugin-for-aws" target="_blank">Velero plugin for AWS</a></p></td></tr><tr><td align="left" valign="top"><p>Google Cloud Platform (GCP)</p></td><td align="left" valign="top"><p>Google Cloud Storage</p></td><td align="left" valign="top"><p><a class="link" href="https://github.com/vmware-tanzu/velero-plugin-for-gcp" target="_blank">Velero plugin for GCP</a></p></td></tr><tr><td align="left" valign="top"><p>Microsoft Azure</p></td><td align="left" valign="top"><p>Azure Blob Storage</p></td><td align="left" valign="top"><p><a class="link" href="https://github.com/vmware-tanzu/velero-plugin-for-microsoft-azure" target="_blank">Velero plugin for Microsoft Azure</a></p></td></tr></tbody></table></div><div class="sect4" id="_aws_s3"><div class="titlepage"><div><div><h5 class="title"><span class="number">13.2.2.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">AWS S3</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_aws_s3">#</a></h5></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>AWS CLI</p><p>Install <code class="literal">aws</code> CLI locally, follow the <a class="link" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html" target="_blank">doc</a> to install.</p></li><li class="listitem "><p>AWS S3 bucket</p><p>Create a AWS S3 bucket to store backup data and restore data from the S3 bucket.</p><div class="verbatim-wrap highlight bash"><pre class="screen">aws s3api create-bucket \
+    --bucket &lt;BUCKET_NAME&gt; \
+    --region &lt;REGION&gt; \
+    --create-bucket-configuration LocationConstraint=&lt;REGION&gt;</pre></div></li><li class="listitem "><p>Create the credential file <code class="literal">credentials-velero</code> in the local machine</p><div class="verbatim-wrap"><pre class="screen">[default]
+aws_access_key_id=&lt;AWS_ACCESS_KEY_ID&gt;
+aws_secret_access_key=&lt;AWS_SECRET_ACCESS_KEY&gt;</pre></div><p>For details, please refer to <a class="link" href="https://github.com/vmware-tanzu/velero-plugin-for-aws/tree/v1.0.1" target="_blank">Velero Plugin For AWS</a>.</p></li></ol></div></div><div class="sect4" id="_google_cloud_storage"><div class="titlepage"><div><div><h5 class="title"><span class="number">13.2.2.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Google Cloud Storage</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_google_cloud_storage">#</a></h5></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>GCP CLIs</p><p>Install <code class="literal">gcloud</code> and <code class="literal">gsutil</code> CLIs locally, follow the <a class="link" href="https://cloud.google.com/sdk/docs/" target="_blank">doc</a> to install.</p></li><li class="listitem "><p>Create GCS bucket</p><div class="verbatim-wrap highlight bash"><pre class="screen">gsutil mb gs://&lt;BUCKET_NAME&gt;/</pre></div></li><li class="listitem "><p>Create the service account</p><div class="verbatim-wrap highlight bash"><pre class="screen"># View current config settings
+gcloud config list
+
+# Store the project value to PROJECT_ID environment variable
+PROJECT_ID=$(gcloud config get-value project)
+
+# Create a service account
+gcloud iam service-accounts create velero \
+    --display-name "Velero service account"
+
+# List all accounts
+gcloud iam service-accounts list
+
+# Set the SERVICE_ACCOUNT_EMAIL environment variable
+SERVICE_ACCOUNT_EMAIL=$(gcloud iam service-accounts list \
+  --filter="displayName:Velero service account" \
+  --format 'value(email)')
+
+# Attach policies to give velero the necessary permissions
+ROLE_PERMISSIONS=(
+    compute.disks.get
+    compute.disks.create
+    compute.disks.createSnapshot
+    compute.snapshots.get
+    compute.snapshots.create
+    compute.snapshots.useReadOnly
+    compute.snapshots.delete
+    compute.zones.get
+)
+
+# Create iam roles
+gcloud iam roles create velero.server \
+    --project $PROJECT_ID \
+    --title "Velero Server" \
+    --permissions "$(IFS=","; echo "${ROLE_PERMISSIONS[*]}")"
+
+# Bind iam policy to project
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member serviceAccount:$SERVICE_ACCOUNT_EMAIL \
+    --role projects/$PROJECT_ID/roles/velero.server
+
+gsutil iam ch serviceAccount:$SERVICE_ACCOUNT_EMAIL:objectAdmin gs://&lt;BUCKET_NAME&gt;</pre></div></li><li class="listitem "><p>Create the credential file <code class="literal">credentials-velero</code> in the local machine</p><div class="verbatim-wrap highlight bash"><pre class="screen">gcloud iam service-accounts keys create credentials-velero \
+    --iam-account $SERVICE_ACCOUNT_EMAIL</pre></div><p>For details, please refer to <a class="link" href="https://github.com/vmware-tanzu/velero-plugin-for-gcp/tree/v1.0.1" target="_blank">Velero Plugin For GCP</a>.</p></li></ol></div></div><div class="sect4" id="_azure_blob_storage"><div class="titlepage"><div><div><h5 class="title"><span class="number">13.2.2.1.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Azure Blob Storage</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_azure_blob_storage">#</a></h5></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Azure CLI</p><p>Install <code class="literal">az</code> CLI locally, follow the <a class="link" href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli" target="_blank">doc</a> to install.</p></li><li class="listitem "><p>Create a resource group for the backups storage account</p><p>Create the resource group named Velero_Backups, change the resource group name and location as needed.</p><div class="verbatim-wrap highlight bash"><pre class="screen">AZURE_RESOURCE_GROUP=Velero_Backups
+az group create -n $AZURE_RESOURCE_GROUP --location &lt;location&gt;</pre></div></li><li class="listitem "><p>Create the storage account</p><div class="verbatim-wrap highlight bash"><pre class="screen">az storage account create \
+    --name $AZURE_STORAGE_ACCOUNT_ID \
+    --resource-group $AZURE_RESOURCE_GROUP \
+    --sku Standard_GRS \
+    --encryption-services blob \
+    --https-only true \
+    --kind BlobStorage \
+    --access-tier Hot</pre></div></li><li class="listitem "><p>Create a blob container</p><p>Create a blob container named velero. Change the name as needed.</p><div class="verbatim-wrap highlight bash"><pre class="screen">BLOB_CONTAINER=velero
+az storage container create -n $BLOB_CONTAINER --public-access off --account-name $AZURE_STORAGE_ACCOUNT_ID</pre></div></li><li class="listitem "><p>Create the credential file <code class="literal">credentials-velero</code> in the local machine</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Obtain your Azure Account Subscription ID
+AZURE_SUBSCRIPTION_ID=`az account list --query '[?isDefault].id' -o tsv`
+
+# Obtain your Azure Account Tenant ID
+AZURE_TENANT_ID=`az account list --query '[?isDefault].tenantId' -o tsv`
+
+# Generate client secret
+AZURE_CLIENT_SECRET=`az ad sp create-for-rbac --name "velero" --role "Contributor" --query 'password' -o tsv`
+
+# Generate client ID
+AZURE_CLIENT_ID=`az ad sp list --display-name "velero" --query '[0].appId' -o tsv`
+
+cat &lt;&lt; EOF  &gt; ./credentials-velero
+AZURE_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID}
+AZURE_TENANT_ID=${AZURE_TENANT_ID}
+AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+AZURE_RESOURCE_GROUP=${AZURE_RESOURCE_GROUP}
+EOF</pre></div><p>For details, please refer to <a class="link" href="https://github.com/vmware-tanzu/velero-plugin-for-microsoft-azure/tree/v1.0.1" target="_blank">Velero Plugin For Azure</a>.</p></li></ol></div></div></div><div class="sect3" id="_on_premise_s3_compatible_providers"><div class="titlepage"><div><div><h4 class="title"><span class="number">13.2.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">On-Premise (S3-Compatible Providers)</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_on_premise_s3_compatible_providers">#</a></h4></div></div></div><div class="sect4" id="_suse_enterprise_storage_6_ceph_object_gateway_radosgw"><div class="titlepage"><div><div><h5 class="title"><span class="number">13.2.2.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">SUSE Enterprise Storage 6 Ceph Object Gateway (<code class="literal">radosgw</code>)</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_suse_enterprise_storage_6_ceph_object_gateway_radosgw">#</a></h5></div></div></div><p>SUSE supports the SUSE Enterprise Storage 6 Ceph Object Gateway (<code class="literal">radosgw</code>) as an S3-compatible object storage provider.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Installation
+Refer to the <a class="link" href="https://documentation.suse.com/ses/6/html/ses-all/cha-ceph-additional-software-installation.html" target="_blank">SES 6 Object Gateway Manual Installation</a> on how to install it.</p></li><li class="listitem "><p>Create the credential file <code class="literal">credentials-velero</code> in the local machine</p><div class="verbatim-wrap"><pre class="screen">[default]
+aws_access_key_id=&lt;SES_STORAGE_ACCESS_KEY_ID&gt;
+aws_secret_access_key=&lt;SES_STORAGE_SECRET_ACCESS_KEY&gt;</pre></div></li></ol></div></div><div class="sect4" id="_minio"><div class="titlepage"><div><div><h5 class="title"><span class="number">13.2.2.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Minio</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_minio">#</a></h5></div></div></div><p>Besides SUSE Enterprise Storage, there is an alternative open source S3-compatible object storage provider <a class="link" href="https://min.io/" target="_blank">minio</a>.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Prepare an external host and install Minio on the host</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Download Minio server
+wget https://dl.min.io/server/minio/release/linux-amd64/minio
+chmod +x minio
+
+# Expose Minio access_key and secret_key
+export MINIO_ACCESS_KEY=&lt;access_key&gt;
+export MINIO_SECRET_KEY=&lt;secret_key&gt;
+
+# Start Minio server
+mkdir -p bucket
+./minio server bucket &amp;
+
+# Download Minio client
+wget https://dl.min.io/client/mc/release/linux-amd64/mc
+chmod +x mc
+
+# Setup Minio server
+./mc config host add Velero http://localhost:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+
+# Create bucket on Minio server
+./mc mb -p velero/velero</pre></div></li><li class="listitem "><p>Create the credential file <code class="literal">credentials-velero</code> in the local machine</p><div class="verbatim-wrap"><pre class="screen">[default]
+aws_access_key_id=&lt;MINIO_STORAGE_ACCESS_KEY_ID&gt;
+aws_secret_access_key=&lt;MINIO_STORAGE_SECRET_ACCESS_KEY&gt;</pre></div></li></ol></div><p>For the rest of the S3-compatible storage providers supported by Velero, refer to <a class="link" href="https://velero.io/docs/v1.3.1/supported-providers/" target="_blank">Velero Supported Providers</a>.</p></div></div></div><div class="sect2" id="_volume_snapshotter"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Volume Snapshotter</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_volume_snapshotter">#</a></h3></div></div></div><p>A volume snapshotter is able to snapshot its persistent volumes if its volume driver supports volume snapshot and corresponding API.</p><p>If a volume provider does not support volume snapshot or volume snapshot API, or does not have Velero supported storage plugin, Velero leverages <code class="literal">restic</code> as an agnostic solution to backup and restore this sort of persistent volumes.</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col class="col_1" /><col class="col_2" /><col class="col_3" /></colgroup><thead><tr><th align="left" valign="top">Provider</th><th align="left" valign="top">Volume Snapshotter</th><th align="left" valign="top">Plugin Provider Repo</th></tr></thead><tbody><tr><td align="left" valign="top"><p>Amazon Web Services (AWS)</p></td><td align="left" valign="top"><p>AWS EBS</p></td><td align="left" valign="top"><p><a class="link" href="https://github.com/vmware-tanzu/velero-plugin-for-aws" target="_blank">Velero plugin for AWS</a></p></td></tr></tbody></table></div><p>For the other <code class="literal">snapshotter</code> providers refer to <a class="link" href="https://velero.io/docs/v1.3.1/supported-providers/" target="_blank">Velero Supported Providers</a>.</p></div><div class="sect2" id="_velero_cli"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Velero CLI</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_velero_cli">#</a></h3></div></div></div><p>Install Velero CLI to interact with Velero server.</p><div class="verbatim-wrap highlight bash"><pre class="screen">sudo zypper install velero</pre></div></div></div><div class="sect1" id="_known_issues"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Known Issues</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_known_issues">#</a></h2></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Velero reports errors when restoring Cilium CRDs. However, this does not affect Cilium functionality.</p><div id="id-1.15.11.2.1.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>You can add a label to Cilium CRDs to skip Velero backup.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl label -n kube-system customresourcedefinitions/ciliumendpoints.cilium.io velero.io/exclude-from-backup=true
+
+kubectl label -n kube-system customresourcedefinitions/ciliumnetworkpolicies.cilium.io velero.io/exclude-from-backup=true</pre></div></div></li><li class="listitem "><p>When restoring <code class="literal">dex</code> and <code class="literal">gangway</code>, Velero reports <code class="literal">NodePort</code> cannot be restored since <code class="literal">dex</code> and <code class="literal">gangway</code> are deployed by an addon already and the same <code class="literal">NodePort</code> has been registered.
+However, this does not break the <code class="literal">dex</code> and <code class="literal">gangway</code> service access from outside.</p><div id="id-1.15.11.2.2.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>You can add a label to services <code class="literal">oidc-dex</code> and <code class="literal">oidc-gangway</code> to skip Velero backup.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl label -n kube-system services/oidc-dex velero.io/exclude-from-backup=true
+
+kubectl label -n kube-system services/oidc-gangway velero.io/exclude-from-backup=true</pre></div></div></li></ol></div></div><div class="sect1" id="_deployment_2"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Deployment</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_deployment_2">#</a></h2></div></div></div><p>Use Helm CLI to install Velero deployment and <code class="literal">restic</code> (<span class="emphasis"><em>optional</em></span>) if the storage does not provides volume snapshot API.</p><div id="id-1.15.12.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>If Velero installed other than default namespace <code class="literal">velero</code>, setup velero config config to the Velero installed namespace.</p><div class="verbatim-wrap"><pre class="screen">velero client config set namespace=&lt;NAMESPACE&gt;</pre></div></div><div id="id-1.15.12.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>For troubleshooting a velero deployment, refer to <a class="link" href="https://velero.io/docs/v1.3.1/debugging-install/" target="_blank">Velero: Debugging Installation Issues</a></p></div><div class="sect2" id="_backup_kubernetes_cluster_objects_only"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Backup Kubernetes Cluster Objects Only</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_backup_kubernetes_cluster_objects_only">#</a></h3></div></div></div><p>For the cases that the Kubernetes cluster does not use external storage <span class="emphasis"><em>or</em></span> the external storage would handle take volume snapshot by itself, it does not need Velero to backup persistent volume.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Backup To A Public Cloud Provider</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Amazon Web Services (AWS)</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The backup bucket name <span class="emphasis"><em>BUCKET_NAME</em></span>. (The bucket name in AWS S3 object storage)</p></li><li class="listitem "><p>The backup region name <span class="emphasis"><em>REGION_NAME</em></span>. (The region name for the AWS S3 object storage. For example, <code class="literal">us-east-1</code> for AWS US East (N. Virginia))</p></li><li class="listitem "><p>The Velero installed namespace <span class="emphasis"><em>NAMESPACE</em></span>, the default namespace is <code class="literal">velero</code>. (optional)</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install \
+    --name velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=aws \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.region=&lt;REGION_NAME&gt; \
+    --set snapshotsEnabled=false \
+    --set initContainers[0].name=velero-plugin-for-aws \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-aws:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div><p>Or if you have selected the Helm 3 alternative also see <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace &lt;NAMESPACE&gt;
+helm install velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=aws \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.region=&lt;REGION_NAME&gt; \
+    --set snapshotsEnabled=false \
+    --set initContainers[0].name=velero-plugin-for-aws \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-aws:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div></li><li class="listitem "><p>Then, suggests creating at least one additional backup locations point to the different object storage server to prevent object storage server single point of failure.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location create slave \
+    --provider aws \
+    --bucket &lt;BUCKET_SLAVE_NAME&gt; \
+    --region &lt;REGION_NAME&gt;</pre></div></li></ol></div></li><li class="listitem "><p>Google Cloud Platform (GCP)</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The backup bucket name <span class="emphasis"><em>BUCKET_NAME</em></span>. (The bucket name in Google Cloud Storage object storage)</p></li><li class="listitem "><p>The Velero installed namespace <span class="emphasis"><em>NAMESPACE</em></span>, the default namespace is <code class="literal">velero</code>. (optional)</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install \
+    --name velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=gcp \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set snapshotsEnabled=false \
+    --set initContainers[0].name=velero-plugin-for-gcp \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-gcp:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div><p>Or if you have selected the Helm 3 alternative also see <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace &lt;NAMESPACE&gt;
+helm install velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=gcp \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set snapshotsEnabled=false \
+    --set initContainers[0].name=velero-plugin-for-gcp \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-gcp:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div></li><li class="listitem "><p>Then, suggests creating at least one additional backup locations point to the different object storage server to prevent object storage server single point of failure.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location create slave \
+    --provider gcp \
+    --bucket &lt;BUCKET_SLAVE_NAME&gt;</pre></div></li></ol></div></li><li class="listitem "><p>Microsoft Azure</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The backup bucket name <span class="emphasis"><em>BUCKET_NAME</em></span>. (The bucket name in Azure Blob Storage	 object storage)</p></li><li class="listitem "><p>The resource group name <span class="emphasis"><em>AZURE_RESOURCE_GROUP</em></span>. (The Azure resource group name)</p></li><li class="listitem "><p>The storage account ID <span class="emphasis"><em>AZURE_STORAGE_ACCOUNT_ID</em></span>. (The Azure storage account ID)</p></li><li class="listitem "><p>The Velero installed namespace <span class="emphasis"><em>NAMESPACE</em></span>, the default namespace is <code class="literal">velero</code>. (optional)</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install \
+    --name velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=azure \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.resourceGroup=&lt;AZURE_RESOURCE_GROUP&gt; \
+	--set configuration.backupStorageLocation.config.storageAccount=&lt;AZURE_STORAGE_ACCOUNT_ID&gt; \
+    --set snapshotsEnabled=false \
+    --set initContainers[0].name=velero-plugin-for-microsoft-azure \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-microsoft-azure:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div><p>Or if you have selected the Helm 3 alternative also see <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace &lt;NAMESPACE&gt;
+helm install velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=azure \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.resourceGroup=&lt;AZURE_RESOURCE_GROUP&gt; \
+        --set configuration.backupStorageLocation.config.storageAccount=&lt;AZURE_STORAGE_ACCOUNT_ID&gt; \
+    --set snapshotsEnabled=false \
+    --set initContainers[0].name=velero-plugin-for-microsoft-azure \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-microsoft-azure:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div></li><li class="listitem "><p>Then, suggests creating at least one additional backup locations point to the different object storage server to prevent object storage server single point of failure.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location create slave \
+    --provider azure \
+    --bucket &lt;BUCKET_SLAVE_NAME&gt; \
+    --region resourceGroup=&lt;AZURE_RESOURCE_GROUP&gt;,storageAccount=&lt;AZURE_STORAGE_ACCOUNT_ID&gt;</pre></div></li></ol></div></li></ul></div></li><li class="listitem "><p>Backup To A S3-Compatible Provider</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The backup bucket name <span class="emphasis"><em>BUCKET_NAME</em></span>. (The bucket name in S3-compatible object storage)</p></li><li class="listitem "><p>The backup region name <span class="emphasis"><em>REGION_NAME</em></span>. (The region name for the S3-compatible object storage. For example, radosgw <span class="emphasis"><em>or</em></span> master/slave if you have HA -compatible object storage backups)</p></li><li class="listitem "><p>The S3-compatible object storage simulates the S3-compatible object storage. Therefore, the configuration for S3-compatible object storage has to setup additional configurations.</p><div class="verbatim-wrap highlight bash"><pre class="screen">configuration.backupStorageLocation.config.s3ForcePathStyle=true
+configuration.backupStorageLocation.config.s3Url=&lt;S3_COMPATIBLE_STORAGE_SERVER__URL&gt;</pre></div><div class="verbatim-wrap highlight bash"><pre class="screen">helm install \
+    --name velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=aws \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.region=&lt;REGION_NAME&gt; \
+    --set configuration.backupStorageLocation.config.s3ForcePathStyle=true \
+    --set configuration.backupStorageLocation.config.s3Url=&lt;S3_COMPATIBLE_STORAGE_SERVER_URL&gt; \
+    --set snapshotsEnabled=false \
+    --set initContainers[0].name=velero-plugin-for-aws \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-aws:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div></li><li class="listitem "><p>Then, suggests creating at least one additional backup location point to the different object storage server to prevent object storage server single point of failure.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location create slave \
+    --provider aws \
+    --bucket &lt;BUCKET_SLAVE_NAME&gt; \
+    --config region=slave,s3ForcePathStyle=true,s3Url=&lt;S3_COMPATIBLE_STORAGE_SERVER_URL&gt;</pre></div></li></ol></div></li></ul></div></div><div class="sect2" id="_backup_kubernetes_cluster"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Backup Kubernetes Cluster</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_backup_kubernetes_cluster">#</a></h3></div></div></div><p>For the case that the Kubernetes cluster uses external storage <span class="emphasis"><em>and</em></span> the external storage would not handle volume snapshot by itself (either external storage does not support volume snapshot <span class="emphasis"><em>or</em></span> administrator want use velero to take volume snapshot when velero do cluster backup).</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Backup To A Public Cloud Provider</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Amazon Web Services (AWS)</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The backup bucket name <span class="emphasis"><em>BUCKET_NAME</em></span>. (The bucket name in AWS S3 object storage)</p></li><li class="listitem "><p>The backup region name <span class="emphasis"><em>REGION_NAME</em></span>. (The region name for the AWS S3 object storage. For example, <code class="literal">us-east-1</code> for AWS US East (N. Virginia))</p></li><li class="listitem "><p>The Velero installed namespace <span class="emphasis"><em>NAMESPACE</em></span>, the default namespace is <code class="literal">velero</code>. (optional)</p><div id="id-1.15.12.6.3.1.2.1.2.3.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>If the Kubernetes cluster in AWS and uses AWS EBS as storage, please remove the</p><div class="verbatim-wrap"><pre class="screen">--set deployRestic=true \</pre></div><p>at below in order to use AWS EBS volume snapshot API to take volume snapshot.
+Otherwise, it would install restic and velero server will use restic to take volume snapshot and the volume data will stores to AWS S3 bucket.</p></div><div class="verbatim-wrap highlight bash"><pre class="screen">helm install \
+    --name velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=aws \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.region=&lt;REGION_NAME&gt; \
+    --set snapshotsEnabled=true \
+    --set deployRestic=true \
+    --set configuration.volumeSnapshotLocation.name=default \
+    --set configuration.volumeSnapshotLocation.config.region=&lt;REGION_NAME&gt; \
+    --set initContainers[0].name=velero-plugin-for-aws \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-aws:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div><p>Or if you have selected the Helm 3 alternative also see <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace &lt;NAMESPACE&gt;
+helm install velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=aws \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.region=&lt;REGION_NAME&gt; \
+    --set snapshotsEnabled=true \
+    --set deployRestic=true \
+    --set configuration.volumeSnapshotLocation.name=default \
+    --set configuration.volumeSnapshotLocation.config.region=&lt;REGION_NAME&gt; \
+    --set initContainers[0].name=velero-plugin-for-aws \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-aws:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div></li><li class="listitem "><p>Then, suggest to create at least one additional backup locations point to the different object storage server to prevent object storage server single point of failure.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location create slave \
+    --provider aws \
+    --bucket &lt;BUCKET_SLAVE_NAME&gt; \
+    --config region=&lt;REGION_NAME&gt;</pre></div></li></ol></div></li><li class="listitem "><p>Google Cloud Platform (GCP)</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The backup bucket name <span class="emphasis"><em>BUCKET_NAME</em></span>. (The bucket name in Google Cloud Storage object storage)</p></li><li class="listitem "><p>The Velero installed namespace <span class="emphasis"><em>NAMESPACE</em></span>, the default namespace is <code class="literal">velero</code>. (optional)</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install \
+    --name velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=gcp \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set snapshotsEnabled=true \
+    --set deployRestic=true \
+    --set configuration.volumeSnapshotLocation.name=default \
+    --set initContainers[0].name=velero-plugin-for-gcp \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-gcp:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div><p>Or if you have selected the Helm 3 alternative also see <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace &lt;NAMESPACE&gt;
+helm install velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=gcp \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set snapshotsEnabled=true \
+    --set deployRestic=true \
+    --set configuration.volumeSnapshotLocation.name=default \
+    --set initContainers[0].name=velero-plugin-for-gcp \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-gcp:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div></li><li class="listitem "><p>Then, suggests creating at least one additional backup locations point to the different object storage server to prevent object storage server single point of failure.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location create slave \
+    --provider gcp \
+    --bucket &lt;BUCKET_SLAVE_NAME&gt;</pre></div></li></ol></div></li><li class="listitem "><p>Microsoft Azure</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The backup bucket name <span class="emphasis"><em>BUCKET_NAME</em></span>. (The bucket name in Azure Blob Storage object storage)</p></li><li class="listitem "><p>The resource group name <span class="emphasis"><em>AZURE_RESOURCE_GROUP</em></span>. (The Azure resource group name)</p></li><li class="listitem "><p>The storage account ID <span class="emphasis"><em>AZURE_STORAGE_ACCOUNT_ID</em></span>. (The Azure storage account ID)</p></li><li class="listitem "><p>The Velero installed namespace <span class="emphasis"><em>NAMESPACE</em></span>, the default namespace is <code class="literal">velero</code>. (optional)</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install \
+    --name velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=azure \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.resourceGroup=&lt;AZURE_RESOURCE_GROUP&gt; \
+	--set configuration.backupStorageLocation.config.storageAccount=&lt;AZURE_STORAGE_ACCOUNT_ID&gt; \
+    --set snapshotsEnabled=true \
+    --set deployRestic=true \
+    --set configuration.volumeSnapshotLocation.name=default \
+    --set initContainers[0].name=velero-plugin-for-microsoft-azure \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-microsoft-azure:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div><p>Or if you have selected the Helm 3 alternative also see <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace &lt;NAMESPACE&gt;
+helm install velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=azure \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.resourceGroup=&lt;AZURE_RESOURCE_GROUP&gt; \
+        --set configuration.backupStorageLocation.config.storageAccount=&lt;AZURE_STORAGE_ACCOUNT_ID&gt; \
+    --set snapshotsEnabled=true \
+    --set deployRestic=true \
+    --set configuration.volumeSnapshotLocation.name=default \
+    --set initContainers[0].name=velero-plugin-for-microsoft-azure \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-microsoft-azure:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div></li><li class="listitem "><p>Then, suggests creating at least one additional backup locations point to the different object storage server to prevent object storage server single point of failure.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location create slave \
+    --provider azure \
+    --bucket &lt;BUCKET_SLAVE_NAME&gt; \
+    --region resourceGroup=&lt;AZURE_RESOURCE_GROUP&gt;,storageAccount=&lt;AZURE_STORAGE_ACCOUNT_ID&gt;</pre></div></li></ol></div></li></ul></div></li><li class="listitem "><p>Backup To A S3-Compatible Provider</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The backup bucket name <span class="emphasis"><em>BUCKET_NAME</em></span>. (The bucket name in S3-compatible object storage)</p></li><li class="listitem "><p>The backup region name <span class="emphasis"><em>REGION_NAME</em></span>. (The region name for the S3-compatible object storage. For example, radosgw <span class="emphasis"><em>or</em></span> master/slave if you have HA S3-compatible object storage backups)</p></li><li class="listitem "><p>The S3-compatible object storage simulates the S3-compatible object storage. Therefore, the configuration for S3-compatible object storage have to setup additional configurations</p><div class="verbatim-wrap highlight bash"><pre class="screen">configuration.backupStorageLocation.config.s3ForcePathStyle=true
+configuration.backupStorageLocation.config.s3Url=&lt;S3_COMPATIBLE_STORAGE_SERVER__URL&gt;</pre></div><div id="id-1.15.12.6.3.2.2.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Mostly the on-premise persistent volume does not support volume snapshot API or does not have community-supported snapshotter providers. Therefore, we <span class="emphasis"><em>have to</em></span> deploy the <code class="literal">restic</code> DaemonSet.</p></div><div class="verbatim-wrap highlight bash"><pre class="screen">helm install \
+    --name velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=aws \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.region=&lt;REGION_NAME&gt; \
+    --set configuration.backupStorageLocation.config.s3ForcePathStyle=true \
+    --set configuration.backupStorageLocation.config.s3Url=&lt;S3_COMPATIBLE_STORAGE_SERVER_URL&gt; \
+    --set snapshotsEnabled=true \
+    --set deployRestic=true \
+    --set configuration.volumeSnapshotLocation.name=default \
+    --set configuration.volumeSnapshotLocation.config.region=&lt;REGION_NAME&gt; \
+    --set initContainers[0].name=velero-plugin-for-aws \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-aws:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div><p>Or if you have selected the Helm 3 alternative also see <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace &lt;NAMESPACE&gt;
+helm install velero \
+    --namespace &lt;NAMESPACE&gt; \
+    --set-file credentials.secretContents.cloud=credentials-velero \
+    --set configuration.provider=aws \
+    --set configuration.backupStorageLocation.name=default \
+    --set configuration.backupStorageLocation.bucket=&lt;BUCKET_NAME&gt; \
+    --set configuration.backupStorageLocation.config.region=&lt;REGION_NAME&gt; \
+    --set configuration.backupStorageLocation.config.s3ForcePathStyle=true \
+    --set configuration.backupStorageLocation.config.s3Url=&lt;S3_COMPATIBLE_STORAGE_SERVER_URL&gt; \
+    --set snapshotsEnabled=true \
+    --set deployRestic=true \
+    --set configuration.volumeSnapshotLocation.name=default \
+    --set configuration.volumeSnapshotLocation.config.region=minio \
+    --set initContainers[0].name=velero-plugin-for-aws \
+    --set initContainers[0].image=registry.suse.com/caasp/v4.5/velero-plugin-for-aws:1.0.1 \
+    --set initContainers[0].volumeMounts[0].mountPath=/target \
+    --set initContainers[0].volumeMounts[0].name=plugins \
+    suse/velero</pre></div></li><li class="listitem "><p>Then, suggest to create at least one additional backup locations point to the different object storage server to prevent object storage server single point of failure.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location create slave \
+    --provider aws \
+    --bucket &lt;BUCKET_SLAVE_NAME&gt; \
+    --config region=slave,s3ForcePathStyle=true,s3Url=&lt;S3_COMPATIBLE_STORAGE_SERVER_URL&gt;</pre></div></li></ol></div></li></ul></div></div></div><div class="sect1" id="_operations"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Operations</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_operations">#</a></h2></div></div></div></div><div class="sect1" id="_backup"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Backup</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_backup">#</a></h2></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Annotate Persistent Volume (<span class="emphasis"><em>optional</em></span>)</p><p>If the persistent volume in the supported volume <code class="literal">snapshotter</code> provider, skip this procedure.</p><p>However, if we deploy the <code class="literal">restic</code> DaemonSet and want to backup the persistent volume by <code class="literal">restic</code>, we have to add annotation <code class="literal">backup.velero.io/backup-volumes=&lt;VOLUME_NAME_1&gt;,&lt;VOLUME_NAME_2&gt;,…​</code> to the pods which have mounted the volume manually.</p><p>For example, we deploy an Elasticsearch cluster and want to backup the Elasticsearch cluster’s data. Add the annotation to the Elasticsearch cluster pods:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl annotate pod/elasticsearch-master-0 backup.velero.io/backup-volumes=elasticsearch-master
+kubectl annotate pod/elasticsearch-master-1 backup.velero.io/backup-volumes=elasticsearch-master
+kubectl annotate pod/elasticsearch-master-2 backup.velero.io/backup-volumes=elasticsearch-master</pre></div><div id="id-1.15.14.2.1.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Velero currently does not provide a mechanism to detect persistent volume claims that are missing the <code class="literal">restic</code> backup annotation.
+To solve this, there is a community provided controller <a class="link" href="https://github.com/bitsbeats/velero-pvc-watcher" target="_blank">velero-pvc-watcher</a> which integrates Prometheus to generate alerts for volumes that are not in the backup or backup-exclusion annotation.</p></div></li><li class="listitem "><p>Manual Backup</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup create &lt;BACKUP_NAME&gt;</pre></div></li><li class="listitem "><p>Scheduled Backup</p><p>The schedule template in cron notation, using UTC time. The schedule can also be expressed using <code class="literal">@every &lt;duration&gt;</code> syntax.
+The duration can be specified using a combination of seconds (s), minutes (m), and hours (h), for example: <code class="literal">@every 2h30m</code>.</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Create schedule template
+# Create a backup every 6 hours
+velero schedule create &lt;SCHEDULE_NAME&gt; --schedule="0 */6 * * *"
+
+# Create a backup every 6 hours with the @every notation
+velero schedule create &lt;SCHEDULE_NAME&gt; --schedule="@every 6h"
+
+# Create a daily backup of the web namespace
+velero schedule create &lt;SCHEDULE_NAME&gt; --schedule="@every 24h" --include-namespaces web
+
+# Create a weekly backup, each living for 90 days (2160 hours)
+velero schedule create &lt;SCHEDULE_NAME&gt; --schedule="@every 168h" --ttl 2160h0m0s</pre></div><div class="informaltable"><table class="informaltable" border="1"><colgroup><col class="col_1" /><col class="col_2" /><col class="col_3" /></colgroup><thead><tr><th align="left" valign="top">Character Position</th><th align="left" valign="top">Character Period</th><th align="left" valign="top">Acceptable Values</th></tr></thead><tbody><tr><td align="left" valign="top"><p>1</p></td><td align="left" valign="top"><p>Minute</p></td><td align="left" valign="top"><p><code class="literal">0-59,*</code></p></td></tr><tr><td align="left" valign="top"><p>2</p></td><td align="left" valign="top"><p>Hour</p></td><td align="left" valign="top"><p><code class="literal">0-23,*</code></p></td></tr><tr><td align="left" valign="top"><p>3</p></td><td align="left" valign="top"><p>Day of Month</p></td><td align="left" valign="top"><p><code class="literal">1-31,*</code></p></td></tr><tr><td align="left" valign="top"><p>4</p></td><td align="left" valign="top"><p>Month</p></td><td align="left" valign="top"><p><code class="literal">1-12,*</code></p></td></tr><tr><td align="left" valign="top"><p>5</p></td><td align="left" valign="top"><p>Day of Week</p></td><td align="left" valign="top"><p><code class="literal">0-7,*</code></p></td></tr></tbody></table></div><div id="id-1.15.14.2.3.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>When creating multiple backups to different backup locations closely, you might hit the object storage server API rate limit issues. Now, the velero does not have a mechanism on retry backups when the rate limit occurred. Consider shifting the time to create multiple backups.</p></div></li><li class="listitem "><p>Optional Flags</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Granularity</p><p>Without passing extra flags to <code class="literal">velero backup create</code>, Velero will backup the whole Kubernetes cluster.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Namespace</p><p>Pass flag <code class="literal">--include-namespaces</code> or <code class="literal">--exclude-namespaces</code> to specify which namespaces to include/exclude when backing up.</p><p>For example:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Create a backup including the nginx and default namespaces
+velero backup create backup-1 --include-namespaces nginx,default
+
+# Create a backup excluding the kube-system and default namespaces
+velero backup create backup-1 --exclude-namespaces kube-system,default</pre></div></li><li class="listitem "><p>Resources</p><p>Pass flag <code class="literal">--include-resources</code> or <code class="literal">--exclude-resources</code> to specifies which resources to include/exclude when backing up.</p><p>For example:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Create a backup including storageclass resource only
+velero backup create backup-1 --include-resources storageclasses</pre></div><div id="id-1.15.14.2.4.2.1.3.2.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>Use <code class="literal">kubectl api-resources</code> to lists all API resources on the server.</p></div></li><li class="listitem "><p>Label Selector</p><p>Pass <code class="literal">--selector</code> to only back up resources matching the label selector.</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Create a backup for the elasticsearch cluster only
+velero backup create backup-1 --selector app=elasticsearch-master</pre></div></li></ul></div></li><li class="listitem "><p>Location</p><p>Pass <code class="literal">--storage-location</code> to specify where the backup stores to. For example, if we have HA object storage server called master and slave respectively.</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Create a backup to the master storage server
+velero backup create backup2master --storage-location master
+
+# Create a backup to the slave storage server
+velero backup create backup2slave --storage-location slave</pre></div></li><li class="listitem "><p>Garbage Collection</p><p>Pass <code class="literal">--ttl</code> to specify how long the backup should be kept, after that, the backup will be dumped into garbage (deleted). The default time for a backup to exist before it is deleted is 720 hours (30 days).</p></li><li class="listitem "><p>Exclude Specific Items from Backup</p><p>You can exclude individual items from being backed up, even if they match the resource/namespace/label selectors defined in the backup spec. To do this, label the item as follows:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl label -n &lt;ITEM_NAMESPACE&gt; &lt;RESOURCE&gt;/&lt;NAME&gt; velero.io/exclude-from-backup=true</pre></div></li></ul></div></li></ul></div><div class="sect2" id="_backup_troubleshooting"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.6.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Backup Troubleshooting</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_backup_troubleshooting">#</a></h3></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>List Backups</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup get</pre></div></li><li class="listitem "><p>Describe Backups</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup describe &lt;BACKUP_NAME_1&gt; &lt;BACKUP_NAME_2&gt; &lt;BACKUP_NAME_3&gt;</pre></div></li><li class="listitem "><p>Retrieve Backup Logs</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup logs &lt;BACKUP_NAME&gt;</pre></div></li></ul></div></div></div><div class="sect1" id="_restore"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Restore</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_restore">#</a></h2></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Manual Restore</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero restore create &lt;RESTORE_NAME&gt; --from-backup &lt;BACKUP_NAME&gt;</pre></div><p>For example:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Create a restore named "restore-1" from backup "backup-1"
+velero restore create restore-1 --from-backup backup-1
+
+# Create a restore with a default name ("backup-1-&lt;timestamp&gt;") from backup "backup-1"
+velero restore create --from-backup backup-1</pre></div></li><li class="listitem "><p>Scheduled Backup</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero restore create &lt;RESTORE_NAME&gt; --from-schedule &lt;SCHEDULE_NAME&gt;</pre></div><p>For example:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Create a restore from the latest successful backup triggered by schedule "schedule-1"
+velero restore create --from-schedule schedule-1
+
+# Create a restore from the latest successful OR partially-failed backup triggered by schedule "schedule-1"
+velero restore create --from-schedule schedule-1 --allow-partially-failed</pre></div></li><li class="listitem "><p>Optional Flags</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Granularity</p><p>Without pass extra flags to <code class="literal">velero restore create</code>, Velero will restore whole resources from the backup or from the schedule.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Namespace</p><p>Pass flag <code class="literal">--include-namespaces</code> or <code class="literal">--exclude-namespaces</code> to <code class="literal">velero restore create</code> to specifies which namespaces to include/exclude when restoring.</p><p>For example:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Create a restore including the nginx and default namespaces
+velero restore create --from-backup backup-1 --include-namespaces nginx,default
+
+# Create a restore excluding the kube-system and default namespaces
+velero restore create --from-backup backup-1 --exclude-namespaces kube-system,default</pre></div></li><li class="listitem "><p>Resources</p><p>Pass flag <code class="literal">--include-resources</code> or <code class="literal">--exclude-resources</code> to <code class="literal">velero restore create</code> to specifies which resources to include/exclude when restoring.</p><p>For example:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># create a restore for only persistentvolumeclaims and persistentvolumes within a backup
+velero restore create --from-backup backup-1 --include-resources persistentvolumeclaims,persistentvolumes</pre></div><div id="id-1.15.15.2.3.2.1.3.2.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>Use <code class="literal">kubectl api-resources</code> to lists all API resources on the server.</p></div></li><li class="listitem "><p>Label Selector</p><p>Pass <code class="literal">--selector</code> to only restore the resources matching the label selector.</p><p>For example:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># create a restore for only the elasticsearch cluster within a backup
+velero restore create --from-backup backup-1 --selector app=elasticsearch-master</pre></div></li></ul></div></li></ul></div></li></ul></div><div class="sect2" id="_restore_troubleshooting"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.7.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Restore Troubleshooting</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_restore_troubleshooting">#</a></h3></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Retrieve restores</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero restore get</pre></div></li><li class="listitem "><p>Describe restores</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero restore describe &lt;RESTORE_NAME_1&gt; &lt;RESTORE_NAME_2&gt; &lt;RESTORE_NAME_3&gt;</pre></div></li><li class="listitem "><p>Retrieve restore logs</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero restore logs &lt;RESTORE_NAME&gt;</pre></div></li></ul></div><div id="id-1.15.15.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>For troubleshooting velero restore, refer to <a class="link" href="https://velero.io/docs/v1.3.1/debugging-restores/" target="_blank">Velero: Debugging Restores</a></p></div></div></div><div class="sect1" id="_use_cases"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Use Cases</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_use_cases">#</a></h2></div></div></div><div class="sect2" id="_disaster_recovery"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.8.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Disaster Recovery</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_disaster_recovery">#</a></h3></div></div></div><p>Use the scheduled backup function for periodical backups. When the Kubernetes cluster runs into an unexpected state, recover from the most recent scheduled backup.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Backup</p><p>Run the schedule backup, this creates a backup file with the name <code class="literal">&lt;SCHEDULE_NAME&gt;-&lt;TIMESTAMP&gt;</code>.</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero schedule create &lt;SCHEDULE_NAME&gt; --schedule="@daily"</pre></div></li><li class="listitem "><p>Restore</p><p>When a disaster happens, make sure the Velero server and <code class="literal">restic</code> DaemonSet exists (<span class="emphasis"><em>optional</em></span>). If not, reinstall from the helm chart.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Update the backup storage location to <span class="emphasis"><em>read-only</em></span> mode (it prevents the backup file from being created or deleted in the backup storage location during the restore process):</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl patch backupstoragelocation &lt;STORAGE_LOCATION_NAME&gt; \
+    --namespace &lt;NAMESPACE&gt; \
+    --type merge \
+    --patch '{"spec":{"accessMode":"ReadOnly"}}'</pre></div></li><li class="listitem "><p>Create a restore from the most recent backup file:</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero restore create --from-backup &lt;SCHEDULE_NAME&gt;-&lt;TIMESTAMP&gt;</pre></div></li><li class="listitem "><p>After restoring finished, change the backup storage location back to read-write mode:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl patch backupstoragelocation &lt;STORAGE_LOCATION_NAME&gt; \
+    --namespace &lt;NAMESPACE&gt; \
+    --type merge \
+    --patch '{"spec":{"accessMode":"ReadWrite"}}'</pre></div></li></ol></div></li></ul></div></div><div class="sect2" id="_cluster_migration"><div class="titlepage"><div><div><h3 class="title"><span class="number">13.8.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Cluster Migration</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_cluster_migration">#</a></h3></div></div></div><p>Migrate the Kubernetes cluster from <code class="literal">cluster 1</code> to <code class="literal">cluster 2</code>, as long as you point different cluster’s Velero instances to the same external object storage location.</p><div id="id-1.15.16.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Velero does not support the migration of persistent volumes across public cloud providers.</p></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>(At cluster 1) Backup the entire Kubernetes cluster manually:</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup create &lt;BACKUP_NAME&gt;</pre></div></li><li class="listitem "><p>(At cluster 2) Prepare a {cluster} cluster deployed by skuba:</p></li><li class="listitem "><p>(At cluster 2) Helm install Velero and make sure the backup-location and snapshot-location point to the same location as cluster 1:</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup-location get
+velero snapshot-location get</pre></div><div id="id-1.15.16.3.4.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>The default sync interval is 1 minute. You could change the interval with the flag <code class="literal">--backup-sync-period</code> when creating a backup location.</p></div></li><li class="listitem "><p>(At cluster 2) Make sure the cluster 1 backup resources are sync to the external object storage server:</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero backup get &lt;BACKUP_NAME&gt;
+velero backup describe &lt;BACKUP_NAME&gt;</pre></div></li><li class="listitem "><p>(At cluster 2) Restore the cluster from the backup file:</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero restore create --from-backup &lt;BACKUP_NAME&gt;</pre></div></li><li class="listitem "><p>(At cluster 2) Verify the cluster is behaving correctly:</p><div class="verbatim-wrap highlight bash"><pre class="screen">velero restore get
+velero restore describe &lt;RESTORE_NAME&gt;
+velero restore logs &lt;RESTORE_NAME&gt;</pre></div></li><li class="listitem "><p>(At cluster 2) Since Velero doesn’t overwrite objects in-cluster if they already exist, a manual check of all addon configurations is desired after the cluster is restored:</p><div class="orderedlist "><ol class="orderedlist" type="a"><li class="listitem "><p>Check dex configuration:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Download dex.yaml
+kubectl -n kube-system get configmap oidc-dex-config -o yaml &gt; oidc-dex-config.yaml
+
+# Edit oidc-dex-config.yaml to desired
+vim oidc-dex-config.yaml
+
+# Apply new oidc-dex-config.yaml
+kubectl apply -f oidc-dex-config.yaml --force
+
+# Restart oidc-dex deployment
+kubectl delete pod -l app=oidc-dex</pre></div></li><li class="listitem "><p>Check gangway configuration:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Download gangway.yaml
+kubectl -n kube-system get configmap oidc-gangway-config -o yaml &gt; oidc-gangway-config.yaml
+
+# Edit oidc-gangway-config.yaml to desired
+vim oidc-gangway-config.yaml
+
+# Apply new oidc-gangway-config.yaml
+kubectl apply -f oidc-gangway-config.yaml --force
+
+# Restart oidc-gangway deployment
+kubectl delete pod -l app=oidc-dex</pre></div></li><li class="listitem "><p>Check kured is disabled automatically reboots</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get daemonset kured -o yaml</pre></div></li><li class="listitem "><p>Check that psp is what you wish it to be:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get psp suse.caasp.psp.privileged -o yaml
+kubectl get clusterrole suse:caasp:psp:privileged -o yaml
+kubectl get rolebinding suse:caasp:psp:privileged -o yaml
+
+kubectl get psp suse.caasp.psp.unprivileged -o yaml
+kubectl get clusterrole suse:caasp:psp:unprivileged -o yaml
+kubectl get clusterrolebinding suse:caasp:psp:default -o yaml</pre></div></li></ol></div></li></ol></div></div></div><div class="sect1" id="_uninstall"><div class="titlepage"><div><div><h2 class="title"><span class="number">13.9 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Uninstall</span> <a title="Permalink" class="permalink" href="backup-and-restore-with-velero.html#_uninstall">#</a></h2></div></div></div><p>Remove the Velero server deployment and <code class="literal">restic</code> DaemonSet if it exists.
+Then, delete Velero custom resource definitions (CRDs).</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm del --purge velero
+kubectl delete crds -l app.kubernetes.io/name=velero</pre></div><p>Or if you have selected the Helm 3 alternative also see <a class="xref" href="_software_management.html#helm-tiller-install" title="3.1.2.1. Installing Helm">Section 3.1.2.1, “Installing Helm”</a>:</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm uninstall velero
+kubectl delete crds -l app.kubernetes.io/name=velero</pre></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="_miscellaneous.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 14 </span>Miscellaneous</span></a><a class="nav-link" href="_cluster_disaster_recovery.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 12 </span>Cluster Disaster Recovery</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2020 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>
