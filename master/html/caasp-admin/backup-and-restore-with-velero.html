@@ -436,7 +436,7 @@ vim oidc-dex-config.yaml
 kubectl apply -f oidc-dex-config.yaml --force
 
 # Restart oidc-dex deployment
-kubectl delete pod -l app=oidc-dex</pre></div></li><li class="listitem "><p>Check gangway configuration:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Download gangway.yaml
+kubectl rollout restart deployment/oidc-dex -n kube-system</pre></div></li><li class="listitem "><p>Check gangway configuration:</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Download gangway.yaml
 kubectl -n kube-system get configmap oidc-gangway-config -o yaml &gt; oidc-gangway-config.yaml
 
 # Edit oidc-gangway-config.yaml to desired
@@ -446,7 +446,7 @@ vim oidc-gangway-config.yaml
 kubectl apply -f oidc-gangway-config.yaml --force
 
 # Restart oidc-gangway deployment
-kubectl delete pod -l app=oidc-dex</pre></div></li><li class="listitem "><p>Check kured is disabled automatically reboots</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get daemonset kured -o yaml</pre></div></li><li class="listitem "><p>Check that psp is what you wish it to be:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get psp suse.caasp.psp.privileged -o yaml
+kubectl rollout restart deployment/oidc-gangway -n kube-system</pre></div></li><li class="listitem "><p>Check kured is disabled automatically reboots</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get daemonset kured -o yaml</pre></div></li><li class="listitem "><p>Check that psp is what you wish it to be:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get psp suse.caasp.psp.privileged -o yaml
 kubectl get clusterrole suse:caasp:psp:privileged -o yaml
 kubectl get rolebinding suse:caasp:psp:privileged -o yaml
 
