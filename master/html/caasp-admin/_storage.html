@@ -31,16 +31,16 @@ For more information refer to: <a class="link" href="https://vmware.github.io/vs
 010084073045    region: vcp-provo       zone: vcp-cluster-jazz</pre></div></div><div class="sect2" id="_static_persistent_volume"><div class="titlepage"><div><div><h3 class="title"><span class="number">9.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Static Persistent Volume</span> <a title="Permalink" class="permalink" href="_storage.html#_static_persistent_volume">#</a></h3></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Create new VMDK volume in datastore. The VMDK volume used in persistent volume must exist before the resource is created.</p><p>You can use <code class="literal">govc</code> to automate the task.</p><p>For installation instructions, refer to: <a class="link" href="https://github.com/vmware/govmomi/tree/master/govc" target="_blank">https://github.com/vmware/govmomi/tree/master/govc</a>.</p><div class="verbatim-wrap"><pre class="screen">govc datastore.disk.create -dc &lt;DATA_CENTER&gt; -ds &lt;DATA_STORE&gt; -size &lt;DISK_SIZE&gt; &lt;DISK_NAME&gt;</pre></div><p>&lt;DATA_CENTER&gt; The datacenter name in vCenter where Kubernetes nodes reside.</p><p>&lt;DATA_STORE&gt; The datastore in vCenter where volume should be created.</p><p>&lt;DISK_SIZE&gt; The volume size to create, for example 1G.</p><p>&lt;DISK_NAME&gt; The VMDK volume name. for example my-disk.vmdk, or &lt;CLUSTER_NAME&gt;-folder/my-disk.vmdk.</p></li><li class="listitem "><p>Create persistent volume - sample-static-pv.yaml.</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-static-pv.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: sample-static-pv <span id="CO29-1"></span><span class="callout">1</span>
+  name: sample-static-pv <span id="CO31-1"></span><span class="callout">1</span>
 spec:
   capacity:
-    storage: 1Gi <span id="CO29-2"></span><span class="callout">2</span>
+    storage: 1Gi <span id="CO31-2"></span><span class="callout">2</span>
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete <span id="CO29-3"></span><span class="callout">3</span>
+  persistentVolumeReclaimPolicy: Delete <span id="CO31-3"></span><span class="callout">3</span>
   vsphereVolume:
-    volumePath: "[datastore] volume/path" <span id="CO29-4"></span><span class="callout">4</span>
-    fsType: ext4 <span id="CO29-5"></span><span class="callout">5</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The name of persistent volume resource.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The disk size available.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The policy for how persistent volume should be handled when it is released.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The path to VMDK volume. This path must exist.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>The file system type to mount.</p></td></tr></table></div></li><li class="listitem "><p>Create persistent volume claim - sample-static-pvc.yaml.</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-static-pvc.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+    volumePath: "[datastore] volume/path" <span id="CO31-4"></span><span class="callout">4</span>
+    fsType: ext4 <span id="CO31-5"></span><span class="callout">5</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO31-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The name of persistent volume resource.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO31-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The disk size available.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO31-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The policy for how persistent volume should be handled when it is released.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO31-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The path to VMDK volume. This path must exist.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO31-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>The file system type to mount.</p></td></tr></table></div></li><li class="listitem "><p>Create persistent volume claim - sample-static-pvc.yaml.</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-static-pvc.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: sample-static-pvc
@@ -51,7 +51,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi <span id="CO30-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO30-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The required volume size.</p></td></tr></table></div></li><li class="listitem "><p>Create deployement - sample-static-deployment.yaml.</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-static-deployment.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: apps/v1
+      storage: 1Gi <span id="CO32-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO32-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The required volume size.</p></td></tr></table></div></li><li class="listitem "><p>Create deployement - sample-static-deployment.yaml.</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-static-deployment.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sample-static-deployment
@@ -76,12 +76,12 @@ spec:
         name: sample
         volumeMounts:
         - name: sample-volume
-          mountPath: /data <span id="CO31-1"></span><span class="callout">1</span>
+          mountPath: /data <span id="CO33-1"></span><span class="callout">1</span>
         command: [ "sleep", "infinity" ]
       volumes:
       - name: sample-volume
         persistentVolumeClaim:
-          claimName: sample-static-pvc <span id="CO31-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO31-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path in deployed pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO31-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The requested persistent volume claim name.</p></td></tr></table></div></li><li class="listitem "><p>Check persistent volume claim is bonded and pod is running.</p><div class="verbatim-wrap"><pre class="screen">kubectl get pvc
+          claimName: sample-static-pvc <span id="CO33-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO33-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path in deployed pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO33-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The requested persistent volume claim name.</p></td></tr></table></div></li><li class="listitem "><p>Check persistent volume claim is bonded and pod is running.</p><div class="verbatim-wrap"><pre class="screen">kubectl get pvc
 ...
 NAME                STATUS   VOLUME             CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 sample-static-pvc   Bound    sample-static-pv   1Gi        RWO                           55s
@@ -94,15 +94,15 @@ apiVersion: storage.k8s.io/v1
 metadata:
   name: sample-sc
   annotations:
-    storageclass.kubernetes.io/is-default-class: "true" <span id="CO32-1"></span><span class="callout">1</span>
+    storageclass.kubernetes.io/is-default-class: "true" <span id="CO34-1"></span><span class="callout">1</span>
 provisioner: kubernetes.io/vsphere-volume
 parameters:
-  datastore: "datastore" <span id="CO32-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO32-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>Set as the default storage class.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO32-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The datastore name in vCenter where volume should be created.</p></td></tr></table></div></li><li class="listitem "><p>Create persistent volume claim - sample-dynamic-pvc.yaml.</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-dynamic-pvc.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+  datastore: "datastore" <span id="CO34-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO34-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>Set as the default storage class.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO34-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The datastore name in vCenter where volume should be created.</p></td></tr></table></div></li><li class="listitem "><p>Create persistent volume claim - sample-dynamic-pvc.yaml.</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-dynamic-pvc.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: sample-dynamic-pvc
   annotations:
-    volume.beta.kubernetes.io/storage-class: sample-sc <span id="CO33-1"></span><span class="callout">1</span>
+    volume.beta.kubernetes.io/storage-class: sample-sc <span id="CO35-1"></span><span class="callout">1</span>
   labels:
     app: sample
 spec:
@@ -110,7 +110,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi <span id="CO33-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO33-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>Annotate with storage class name to use the storage class created.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO33-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The required volume size.</p></td></tr></table></div></li><li class="listitem "><p>Create deployment - sample-deployment.yaml</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-deployment.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: apps/v1
+      storage: 1Gi <span id="CO35-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO35-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>Annotate with storage class name to use the storage class created.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO35-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The required volume size.</p></td></tr></table></div></li><li class="listitem "><p>Create deployment - sample-deployment.yaml</p><div class="verbatim-wrap"><pre class="screen">kubectl create -f sample-deployment.yaml</pre></div><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sample-dynamic-deployment
@@ -135,12 +135,12 @@ spec:
         name: sample
         volumeMounts:
         - name: sample-volume
-          mountPath: /data <span id="CO34-1"></span><span class="callout">1</span>
+          mountPath: /data <span id="CO36-1"></span><span class="callout">1</span>
         command: [ "sleep", "infinity" ]
       volumes:
       - name: sample-volume
         persistentVolumeClaim:
-          claimName: sample-dynamic-pvc <span id="CO34-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO34-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path in deployed pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO34-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The requested persistent volume claim name.</p></td></tr></table></div></li><li class="listitem "><p>Check persistent volume claim is bonded and pod is running.</p><div class="verbatim-wrap"><pre class="screen">kubectl get pvc
+          claimName: sample-dynamic-pvc <span id="CO36-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO36-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path in deployed pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO36-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The requested persistent volume claim name.</p></td></tr></table></div></li><li class="listitem "><p>Check persistent volume claim is bonded and pod is running.</p><div class="verbatim-wrap"><pre class="screen">kubectl get pvc
 ...
 NAME                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 sample-dynamic-pvc   Bound    pvc-0ca694b5-0084-4e36-bef1-5b2354158d79   1Gi        RWO            sample-sc      70s

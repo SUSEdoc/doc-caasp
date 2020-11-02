@@ -36,7 +36,7 @@ name: ceph-user
 namespace: default
 type: kubernetes.io/rbd
 data:
-  key: QVFESE1rbGRBQUFBQUJBQWxnSmpZalBEeGlXYS9Qb1Jreplace== <span id="CO35-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO35-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The block device user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Pod:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+  key: QVFESE1rbGRBQUFBQUJBQWxnSmpZalBEeGlXYS9Qb1Jreplace== <span id="CO37-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO37-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The block device user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Pod:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: Pod
 metadata:
   name: ceph-rbd-inline
@@ -46,22 +46,22 @@ spec:
     image: opensuse/leap
     command: ["sleep", "infinity"]
     volumeMounts:
-    - mountPath: /mnt/ceph_rbd <span id="CO36-1"></span><span class="callout">1</span>
+    - mountPath: /mnt/ceph_rbd <span id="CO38-1"></span><span class="callout">1</span>
       name: volume
   volumes:
   - name: volume
     rbd:
       monitors:
-      - 10.244.2.136:6789 <span id="CO36-2"></span><span class="callout">2</span>
+      - 10.244.2.136:6789 <span id="CO38-2"></span><span class="callout">2</span>
       - 10.244.3.123:6789
       - 10.244.4.7:6789
-      pool: myPool <span id="CO36-3"></span><span class="callout">3</span>
-      image: image <span id="CO36-4"></span><span class="callout">4</span>
-      user: myPoolUser <span id="CO36-5"></span><span class="callout">5</span>
+      pool: myPool <span id="CO38-3"></span><span class="callout">3</span>
+      image: image <span id="CO38-4"></span><span class="callout">4</span>
+      user: myPoolUser <span id="CO38-5"></span><span class="callout">5</span>
       secretRef:
-        name: ceph-user <span id="CO36-6"></span><span class="callout">6</span>
+        name: ceph-user <span id="CO38-6"></span><span class="callout">6</span>
       fsType: ext4
-      readOnly: false</pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO36-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO36-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitor nodes IP and port. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO36-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO36-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Ceph volume image.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO36-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool user.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO36-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the Ceph pool user key.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the volume is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/ceph-rbd-inline -- df -k | grep rbd
+      readOnly: false</pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitor nodes IP and port. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Ceph volume image.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool user.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the Ceph pool user key.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the volume is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/ceph-rbd-inline -- df -k | grep rbd
   Filesystem     1K-blocks    Used Available Use% Mounted on
   /dev/rbd0        1998672    6144   1976144   1% /mnt/ceph_rbd</pre></div></li></ol></div></div><div class="sect3" id="_using_rbd_in_persistent_volumes"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using RBD in Persistent Volumes</span> <a title="Permalink" class="permalink" href="_integration.html#_using_rbd_in_persistent_volumes">#</a></h4></div></div></div><p>The following procedure describes how to use RBD in a Persistent Volume:</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rados/operations/pools/#create-a-pool" target="_blank">Create a Ceph pool</a>:</p><div class="verbatim-wrap"><pre class="screen">ceph osd pool create myPool 64 64</pre></div></li><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rbd/rados-rbd-cmds/#create-a-block-device-pool" target="_blank">Create a Block Device Pool</a>:</p><div class="verbatim-wrap"><pre class="screen">rbd pool init myPool</pre></div></li><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rbd/rados-rbd-cmds/#creating-a-block-device-image" target="_blank">Create a Block Device Image</a>:</p><div class="verbatim-wrap"><pre class="screen">rbd create -s 2G myPool/image</pre></div></li><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rbd/rados-rbd-cmds/#create-a-block-device-user" target="_blank">Create a Block Device User</a>, and record the key:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-or-create-key client.myPoolUser mon "allow r" osd "allow class-read object_prefix rbd_children, allow rwx pool=myPool" | tr -d '\n' | base64</pre></div></li><li class="listitem "><p>Create the Secret containing <code class="literal">client.myPoolUser</code> key:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: Secret
@@ -70,27 +70,27 @@ name: ceph-user
 namespace: default
 type: kubernetes.io/rbd
 data:
-  key: QVFESE1rbGRBQUFBQUJBQWxnSmpZalBEeGlXYS9Qb1Jreplace== <span id="CO37-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO37-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The block device user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+  key: QVFESE1rbGRBQUFBQUJBQWxnSmpZalBEeGlXYS9Qb1Jreplace== <span id="CO39-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO39-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The block device user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: ceph-rbd-pv
 spec:
   capacity:
-    storage: 2Gi <span id="CO38-1"></span><span class="callout">1</span>
+    storage: 2Gi <span id="CO40-1"></span><span class="callout">1</span>
   accessModes:
     - ReadWriteOnce
   rbd:
     monitors:
-    - 172.28.0.25:6789 <span id="CO38-2"></span><span class="callout">2</span>
+    - 172.28.0.25:6789 <span id="CO40-2"></span><span class="callout">2</span>
     - 172.28.0.21:6789
     - 172.28.0.6:6789
-    pool: myPool  <span id="CO38-3"></span><span class="callout">3</span>
-    image: image <span id="CO38-4"></span><span class="callout">4</span>
-    user: myPoolUser  <span id="CO38-5"></span><span class="callout">5</span>
+    pool: myPool  <span id="CO40-3"></span><span class="callout">3</span>
+    image: image <span id="CO40-4"></span><span class="callout">4</span>
+    user: myPoolUser  <span id="CO40-5"></span><span class="callout">5</span>
     secretRef:
-      name: ceph-user <span id="CO38-6"></span><span class="callout">6</span>
+      name: ceph-user <span id="CO40-6"></span><span class="callout">6</span>
     fsType: ext4
-    readOnly: false</pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The size of the volume image. Reference to <a class="link" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage" target="_blank">Setting requests and limits for local ephemeral storage</a> to see supported suffixes.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitor nodes IP and port. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Ceph volume image name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool user.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO38-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the Ceph pool user key.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume Claim:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">kind: PersistentVolumeClaim
+    readOnly: false</pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The size of the volume image. Reference to <a class="link" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage" target="_blank">Setting requests and limits for local ephemeral storage</a> to see supported suffixes.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitor nodes IP and port. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Ceph volume image name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool user.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the Ceph pool user key.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume Claim:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: ceph-rbd-pv
@@ -110,12 +110,12 @@ spec:
     image: busybox
     command: ["sleep", "infinity"]
     volumeMounts:
-    - mountPath: /mnt/ceph_rbd <span id="CO39-1"></span><span class="callout">1</span>
+    - mountPath: /mnt/ceph_rbd <span id="CO41-1"></span><span class="callout">1</span>
       name: volume
   volumes:
   - name: volume
     persistentVolumeClaim:
-      claimName: ceph-rbd-pv <span id="CO39-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO39-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO39-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The Persistent Volume Claim name.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the volume is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/ceph-rbd-pv -- df -k | grep rbd
+      claimName: ceph-rbd-pv <span id="CO41-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO41-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO41-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The Persistent Volume Claim name.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the volume is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/ceph-rbd-pv -- df -k | grep rbd
   Filesystem     1K-blocks    Used Available Use% Mounted on
   /dev/rbd0        1998672    6144   1976144   1% /mnt/ceph_rbd</pre></div></li></ol></div></div><div class="sect3" id="_using_rbd_in_storage_classes"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using RBD in Storage Classes</span> <a title="Permalink" class="permalink" href="_integration.html#_using_rbd_in_storage_classes">#</a></h4></div></div></div><p>The following procedure describes how use RBD in Storage Class:</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rados/operations/pools/#create-a-pool" target="_blank">Create a Ceph pool</a>:</p><div class="verbatim-wrap"><pre class="screen">ceph osd pool create myPool 64 64</pre></div></li><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rbd/rados-rbd-cmds/#create-a-block-device-user" target="_blank">Create a Block Device User</a> to use as pool admin and record the key:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-or-create-key client.myPoolAdmin mds 'allow *' mgr 'allow *' mon 'allow *' osd 'allow * pool=myPool'  | tr -d '\n' | base64</pre></div></li><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rbd/rados-rbd-cmds/#create-a-block-device-user" target="_blank">Create a Block Device User</a> to use as pool user and record the key:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-or-create-key client.myPoolUser mon "allow r" osd "allow class-read object_prefix rbd_children, allow rwx pool=myPool" | tr -d '\n' | base64</pre></div></li><li class="listitem "><p>Create the Secret containing the block device pool admin key:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: Secret
@@ -123,13 +123,13 @@ metadata:
  name: ceph-admin
 type: kubernetes.io/rbd
 data:
-  key: QVFCa0ZJVmZBQUFBQUJBQUp2VzdLbnNIOU1yYll1R0p6T2Zreplace== <span id="CO40-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO40-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The block device pool admin key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Secret containing the block device pool user key:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+  key: QVFCa0ZJVmZBQUFBQUJBQUp2VzdLbnNIOU1yYll1R0p6T2Zreplace== <span id="CO42-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO42-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The block device pool admin key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Secret containing the block device pool user key:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: Secret
 metadata:
  name: ceph-user
 type: kubernetes.io/rbd
 data:
-  key: QVFCa0ZJVmZBQUFBQUJBQUp2VzdLbnNIOU1yYll1R0p6T2Zreplace== <span id="CO41-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO41-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The block device pool user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Storage Class:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: storage.k8s.io/v1beta1
+  key: QVFCa0ZJVmZBQUFBQUJBQUp2VzdLbnNIOU1yYll1R0p6T2Zreplace== <span id="CO43-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO43-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The block device pool user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Storage Class:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: storage.k8s.io/v1beta1
 kind: StorageClass
 metadata:
   name: ceph-rbd-sc
@@ -137,13 +137,13 @@ metadata:
     storageclass.beta.kubernetes.io/is-default-class: "true"
 provisioner: kubernetes.io/rbd
 parameters:
-  monitors: 172.28.0.19:6789, 172.28.0.5:6789, 172.218:6789 <span id="CO42-1"></span><span class="callout">1</span>
-  adminId: myPoolAdmin <span id="CO42-2"></span><span class="callout">2</span>
-  adminSecretName: ceph-admin <span id="CO42-3"></span><span class="callout">3</span>
+  monitors: 172.28.0.19:6789, 172.28.0.5:6789, 172.218:6789 <span id="CO44-1"></span><span class="callout">1</span>
+  adminId: myPoolAdmin <span id="CO44-2"></span><span class="callout">2</span>
+  adminSecretName: ceph-admin <span id="CO44-3"></span><span class="callout">3</span>
   adminSecretNamespace: default
-  pool: myPool <span id="CO42-4"></span><span class="callout">4</span>
-  userId: myPoolUser <span id="CO42-5"></span><span class="callout">5</span>
-  userSecretName: ceph-user <span id="CO42-6"></span><span class="callout">6</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO42-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitory nodes IP and port separate by <code class="literal">,</code>. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO42-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool admin name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO42-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the Ceph pool admin key.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO42-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO42-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool user name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO42-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the Ceph pool user key.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume Claim:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">kind: PersistentVolumeClaim
+  pool: myPool <span id="CO44-4"></span><span class="callout">4</span>
+  userId: myPoolUser <span id="CO44-5"></span><span class="callout">5</span>
+  userSecretName: ceph-user <span id="CO44-6"></span><span class="callout">6</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO44-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitory nodes IP and port separate by <code class="literal">,</code>. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO44-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool admin name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO44-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the Ceph pool admin key.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO44-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO44-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>The Ceph pool user name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO44-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the Ceph pool user key.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume Claim:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: ceph-rbd-sc
@@ -152,7 +152,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi <span id="CO43-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO43-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The request volume size. Reference to <a class="link" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage" target="_blank">Setting requests and limits for local ephemeral storage</a> to see supported suffixes.</p></td></tr></table></div><div id="id-1.12.3.4.5.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Deleting Persistent Volume Claim does not remove RBD volume in the Ceph cluster.</p></div></li><li class="listitem "><p>Create the Pod:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+      storage: 2Gi <span id="CO45-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO45-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The request volume size. Reference to <a class="link" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage" target="_blank">Setting requests and limits for local ephemeral storage</a> to see supported suffixes.</p></td></tr></table></div><div id="id-1.12.3.4.5.3.7.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Deleting Persistent Volume Claim does not remove RBD volume in the Ceph cluster.</p></div></li><li class="listitem "><p>Create the Pod:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: Pod
 metadata:
   name: ceph-rbd-sc
@@ -162,12 +162,12 @@ spec:
     image: busybox
     command: ["sleep", "infinity"]
     volumeMounts:
-    - mountPath: /mnt/ceph_rbd <span id="CO44-1"></span><span class="callout">1</span>
+    - mountPath: /mnt/ceph_rbd <span id="CO46-1"></span><span class="callout">1</span>
       name: volume
   volumes:
   - name: volume
     persistentVolumeClaim:
-      claimName: ceph-rbd-sc <span id="CO44-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO44-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO44-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The Persistent Volume Claim name.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the volume is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/ceph-rbd-sc -- df -k | grep rbd
+      claimName: ceph-rbd-sc <span id="CO46-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO46-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO46-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The Persistent Volume Claim name.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the volume is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/ceph-rbd-sc -- df -k | grep rbd
   Filesystem     1K-blocks    Used Available Use% Mounted on
   /dev/rbd0        1998672    6144   1976144   1% /mnt/ceph_rbd</pre></div></li></ol></div></div><div class="sect3" id="_using_cephfs_in_pods"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using CephFS in Pods</span> <a title="Permalink" class="permalink" href="_integration.html#_using_cephfs_in_pods">#</a></h4></div></div></div><p>The procedure below describes how to use CephFS in Pod.</p><div class="orderedlist "><div class="orderedlist-title-wrap"><h6 class="orderedlist-title"><span class="name">Procedure: Using CephFS In Pods </span><a title="Permalink" class="permalink" href="_integration.html#id-1.12.3.4.6.3">#</a></h6></div><ol class="orderedlist" type="1"><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rbd/rados-rbd-cmds/#create-a-block-device-user" target="_blank">Create a Block Device User</a> to use as CephFS user and record the key:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-or-create-key client.myCephFSUser mds 'allow *' mgr 'allow *' mon 'allow r' osd 'allow rw pool=cephfs_metadata,allow rwx pool=cephfs_data'  | tr -d '\n' | base64</pre></div><div id="id-1.12.3.4.6.3.2.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>The <code class="literal">cephfs_data</code> pool should be pre-existed with SES deployment, if not you can create and initialize with:</p><div class="verbatim-wrap"><pre class="screen">ceph osd pool create cephfs_data 256 256
 ceph osd pool create cephfs_metadata 64 64
@@ -177,7 +177,7 @@ kind: Secret
 metadata:
   name: ceph-user
 data:
-  key: QVFESE1rbGRBQUFBQUJBQWxnSmpZalBEeGlXYS9Qb1J4ZStreplace== <span id="CO45-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO45-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The CephFS user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Pod:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+  key: QVFESE1rbGRBQUFBQUJBQWxnSmpZalBEeGlXYS9Qb1J4ZStreplace== <span id="CO47-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO47-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The CephFS user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Pod:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: Pod
 metadata:
   name: cephfs-inline
@@ -187,19 +187,19 @@ spec:
     image: busybox
     command: ["sleep", "infinity"]
     volumeMounts:
-    - mountPath: /mnt/cephfs <span id="CO46-1"></span><span class="callout">1</span>
+    - mountPath: /mnt/cephfs <span id="CO48-1"></span><span class="callout">1</span>
       name: volume
   volumes:
   - name: volume
     cephfs:
       monitors:
-      - 172.28.0.19:6789 <span id="CO46-2"></span><span class="callout">2</span>
+      - 172.28.0.19:6789 <span id="CO48-2"></span><span class="callout">2</span>
       - 172.28.0.5:6789
       - 172.28.0.18:6789
-      user: myCephFSUser <span id="CO46-3"></span><span class="callout">3</span>
+      user: myCephFSUser <span id="CO48-3"></span><span class="callout">3</span>
       secretRef:
-        name: ceph-user <span id="CO46-4"></span><span class="callout">4</span>
-      readOnly: false</pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO46-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO46-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitor nodes IP and port. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO46-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The CephFS user name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO46-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the CephFS user key.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the volume is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/cephfs-inline -- df -k | grep cephfs
+        name: ceph-user <span id="CO48-4"></span><span class="callout">4</span>
+      readOnly: false</pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO48-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO48-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitor nodes IP and port. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO48-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The CephFS user name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO48-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the CephFS user key.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the volume is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/cephfs-inline -- df -k | grep cephfs
   Filesystem   1K-blocks    Used Available Use% Mounted on
   172.28.0.19:6789,172.28.0.5:6789,172.28.0.18:6789:/
                 79245312       0  79245312   0% /mnt/cephfs</pre></div></li></ol></div></div><div class="sect3" id="_using_cephfs_in_persistent_volumes"><div class="titlepage"><div><div><h4 class="title"><span class="number">10.1.2.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using CephFS in Persistent Volumes</span> <a title="Permalink" class="permalink" href="_integration.html#_using_cephfs_in_persistent_volumes">#</a></h4></div></div></div><p>The following procedure describes how to attach a CephFS static persistent volume to a pod:</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p><a class="link" href="https://docs.ceph.com/en/latest/rbd/rados-rbd-cmds/#create-a-block-device-user" target="_blank">Create a Block Device User</a> to use as CephFS user and record the key:</p><div class="verbatim-wrap"><pre class="screen">ceph auth get-or-create-key client.myCephFSUser mds 'allow *' mgr 'allow *' mon 'allow r' osd 'allow rw pool=cephfs_metadata,allow rwx pool=cephfs_data'  | tr -d '\n' | base64</pre></div><div id="id-1.12.3.4.7.3.1.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>The <code class="literal">cephfs_data</code> pool should be pre-existed with SES deployment, if not you can create and initialize with:</p><div class="verbatim-wrap"><pre class="screen">ceph osd pool create cephfs_data 256 256
@@ -210,24 +210,24 @@ kind: Secret
 metadata:
   name: ceph-user
 data:
-  key: QVFESE1rbGRBQUFBQUJBQWxnSmpZalBEeGlXYS9Qb1J4ZStreplace== <span id="CO47-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO47-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The CephFS user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+  key: QVFESE1rbGRBQUFBQUJBQWxnSmpZalBEeGlXYS9Qb1J4ZStreplace== <span id="CO49-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO49-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The CephFS user key from the Ceph cluster.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: cephfs-pv
 spec:
   capacity:
-    storage: 2Gi <span id="CO48-1"></span><span class="callout">1</span>
+    storage: 2Gi <span id="CO50-1"></span><span class="callout">1</span>
   accessModes:
     - ReadWriteOnce
   cephfs:
     monitors:
-      - 172.28.0.19:6789 <span id="CO48-2"></span><span class="callout">2</span>
+      - 172.28.0.19:6789 <span id="CO50-2"></span><span class="callout">2</span>
       - 172.28.0.5:6789
       - 172.28.0.18:6789
-    user: myCephFSUser <span id="CO48-3"></span><span class="callout">3</span>
+    user: myCephFSUser <span id="CO50-3"></span><span class="callout">3</span>
     secretRef:
-      name: ceph-user <span id="CO48-4"></span><span class="callout">4</span>
-    readOnly: false</pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO48-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The desired volume size. Reference to <a class="link" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage" target="_blank">Setting requests and limits for local ephemeral storage</a> to see supported suffixes.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO48-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitor nodes IP and port. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO48-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The CephFS user name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO48-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the CephFS user key.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume Claim:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">kind: PersistentVolumeClaim
+      name: ceph-user <span id="CO50-4"></span><span class="callout">4</span>
+    readOnly: false</pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO50-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The desired volume size. Reference to <a class="link" href="https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage" target="_blank">Setting requests and limits for local ephemeral storage</a> to see supported suffixes.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO50-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>A list of Ceph monitor nodes IP and port. The default port is <span class="strong"><strong>6789</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO50-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>The CephFS user name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO50-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>The Kubernetes Secret name contains the CephFS user key.</p></td></tr></table></div></li><li class="listitem "><p>Create the Persistent Volume Claim:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: cephfs-pv
@@ -236,7 +236,7 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi <span id="CO49-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO49-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The request volume size.</p></td></tr></table></div><div id="id-1.12.3.4.7.3.4.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Deleting Persistent Volume Claim does not remove CephFS volume in the Ceph cluster.</p></div></li><li class="listitem "><p>Create the Pod:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
+      storage: 2Gi <span id="CO51-1"></span><span class="callout">1</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO51-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The request volume size.</p></td></tr></table></div><div id="id-1.12.3.4.7.3.4.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Deleting Persistent Volume Claim does not remove CephFS volume in the Ceph cluster.</p></div></li><li class="listitem "><p>Create the Pod:</p><div class="informalexample"><div class="verbatim-wrap"><pre class="screen">apiVersion: v1
 kind: Pod
 metadata:
   name: cephfs-pv
@@ -246,12 +246,12 @@ spec:
     image: busybox
     command: ["sleep", "infinity"]
     volumeMounts:
-    - mountPath: /mnt/cephfs <span id="CO50-1"></span><span class="callout">1</span>
+    - mountPath: /mnt/cephfs <span id="CO52-1"></span><span class="callout">1</span>
       name: volume
   volumes:
   - name: volume
     persistentVolumeClaim:
-      claimName: cephfs-pv <span id="CO50-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO50-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO50-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The Persistent Volume Claim name.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the CephFS is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/cephfs-pv -- df -k | grep cephfs
+      claimName: cephfs-pv <span id="CO52-2"></span><span class="callout">2</span></pre></div></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO52-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>The volume mount path inside the Pod.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO52-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>The Persistent Volume Claim name.</p></td></tr></table></div></li><li class="listitem "><p>Once the pod is running, check the CephFS is mounted:</p><div class="verbatim-wrap"><pre class="screen">kubectl exec -it pod/cephfs-pv -- df -k | grep cephfs
   Filesystem   1K-blocks    Used Available Use% Mounted on
   172.28.0.19:6789,172.28.0.5:6789,172.28.0.18:6789:/
                 79245312       0  79245312   0% /mnt/cephfs</pre></div></li></ol></div></div></div></div><div class="sect1" id="_suse_cloud_application_platform_integration"><div class="titlepage"><div><div><h2 class="title"><span class="number">10.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">SUSE Cloud Application Platform Integration</span> <a title="Permalink" class="permalink" href="_integration.html#_suse_cloud_application_platform_integration">#</a></h2></div></div></div><p>For integration with SUSE Cloud Application Platform, refer to: <a class="link" href="https://documentation.suse.com/suse-cap/1.5.2/single-html/cap-guides/#cha-cap-depl-caasp" target="_blank">Deploying SUSE Cloud Application Platform on SUSE CaaS Platform</a>.</p></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="_gpu_dependent_workloads.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 11 </span>GPU-Dependent Workloads</span></a><a class="nav-link" href="_storage.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 9 </span>Storage</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
