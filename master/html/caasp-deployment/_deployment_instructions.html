@@ -791,11 +791,12 @@ by modifying the cloud-init template:</p><div class="itemizedlist "><ul class="i
 <code class="literal">~/caasp/deployment/azure/registration.auto.tfvars</code> instead of the
 <code class="literal">terraform.tfvars</code> file.</p><p>Substitute <code class="literal">CAASP_REGISTRATION_CODE</code> for the code from <a class="xref" href="_deployment_instructions.html#registration-code" title="3.1.2. Registration Code">Section 3.1.2, “Registration Code”</a>.</p><div class="verbatim-wrap highlight json"><pre class="screen"># SUSE CaaSP Product Key
 caasp_registry_code = "&lt;CAASP_REGISTRATION_CODE&gt;"</pre></div><p>This is required so all the deployed nodes can automatically register
-with SUSE Customer Center and retrieve packages.</p><p>Now you can deploy the nodes by running:</p><div class="verbatim-wrap"><pre class="screen">terraform init
+with SUSE Customer Center and retrieve packages.</p><p>You can also enable Cloud Provider Integration with Azure.</p><p>+</p><div class="verbatim-wrap"><pre class="screen"># Enable CPI integration with Azure
+cpi_enable = true</pre></div><p>Now you can deploy the nodes by running:</p><div class="verbatim-wrap"><pre class="screen">terraform init
 terraform plan
 terraform apply</pre></div><p>Check the output for the actions to be taken. Type "yes" and confirm with
 <span class="keycap">Enter</span> when ready.
-Terraform will now provision all the cluster infrastructure.</p><div id="id-1.6.10.8.18" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Note Down IP/FQDN For the Nodes</h6><p>The IP addresses and FQDN of the generated machines will be displayed in the
+Terraform will now provision all the cluster infrastructure.</p><div id="id-1.6.10.8.21" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Note Down IP/FQDN For the Nodes</h6><p>The IP addresses and FQDN of the generated machines will be displayed in the
 Terraform output during the cluster node deployment. You need these information
 later to deploy SUSE CaaS Platform.</p><p>These information can be obtained at any time by executing the
 <code class="literal">terraform output</code> command within the directory from which you executed
