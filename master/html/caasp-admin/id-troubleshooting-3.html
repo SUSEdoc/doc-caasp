@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Troubleshooting | Administration Guide | SUSE CaaS Platform 4.5.2</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.2.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.81.0 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE CaaS Platform" /><meta name="product-number" content="4.5.2" /><meta name="book-title" content="Administration Guide" /><meta name="chapter-title" content="Chapter 15. Troubleshooting" /><meta name="description" content="This chapter summarizes frequent problems that can occur while using SUSE CaaS Platform and their solutions." /><meta name="tracker-url" content="https://github.com/SUSE/doc-caasp/issues/new" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-labels" content="AdminGuide" /><link rel="home" href="index.html" title="Administration Guide" /><link rel="up" href="index.html" title="Administration Guide" /><link rel="prev" href="id-miscellaneous.html" title="Chapter 14. Miscellaneous" /><link rel="next" href="id-glossary.html" title="Chapter 16. Glossary" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #E11;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="Administration Guide"><span class="book-icon">Administration Guide</span></a><span> › </span><a class="crumb" href="id-troubleshooting-3.html">Troubleshooting</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="pr01.html"><span class="number"> </span><span class="name"></span></a></li><li class="inactive"><a href="id-about-this-guide.html"><span class="number">1 </span><span class="name">About This Guide</span></a></li><li class="inactive"><a href="id-cluster-management.html"><span class="number">2 </span><span class="name">Cluster Management</span></a></li><li class="inactive"><a href="id-software-management.html"><span class="number">3 </span><span class="name">Software Management</span></a></li><li class="inactive"><a href="id-cluster-updates.html"><span class="number">4 </span><span class="name">Cluster Updates</span></a></li><li class="inactive"><a href="id-upgrading-suse-caas-platform.html"><span class="number">5 </span><span class="name">Upgrading SUSE CaaS Platform</span></a></li><li class="inactive"><a href="id-security.html"><span class="number">6 </span><span class="name">Security</span></a></li><li class="inactive"><a href="id-logging.html"><span class="number">7 </span><span class="name">Logging</span></a></li><li class="inactive"><a href="id-monitoring.html"><span class="number">8 </span><span class="name">Monitoring</span></a></li><li class="inactive"><a href="id-storage.html"><span class="number">9 </span><span class="name">Storage</span></a></li><li class="inactive"><a href="id-integration.html"><span class="number">10 </span><span class="name">Integration</span></a></li><li class="inactive"><a href="id-gpu-dependent-workloads.html"><span class="number">11 </span><span class="name">GPU-Dependent Workloads</span></a></li><li class="inactive"><a href="id-cluster-disaster-recovery.html"><span class="number">12 </span><span class="name">Cluster Disaster Recovery</span></a></li><li class="inactive"><a href="backup-and-restore-with-velero.html"><span class="number">13 </span><span class="name">Backup and Restore with Velero</span></a></li><li class="inactive"><a href="id-miscellaneous.html"><span class="number">14 </span><span class="name">Miscellaneous</span></a></li><li class="inactive"><a href="id-troubleshooting-3.html"><span class="number">15 </span><span class="name">Troubleshooting</span></a></li><li class="inactive"><a href="id-glossary.html"><span class="number">16 </span><span class="name">Glossary</span></a></li><li class="inactive"><a href="id-contributors.html"><span class="number">A </span><span class="name">Contributors</span></a></li><li class="inactive"><a href="id-gnu-licenses.html"><span class="number">B </span><span class="name">GNU Licenses</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 14. Miscellaneous" href="id-miscellaneous.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 16. Glossary" href="id-glossary.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #E11;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="Administration Guide"><span class="book-icon">Administration Guide</span></a><span> › </span><a class="crumb" href="id-troubleshooting-3.html">Troubleshooting</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 14. Miscellaneous" href="id-miscellaneous.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 16. Glossary" href="id-glossary.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="id-troubleshooting-3"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE CaaS Platform</span> <span class="productnumber ">4.5.2</span></div><div><h1 class="title"><span class="number">15 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Troubleshooting</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#">#</a></h1></div></div></div><div class="line"><div class="toc"><dl><dt><span class="section"><a href="id-troubleshooting-3.html#id-the-supportconfig-tool"><span class="number">15.1 </span><span class="name">The <code class="literal">supportconfig</code> Tool</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-cluster-definition-directory"><span class="number">15.2 </span><span class="name">Cluster definition directory</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#troubleshooting-logs"><span class="number">15.3 </span><span class="name">Log collection</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-debugging-sles-nodes-provision"><span class="number">15.4 </span><span class="name">Debugging SLES Nodes provision</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-debugging-cluster-deployment"><span class="number">15.5 </span><span class="name">Debugging Cluster Deployment</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-error-x509-certificate-signed-by-unknown-authority"><span class="number">15.6 </span><span class="name">Error <code class="literal">x509: certificate signed by unknown authority</code></span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-error-invalid-client-credentials"><span class="number">15.7 </span><span class="name">Error <code class="literal">Invalid client credentials</code></span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-replacing-a-lost-node"><span class="number">15.8 </span><span class="name">Replacing a Lost Node</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-rebooting-an-undrained-node-with-rbd-volumes-mapped"><span class="number">15.9 </span><span class="name">Rebooting an Undrained Node with RBD Volumes Mapped</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#troubleshooting-etcd"><span class="number">15.10 </span><span class="name">ETCD Troubleshooting</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-kubernetes-debugging-tips"><span class="number">15.11 </span><span class="name">Kubernetes debugging tips</span></a></span></dt><dt><span class="section"><a href="id-troubleshooting-3.html#id-aws-deployment-fails-with-cannot-attach-profile-error"><span class="number">15.12 </span><span class="name">AWS Deployment fails with <code class="literal">cannot attach profile</code> error</span></a></span></dt></dl></div></div><p>This chapter summarizes frequent problems that can occur while using SUSE CaaS Platform
+and their solutions.</p><p>Additionally, SUSE support collects problems and their solutions online at <a class="link" href="https://www.suse.com/support/kb/?id=SUSE_CaaS_Platform" target="_blank">https://www.suse.com/support/kb/?id=SUSE_CaaS_Platform</a> .</p><div class="sect1" id="id-the-supportconfig-tool"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">The <code class="literal">supportconfig</code> Tool</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-the-supportconfig-tool">#</a></h2></div></div></div><p>As a first step for any troubleshooting/debugging effort, you need to find out
+the location of the cause of the problem. For this purpose we ship the <code class="literal">supportconfig</code> tool
+and plugin with SUSE CaaS Platform. With a simple command you can collect and compile
+a variety of details about your cluster to enable SUSE support to pinpoint
+the potential cause of an issue.</p><p>In case of problems, a detailed system report can be created with the
+<code class="literal">supportconfig</code> command line tool. It will collect information about the system, such as:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Current Kernel version</p></li><li class="listitem "><p>Hardware information</p></li><li class="listitem "><p>Installed packages</p></li><li class="listitem "><p>Partition setup</p></li><li class="listitem "><p>Cluster and node status</p></li></ul></div><div id="id-1.17.4.5" class="admonition tip normal"><img class="symbol" alt="Tip" title="Tip" src="static/images/icon-tip.png" /><h6>Tip</h6><p>A full list of of the data collected by <code class="literal">supportconfig</code> can be found under
+<a class="link" href="https://github.com/SUSE/supportutils-plugin-suse-caasp/blob/master/README.md" target="_blank">https://github.com/SUSE/supportutils-plugin-suse-caasp/blob/master/README.md</a>.</p></div><div id="id-1.17.4.6" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>To collect all the relevant logs, run the <code class="literal">supportconfig</code> command on all the master
+and worker nodes individually.</p></div><div class="verbatim-wrap highlight bash"><pre class="screen">sudo supportconfig
+sudo tar -xvJf /var/log/nts_*.txz
+cd /var/log/nts*
+sudo cat kubernetes.txt crio.txt</pre></div><p>The result is a <code class="literal">TAR</code> archive of files. Each of the <code class="literal">*.txz</code> files should be given a name that can be used to identify which cluster node it was created on.</p><p>After opening a Service Request (SR), you can upload the <code class="literal">TAR</code> archives to SUSE Global Technical Support.</p><p>The data will help to debug the issue you reported and assist you in solving the problem. For details, see <a class="link" href="https://documentation.suse.com/sles/15-SP2/single-html/SLES-admin/#cha-adm-support" target="_blank">https://documentation.suse.com/sles/15-SP2/single-html/SLES-admin/#cha-adm-support</a>.</p></div><div class="sect1" id="id-cluster-definition-directory"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Cluster definition directory</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-cluster-definition-directory">#</a></h2></div></div></div><p>Apart from the logs provided by running the <code class="literal">supportconfig</code> tool, an additional set of data might be required for debugging purposes. This information is located at the Management node, under your cluster definition directory. This folder contains important and sensitive information about your SUSE CaaS Platform cluster and it’s the one from where you issue <code class="literal">skuba</code> commands.</p><div id="id-1.17.5.3" class="admonition warning normal"><img class="symbol" alt="Warning" title="Warning" src="static/images/icon-warning.png" /><h6>Warning</h6><p>If the problem you are facing is related to your production environment, do <span class="strong"><strong>not</strong></span> upload the <code class="literal">admin.conf</code> as this would expose access to your cluster to anyone in possession of the collected information! The same precautions apply for the <code class="literal">pki</code> directory, since this also contains sensitive information (CA cert and key).</p><p>In this case add <code class="literal">--exclude='./&lt;CLUSTER_NAME&gt;/admin.conf' --exclude='./&lt;CLUSTER_NAME&gt;/pki/'</code> to the command in the following example. Make sure to replace <code class="literal">./&lt;CLUSTER_NAME&gt;</code> with the actual path of your cluster definition folder.</p><p>If you need to debug issues with your private certificates, a separate call with SUSE support must be scheduled to help you.</p></div><p>Create a <code class="literal">TAR</code> archive by compressing the cluster definition directory.</p><div class="verbatim-wrap highlight bash"><pre class="screen"># Read the TIP above
+# Move the admin.conf and pki directory to another safe location or exclude from packaging
+tar -czvf cluster.tar.gz /home/user/&lt;CLUSTER_NAME&gt;/
+# If the error is related to Terraform, please copy the terraform configuration files as well
+tar -czvf cluster.tar.gz /home/user/my-terraform-configuration/</pre></div><p>After opening a Service Request (SR), you can upload the <code class="literal">TAR</code> archive to SUSE Global Technical Support.</p></div><div class="sect1" id="troubleshooting-logs"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Log collection</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#troubleshooting-logs">#</a></h2></div></div></div><p>Some of these information are required for debugging certain cases. The data collected
+via <code class="literal">supportconfig</code> in such cases are following:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>etcd.txt (<span class="emphasis"><em>master nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt --key /etc/kubernetes/pki/etcd/server.key --cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/health
+curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt --key /etc/kubernetes/pki/etcd/server.key --cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/v2/members
+curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt --key /etc/kubernetes/pki/etcd/server.key --cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/v2/stats/leader
+curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt --key /etc/kubernetes/pki/etcd/server.key --cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/v2/stats/self
+curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt --key /etc/kubernetes/pki/etcd/server.key --cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/v2/stats/store
+curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt --key /etc/kubernetes/pki/etcd/server.key --cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/metrics
+
+etcdcontainer=$(crictl ps --label io.kubernetes.container.name=etcd --quiet)
+
+crictl exec $etcdcontainer sh -c \"ETCDCTL_ENDPOINTS='https://127.0.0.1:2379' ETCDCTL_CACERT='/etc/kubernetes/pki/etcd/ca.crt' ETCDCTL_CERT='/etc/kubernetes/pki/etcd/server.crt' ETCDCTL_KEY='/etc/kubernetes/pki/etcd/server.key' ETCDCTL_API=3 etcdctl check perf\"
+
+crictl logs -t $etcdcontainer
+
+crictl stats --id $etcdcontainer
+
+etcdpod=$(crictl ps | grep etcd | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $etcdpod</pre></div></li></ul></div><div id="id-1.17.6.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>For more information about <code class="literal">etcd</code>, refer to <a class="xref" href="id-troubleshooting-3.html#troubleshooting-etcd" title="15.10. ETCD Troubleshooting">Section 15.10, “ETCD Troubleshooting”</a>.</p></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>kubernetes.txt (<span class="emphasis"><em>all nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">export KUBECONFIG=/etc/kubernetes/admin.conf
+
+kubectl version
+
+kubectl api-versions
+
+kubectl config view
+
+kubectl -n kube-system get pods
+
+kubectl get events --sort-by=.metadata.creationTimestamp
+
+kubectl get nodes
+
+kubectl get all -A
+
+kubectl get nodes -o yaml</pre></div></li><li class="listitem "><p>kubernetes-cluster-info.txt (<span class="emphasis"><em>all nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">export KUBECONFIG=/etc/kubernetes/admin.conf
+
+# a copy of kubernetes logs /var/log/kubernetes
+kubectl cluster-info dump --output-directory="/var/log/kubernetes"</pre></div></li><li class="listitem "><p>kubelet.txt (<span class="emphasis"><em>all nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">systemctl status --full kubelet
+
+journalctl -u kubelet
+
+# a copy of kubernetes manifests /etc/kubernetes/manifests"
+cat /var/lib/kubelet/config.yaml</pre></div></li><li class="listitem "><p>oidc-gangway.txt (<span class="emphasis"><em>all nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="oidc-gangway" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "oidc-gangway" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>oidc-dex.txt (<span class="emphasis"><em>worker nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="oidc-dex" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "oidc-dex" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>cilium-agent.txt (<span class="emphasis"><em>all nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="cilium-agent" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "cilium-agent" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>cilium-operator.txt (<span class="emphasis"><em>only from the worker node is runs</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="cilium-operator" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "cilium-operator" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>kured.txt (<span class="emphasis"><em>all nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="kured" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "kured" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>coredns.txt (_worker nodes)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="coredns" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "coredns" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>kube-apiserver.txt (<span class="emphasis"><em>master nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="kube-apiserver" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "kube-apiserver" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>kube-proxy.txt (<span class="emphasis"><em>all nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="kube-proxy" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+After skuba 4.2.2
+pod=$(crictl ps | grep "kube-proxy" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>kube-scheduler.txt (<span class="emphasis"><em>master nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="kube-scheduler" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "kube-scheduler" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>kube-controller-manager.txt (<span class="emphasis"><em>master nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">container=$(crictl ps --label io.kubernetes.container.name="kube-controller-manager" --quiet)
+
+crictl logs -t $container
+
+crictl inspect $container
+
+pod=$(crictl ps | grep "kube-controller-manager" | awk -F ' ' '{ print $9 }')
+
+crictl inspectp $pod</pre></div></li><li class="listitem "><p>kube-system.txt (<span class="emphasis"><em>all nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">export KUBECONFIG=/etc/kubernetes/admin.conf
+
+kubectl get all -n kube-system -o yaml</pre></div></li><li class="listitem "><p>crio.txt (<span class="emphasis"><em>all_nodes</em></span>)</p><div class="verbatim-wrap"><pre class="screen">crictl version
+
+systemctl status --full crio.service
+
+crictl info
+
+crictl images
+
+crictl ps --all
+
+crictl stats --all
+
+journalctl -u crio
+
+# a copy of /etc/crictl.yaml
+
+# a copy of /etc/sysconfig/crio
+
+# a copy of every file under /etc/crio/
+
+# Run the following three commands for every container using this loop:
+for i in $(crictl  ps -a 2&gt;/dev/null | grep -v "CONTAINER" | awk '{print $1}');
+do
+    crictl stats --id $i
+    crictl logs $i
+    crictl inspect $i
+done</pre></div></li></ul></div></div><div class="sect1" id="id-debugging-sles-nodes-provision"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Debugging SLES Nodes provision</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-debugging-sles-nodes-provision">#</a></h2></div></div></div><p>If Terraform fails to setup the required SLES infrastructure for your cluster, please provide the configuration
+you applied in a form of a TAR archive.</p><p>Create a <code class="literal">TAR</code> archive by compressing the Terraform.</p><div class="verbatim-wrap highlight bash"><pre class="screen">tar -czvf terraform.tar.gz /path/to/terraform/configuration</pre></div><p>After opening a Service Request (SR), you can upload the TAR archive to Global Technical Support.</p></div><div class="sect1" id="id-debugging-cluster-deployment"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Debugging Cluster Deployment</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-debugging-cluster-deployment">#</a></h2></div></div></div><p>If the cluster deployment fails, please re-run the command again with setting verbosity level to 5 <code class="literal">-v=5</code>.</p><p>For example, if bootstraps the first master node of the cluster fails, re-run the command like</p><div class="verbatim-wrap highlight bash"><pre class="screen">skuba node bootstrap --user sles --sudo --target &lt;IP/FQDN&gt; &lt;NODE_NAME&gt; -v=5</pre></div><p>However, if the <code class="literal">join</code> procedure fails at the last final steps, re-running it might <span class="emphasis"><em>not</em></span> help. To verify
+this, please list the current member nodes of your cluster and look for the one who failed.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get nodes</pre></div><p>If the node that failed to <code class="literal">join</code> is nevertheless listed in the output as part of your cluster,
+then this is a bad indicator. This node cannot be reset back to a clean state anymore and it’s not safe to keep
+it online in this <span class="emphasis"><em>unknown</em></span> state. As a result, instead of trying to fix its existing configuration either by hand or re-running
+the join/bootstrap command, we would highly recommend you to remove this node completely from your cluster and
+then replace it with a new one.</p><div class="verbatim-wrap highlight bash"><pre class="screen">skuba node remove &lt;NODE_NAME&gt; --drain-timeout 5s</pre></div></div><div class="sect1" id="id-error-x509-certificate-signed-by-unknown-authority"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Error <code class="literal">x509: certificate signed by unknown authority</code></span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-error-x509-certificate-signed-by-unknown-authority">#</a></h2></div></div></div><p>When interacting with Kubernetes, you might run into the situation where your existing configuration for the authentication has changed (cluster has been rebuild, certificates have been switched.)
+In such a case you might see an error message in the output of your CLI or Web browser.</p><div class="verbatim-wrap"><pre class="screen">x509: certificate signed by unknown authority</pre></div><p>This message indicates that your current system does not know the Certificate Authority (CA) that signed the SSL certificates used for encrypting the communication to the cluster.
+You then need to add or update the Root CA certificate in your local trust store.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Obtain the root CA certificate from on of the Kubernetes cluster node, at the location <code class="literal">/etc/kubernetes/pki/ca.crt</code></p></li><li class="listitem "><p>Copy the root CA certificate into your local machine directory <code class="literal">/etc/pki/trust/anchors/</code></p></li><li class="listitem "><p>Update the cache for know CA certificates</p><div class="verbatim-wrap highlight bash"><pre class="screen">sudo update-ca-certificates</pre></div></li></ol></div></div><div class="sect1" id="id-error-invalid-client-credentials"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Error <code class="literal">Invalid client credentials</code></span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-error-invalid-client-credentials">#</a></h2></div></div></div><p>When using Dex &amp; Gangway for authentication, you might see the following error message in the Web browser output:</p><div class="verbatim-wrap"><pre class="screen">oauth2: cannot fetch token: 401 Unauthorized
+Response: {"error":"invalid_client","error_description":"Invalid client credentials."}</pre></div><p>This message indicates that your Kubernetes cluster Dex &amp; Gangway client secret is out of sync.</p><div class="sect2" id="id-versions-before-suse-caas-platform-4-2-2"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.7.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Versions before SUSE CaaS Platform 4.2.2</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-versions-before-suse-caas-platform-4-2-2">#</a></h3></div></div></div><div id="id-1.17.10.5.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>These steps apply to <code class="literal">skuba</code> ≤ 1.3.5</p></div><p>Please update the Dex &amp; Gangway ConfigMap to use the same client secret.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl -n kube-system get configmap oidc-dex-config -o yaml &gt; oidc-dex-config.yaml
+kubectl -n kube-system get configmap oidc-gangway-config -o yaml &gt; oidc-gangway-config.yaml</pre></div><p>Make sure the oidc’s <code class="literal">secret</code> in <code class="literal">oidc-dex-config.yaml</code> is the same as the <code class="literal">clientSecret</code> in <code class="literal">oidc-gangway-config.yaml</code>.
+Then, apply the updated ConfigMap.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl replace -f oidc-dex-config.yaml
+kubectl replace -f oidc-gangway-config.yaml</pre></div></div><div class="sect2" id="id-versions-after-suse-caas-platform-4-2-2"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.7.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Versions after SUSE CaaS Platform 4.2.2</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-versions-after-suse-caas-platform-4-2-2">#</a></h3></div></div></div><div id="id-1.17.10.6.2" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>These steps apply to <code class="literal">skuba</code> ≥ 1.4.1</p></div><p>If you have configured Dex via a kustomize patch, please update your patch to use <code class="literal">secretEnv: OIDC_GANGWAY_CLIENT_SECRET</code>.
+Change your patch as follows, from:</p><div class="verbatim-wrap highlight yaml"><pre class="screen">- id: oidc
+  ...
+  name: 'OIDC'
+  secret: &lt;client-secret&gt;
+  trustedPeers:
+  - oidc-cli</pre></div><p>to</p><div class="verbatim-wrap highlight yaml"><pre class="screen">- id: oidc
+  ...
+  name: 'OIDC'
+  secretEnv: OIDC_GANGWAY_CLIENT_SECRET
+  trustedPeers:
+  - oidc-cli</pre></div><p>Dex &amp; Gangway will then use the same client secret.</p></div></div><div class="sect1" id="id-replacing-a-lost-node"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Replacing a Lost Node</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-replacing-a-lost-node">#</a></h2></div></div></div><p>If your cluster loses a node, for example due to failed hardware, remove the node as explained in <a class="xref" href="id-cluster-management.html#removing-nodes" title="2.4. Removing Nodes">Section 2.4, “Removing Nodes”</a>.
+Then add a new node as described in <a class="xref" href="id-cluster-management.html#adding-nodes" title="2.3. Adding Nodes">Section 2.3, “Adding Nodes”</a>.</p></div><div class="sect1" id="id-rebooting-an-undrained-node-with-rbd-volumes-mapped"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.9 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Rebooting an Undrained Node with RBD Volumes Mapped</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-rebooting-an-undrained-node-with-rbd-volumes-mapped">#</a></h2></div></div></div><p>Rebooting a cluster node always requires a preceding <code class="literal">drain</code>.
+In some cases, draining the nodes first might not be possible and some problem can occur during reboot if some RBD volumes are mapped to the nodes.</p><p>In this situation, apply the following steps.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Make sure kubelet and CRI-O are stopped:</p><div class="verbatim-wrap highlight bash"><pre class="screen">systemctl stop kubelet crio</pre></div></li><li class="listitem "><p>Unmount every RBD device <code class="literal">/dev/rbd*</code> before rebooting. For example:</p><div class="verbatim-wrap highlight bash"><pre class="screen">umount -vAf /dev/rbd0</pre></div></li></ol></div><p>If there are several device mounted, this little script can be used to avoid manual unmounting:</p><div class="verbatim-wrap highlight bash"><pre class="screen">#!/usr/bin/env bash
+
+while grep "rbd" /proc/mounts &gt; /dev/null 2&gt;&amp;1; do
+  for dev in $(lsblk -p -o NAME | grep "rbd"); do
+    if $(mountpoint -x $dev &gt; /dev/null 2&gt;&amp;1); then
+      echo "&gt;&gt;&gt; umounting $dev"
+      umount -vAf "$dev"
+    fi
+  done
+done</pre></div></div><div class="sect1" id="troubleshooting-etcd"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.10 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">ETCD Troubleshooting</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#troubleshooting-etcd">#</a></h2></div></div></div><div class="sect2" id="id-introduction-5"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.10.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Introduction</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-introduction-5">#</a></h3></div></div></div><p>This document aims to describe debugging an etcd cluster.</p><p>The required etcd logs are part of the <code class="literal">supportconfig</code>, a utility that collects all the required information for debugging a problem. The rest of the document provides information on how you can obtain these information manually.</p></div><div class="sect2" id="id-etcd-container"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.10.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">ETCD container</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-etcd-container">#</a></h3></div></div></div><p>ETCD is a distributed reliable key-value store for the most critical data of a distributed system. It is running <span class="strong"><strong>only on the master</strong></span> nodes in a form a container application. For instance, in a cluster with 3 master nodes, it is expected
+to have 3 etcd instances as well:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get pods -n kube-system -l component=etcd
+NAME                            READY   STATUS    RESTARTS   AGE
+etcd-vm072044.qa.prv.suse.net   1/1     Running   1          7d
+etcd-vm072050.qa.prv.suse.net   1/1     Running   1          7d
+etcd-vm073033.qa.prv.suse.net   1/1     Running   1          7d</pre></div><p>The specific configuration which <code class="literal">etcd</code> is using to start, is the following:</p><div class="verbatim-wrap highlight bash"><pre class="screen">etcd \
+      --advertise-client-urls=https://&lt;YOUR_MASTER_NODE_IP_ADDRESS&gt;:2379 \
+      --cert-file=/etc/kubernetes/pki/etcd/server.crt  \
+      --client-cert-auth=true --data-dir=/var/lib/etcd \
+      --initial-advertise-peer-urls=https://&lt;YOUR_MASTER_NODE_IP_ADDRESS&gt;:2380 \
+      --initial-cluster=vm072050.qa.prv.suse.net=https://&lt;YOUR_MASTER_NODE_IP_ADDRESS&gt;:2380 \
+      --key-file=/etc/kubernetes/pki/etcd/server.key \
+      --listen-client-urls=https://127.0.0.1:2379,https://&lt;YOUR_MASTER_NODE_IP_ADDRESS&gt;:2379 \
+      --listen-peer-urls=https://&lt;YOUR_MASTER_NODE_IP_ADDRESS&gt;:2380 \
+      --name=vm072050.qa.prv.suse.net \
+      --peer-cert-file=/etc/kubernetes/pki/etcd/peer.crt \
+      --peer-client-cert-auth=true \
+      --peer-key-file=/etc/kubernetes/pki/etcd/peer.key \
+      --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt \
+      --snapshot-count=10000 --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt</pre></div><div id="id-1.17.13.3.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>For more information related to ETCD, we <span class="strong"><strong>highly</strong></span> recommend you to read <a class="link" href="https://etcd.io/docs/v3.4.0/faq/" target="_blank">ETCD FAQ</a> page.</p></div></div><div class="sect2" id="id-logging-2"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.10.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">logging</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-logging-2">#</a></h3></div></div></div><p>Since <code class="literal">etcd</code> is running in a container, that means it is not controlled by <code class="literal">systemd</code>, thus any commands related to that (e.g. <code class="literal">journalctl</code>) will fail, therefore you need to use container debugging approach instead.</p><div id="id-1.17.13.4.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>To use the following commands, you need to connect (e.g. via SSH) to the master node where the etcd pod is running.</p></div><p>To see the <code class="literal">etcd</code> logs, connect to a Kubernetes master node and then run as root:</p><div class="verbatim-wrap highlight bash"><pre class="screen">ssh sles@&lt;MASTER_NODE&gt;
+sudo bash # connect as root
+etcdcontainer=$(crictl ps --label io.kubernetes.container.name=etcd --quiet)
+crictl logs -f $etcdcontainer</pre></div></div><div class="sect2" id="id-etcdctl"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.10.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">etcdctl</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-etcdctl">#</a></h3></div></div></div><p><code class="literal">etcdctl</code> is a command line client for <code class="literal">etcd</code>. The new version of SUSE CaaS Platform is using the <code class="literal">v3</code> API. For that, you need to make sure to set environment variable <code class="literal">ETCDCTL_API=3</code> before using it. Apart from that, you need to provide the required keys and certificates for authentication and authorization, via <code class="literal">ETCDCTL_CACERT</code>, <code class="literal">ETCDCTL_CERT</code> and <code class="literal">ETCDCTL_KEY</code> environment variables. Last but not least, you need to also specify the endpoint via <code class="literal">ETCDCTL_ENDPOINTS</code> environment variable.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>Example</strong></span></p><p>To find out if your network and disk latency are fast enough, you can benchmark your node using the <code class="literal">etcdctl check perf</code> command. To do this, frist connect to a Kubernetes master node:</p><div class="verbatim-wrap highlight bash"><pre class="screen">ssh sles@&lt;MASTER_NODE&gt;
+sudo bash # login as root</pre></div><p>and then run as root:</p><div class="verbatim-wrap highlight bash"><pre class="screen">etcdcontainer=$(crictl ps --label io.kubernetes.container.name=etcd --quiet)
+crictl exec $etcdcontainer sh -c \
+"ETCDCTL_ENDPOINTS='https://127.0.0.1:2379' \
+ETCDCTL_CACERT='/etc/kubernetes/pki/etcd/ca.crt' \
+ETCDCTL_CERT='/etc/kubernetes/pki/etcd/server.crt' \
+ETCDCTL_KEY='/etc/kubernetes/pki/etcd/server.key' \
+ETCDCTL_API=3 \
+etcdctl check perf"</pre></div></li></ul></div></div><div class="sect2" id="id-curl-as-an-alternative"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.10.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">curl as an alternative</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-curl-as-an-alternative">#</a></h3></div></div></div><p>For most of the <code class="literal">etcdctl</code> commands, there is an alternative way to fetch the same information via <code class="literal">curl</code>. First you need to connect to the master node and then issue a <code class="literal">curl</code> command against the ETCD endpoint. Here’s an example of the information which <code class="literal">supportconfig</code> is collecting:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Health check:</p></li></ul></div><div class="verbatim-wrap"><pre class="screen">sudo curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt \
+--key /etc/kubernetes/pki/etcd/server.key \
+--cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/health</pre></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Member list</p></li></ul></div><div class="verbatim-wrap"><pre class="screen">sudo curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt \
+--key /etc/kubernetes/pki/etcd/server.key \
+--cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/v2/members</pre></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Leader information</p></li></ul></div><div class="verbatim-wrap"><pre class="screen"># available only from the master node where ETCD **leader** runs
+sudo curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt \
+--key /etc/kubernetes/pki/etcd/server.key \
+--cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/v2/stats/leader</pre></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Current member information</p></li></ul></div><div class="verbatim-wrap"><pre class="screen">sudo curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt \
+--key /etc/kubernetes/pki/etcd/server.key \
+--cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/v2/stats/self</pre></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Statistics</p></li></ul></div><div class="verbatim-wrap"><pre class="screen">sudo curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt \
+--key /etc/kubernetes/pki/etcd/server.key \
+--cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/v2/stats/store</pre></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Metrics</p></li></ul></div><div class="verbatim-wrap"><pre class="screen">sudo curl -Ls --cacert /etc/kubernetes/pki/etcd/ca.crt \
+--key /etc/kubernetes/pki/etcd/server.key \
+--cert /etc/kubernetes/pki/etcd/server.crt https://localhost:2379/metrics</pre></div></div></div><div class="sect1" id="id-kubernetes-debugging-tips"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.11 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Kubernetes debugging tips</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-kubernetes-debugging-tips">#</a></h2></div></div></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>General guidelines and instructions:
+<a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/" target="_blank">https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/</a></p></li><li class="listitem "><p>Troubleshooting applications:
+<a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-application" target="_blank">https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-application</a></p></li><li class="listitem "><p>Troubleshooting clusters:
+<a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster" target="_blank">https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster</a></p></li><li class="listitem "><p>Debugging pods:
+<a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication-controller" target="_blank">https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication-controller</a></p></li><li class="listitem "><p>Debugging services:
+<a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-service" target="_blank">https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-service</a></p></li></ul></div></div><div class="sect1" id="id-aws-deployment-fails-with-cannot-attach-profile-error"><div class="titlepage"><div><div><h2 class="title"><span class="number">15.12 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">AWS Deployment fails with <code class="literal">cannot attach profile</code> error</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-aws-deployment-fails-with-cannot-attach-profile-error">#</a></h2></div></div></div><p>For SUSE CaaS Platform to be properly deployed, you need to have proper IAM role, role policy and instance profile set up in AWS.
+Under normal circumstances Terraform will be invoked by a user with suitable permissions during deployment and automatically create these profiles.
+If your access permissions on the AWS account forbid Terraform from creating the profiles automatically, they must be created before attempting deployment.</p><div class="sect2" id="id-create-iam-role-role-policy-and-instance-profile-through-aws-cli"><div class="titlepage"><div><div><h3 class="title"><span class="number">15.12.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Create IAM Role, Role Policy, and Instance Profile through AWS CLI</span> <a title="Permalink" class="permalink" href="id-troubleshooting-3.html#id-create-iam-role-role-policy-and-instance-profile-through-aws-cli">#</a></h3></div></div></div><p>Users who do not have permission to create IAM role, role policy, and instance profile using Terraform, devops should create them for you, using the instructions below:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><code class="literal">STACK_NAME</code>: Cluster Stack Name</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Install AWS CLI:</p><div class="verbatim-wrap"><pre class="screen">sudo zypper --gpg-auto-import-keys install -y aws-cli</pre></div></li><li class="listitem "><p>Setup AWS credentials:</p><div class="verbatim-wrap"><pre class="screen">aws configure</pre></div></li><li class="listitem "><p>Prepare role policy:</p><div class="verbatim-wrap"><pre class="screen">cat &lt;&lt;*EOF* &gt;"./&lt;STACK_NAME&gt;-trust-policy.json"
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+*EOF*</pre></div></li><li class="listitem "><p>Prepare master instance policy:</p><div class="verbatim-wrap"><pre class="screen">cat &lt;&lt;*EOF* &gt;"./&lt;STACK_NAME&gt;-master-role-trust-policy.json"
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:DescribeAutoScalingGroups",
+        "autoscaling:DescribeLaunchConfigurations",
+        "autoscaling:DescribeTags",
+        "ec2:DescribeInstances",
+        "ec2:DescribeRegions",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeVolumes",
+        "ec2:CreateSecurityGroup",
+        "ec2:CreateTags",
+        "ec2:CreateVolume",
+        "ec2:ModifyInstanceAttribute",
+        "ec2:ModifyVolume",
+        "ec2:AttachVolume",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:CreateRoute",
+        "ec2:DeleteRoute",
+        "ec2:DeleteSecurityGroup",
+        "ec2:DeleteVolume",
+        "ec2:DetachVolume",
+        "ec2:RevokeSecurityGroupIngress",
+        "ec2:DescribeVpcs",
+        "elasticloadbalancing:AddTags",
+        "elasticloadbalancing:AttachLoadBalancerToSubnets",
+        "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+        "elasticloadbalancing:CreateLoadBalancer",
+        "elasticloadbalancing:CreateLoadBalancerPolicy",
+        "elasticloadbalancing:CreateLoadBalancerListeners",
+        "elasticloadbalancing:ConfigureHealthCheck",
+        "elasticloadbalancing:DeleteLoadBalancer",
+        "elasticloadbalancing:DeleteLoadBalancerListeners",
+        "elasticloadbalancing:DescribeLoadBalancers",
+        "elasticloadbalancing:DescribeLoadBalancerAttributes",
+        "elasticloadbalancing:DetachLoadBalancerFromSubnets",
+        "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+        "elasticloadbalancing:ModifyLoadBalancerAttributes",
+        "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+        "elasticloadbalancing:SetLoadBalancerPoliciesForBackendServer",
+        "elasticloadbalancing:AddTags",
+        "elasticloadbalancing:CreateListener",
+        "elasticloadbalancing:CreateTargetGroup",
+        "elasticloadbalancing:DeleteListener",
+        "elasticloadbalancing:DeleteTargetGroup",
+        "elasticloadbalancing:DescribeListeners",
+        "elasticloadbalancing:DescribeLoadBalancerPolicies",
+        "elasticloadbalancing:DescribeTargetGroups",
+        "elasticloadbalancing:DescribeTargetHealth",
+        "elasticloadbalancing:ModifyListener",
+        "elasticloadbalancing:ModifyTargetGroup",
+        "elasticloadbalancing:RegisterTargets",
+        "elasticloadbalancing:SetLoadBalancerPoliciesOfListener",
+        "iam:CreateServiceLinkedRole",
+        "kms:DescribeKey"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+*EOF*</pre></div></li><li class="listitem "><p>Prepare worker instance policy:</p><div class="verbatim-wrap"><pre class="screen">cat &lt;&lt;*EOF* &gt;"./&lt;STACK_NAME&gt;-worker-role-trust-policy.json"
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeRegions",
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetRepositoryPolicy",
+        "ecr:DescribeRepositories",
+        "ecr:ListImages",
+        "ecr:BatchGetImage"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+*EOF*</pre></div></li><li class="listitem "><p>Create roles:</p><div class="verbatim-wrap"><pre class="screen">aws iam create-role --role-name &lt;STACK_NAME&gt;_cpi_master --assume-role-policy-document file://&lt;FILE_DIRECTORY&gt;/&lt;STACK_NAME&gt;-trust-policy.json
+aws iam create-role --role-name &lt;STACK_NAME&gt;_cpi_worker --assume-role-policy-document file://&lt;FILE_DIRECTORY&gt;/&lt;STACK_NAME&gt;-trust-policy.json</pre></div></li><li class="listitem "><p>Create instance role policies:</p><div class="verbatim-wrap"><pre class="screen">aws iam put-role-policy --role-name &lt;STACK_NAME&gt;_cpi_master --policy-name &lt;STACK_NAME&gt;_cpi_master --policy-document file://&lt;FILE_DIRECTORY&gt;/&lt;STACK_NAME&gt;-master-role-trust-policy.json
+aws iam put-role-policy --role-name &lt;STACK_NAME&gt;_cpi_worker --policy-name &lt;STACK_NAME&gt;_cpi_worker --policy-document file://&lt;FILE_DIRECTORY&gt;/&lt;STACK_NAME&gt;-worker-role-trust-policy.json</pre></div></li><li class="listitem "><p>Create instance profiles:</p><div class="verbatim-wrap"><pre class="screen">aws iam create-instance-profile --instance-profile-name &lt;STACK_NAME&gt;_cpi_master
+aws iam create-instance-profile --instance-profile-name &lt;STACK_NAME&gt;_cpi_worker</pre></div></li><li class="listitem "><p>Add role to instance profiles:</p><div class="verbatim-wrap"><pre class="screen">aws iam add-role-to-instance-profile --role-name &lt;STACK_NAME&gt;_cpi_master --instance-profile-name &lt;STACK_NAME&gt;_cpi_master
+aws iam add-role-to-instance-profile --role-name &lt;STACK_NAME&gt;_cpi_worker --instance-profile-name &lt;STACK_NAME&gt;_cpi_worker</pre></div></li></ol></div></li></ul></div></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="id-glossary.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 16 </span>Glossary</span></a><a class="nav-link" href="id-miscellaneous.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 14 </span>Miscellaneous</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2021 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>

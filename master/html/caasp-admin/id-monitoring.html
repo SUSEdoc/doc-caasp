@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Monitoring | Administration Guide | SUSE CaaS Platform 4.5.2</title><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" /><link rel="stylesheet" type="text/css" href="static/css/style.css" /><link rel="stylesheet" type="text/css" href="static/css/highlight.css" /><meta name="generator" content="DAPS 3.2.0 (https://opensuse.github.io/daps) using SUSE XSL Stylesheets 2.81.0 (based on DocBook XSL Stylesheets 1.79.2) - chunked" /><meta name="product-name" content="SUSE CaaS Platform" /><meta name="product-number" content="4.5.2" /><meta name="book-title" content="Administration Guide" /><meta name="chapter-title" content="Chapter 8. Monitoring" /><meta name="description" content="The described monitoring approach in this document is a generalized example of one way of monitoring a SUSE CaaS Platform cluster." /><meta name="tracker-url" content="https://github.com/SUSE/doc-caasp/issues/new" /><meta name="tracker-type" content="gh" /><meta name="tracker-gh-labels" content="AdminGuide" /><link rel="home" href="index.html" title="Administration Guide" /><link rel="up" href="index.html" title="Administration Guide" /><link rel="prev" href="id-logging.html" title="Chapter 7. Logging" /><link rel="next" href="id-storage.html" title="Chapter 9. Storage" />
+<script type="text/javascript">
+
+if ( window.location.protocol.toLowerCase() != 'file:' ) {
+  document.write('<link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css"></link>');
+}
+else {
+  document.write('<link rel="stylesheet" type="text/css" href="static/css/fonts-onlylocal.css"></link>');
+}
+
+</script><noscript><link rel="stylesheet" type="text/css" href="https://static.opensuse.org/fonts/fonts.css" /></noscript><script src="static/js/jquery-1.10.2.min.js" type="text/javascript"></script><script src="static/js/script.js" type="text/javascript"></script><script src="static/js/highlight.min.js" type="text/javascript"></script><script>
+
+$(document).ready(function() {
+  $('.verbatim-wrap.highlight').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+hljs.configure({
+  useBR: false
+});
+
+</script></head><body class="draft offline js-off" onload="$('#betawarn-button-wrap').toggle();if (document.cookie.length > 0) {if (document.cookie.indexOf('betawarn=closed') != -1){$('#betawarn').toggle()}};"><div id="betawarn" style="position:fixed;bottom:0;z-index:9025;background-color:#FDE8E8;padding:1em;margin-left:10%;margin-right:10%;display:block;border-top:.75em solid #E11;width:80%"><p style="color:#333;margin:1em 0;padding:0;">This is a draft document that was built and uploaded automatically. It may document beta software and be incomplete or even incorrect. <strong>Use this document at your own risk.</strong></p> <div id="betawarn-button-wrap" style="display:none;margin:0;padding:0;"><a href="#" onclick="$('#betawarn').toggle();var d=new Date();d.setTime(d.getTime()+(0.5*24*60*60*1000));document.cookie='betawarn=closed; expires='+d.toUTCString()+'; path=/'; return false;" style="color:#333;text-decoration:underline;float:left;margin-top:.5em;padding:1em;display:block;background-color:#FABEBE;">I understand this is a draft</a></div></div><div class="bypass-block"><a href="#_content">Jump to content</a><a href="#_bottom-navigation">Jump to page navigation: previous page [access key p]/next page [access key n]</a></div><div id="_outer-wrap"><div id="_white-bg" style="background-color: #E11;"><div id="_header"><div id="_logo"><img src="static/images/logo.png" alt="Logo" /></div><div class="crumbs"><a class="book-link" href="index.html" title="Administration Guide"><span class="book-icon">Administration Guide</span></a><span> › </span><a class="crumb" href="id-monitoring.html">Monitoring</a></div><div class="clearme"></div></div></div><div id="_toolbar-wrap"><div id="_toolbar"><div id="_toc-area" class="inactive"><a id="_toc-area-button" class="tool" title="Contents" accesskey="c" href="index.html"><span class="tool-spacer"><span class="toc-icon">Contents</span><span class="clearme"></span></span><span class="tool-label">Contents</span></a><div class="active-contents bubble-corner"></div><div class="active-contents bubble"><div class="bubble-container"><h6>Administration Guide</h6><div id="_bubble-toc"><ol><li class="inactive"><a href="pr01.html"><span class="number"> </span><span class="name"></span></a></li><li class="inactive"><a href="id-about-this-guide.html"><span class="number">1 </span><span class="name">About This Guide</span></a></li><li class="inactive"><a href="id-cluster-management.html"><span class="number">2 </span><span class="name">Cluster Management</span></a></li><li class="inactive"><a href="id-software-management.html"><span class="number">3 </span><span class="name">Software Management</span></a></li><li class="inactive"><a href="id-cluster-updates.html"><span class="number">4 </span><span class="name">Cluster Updates</span></a></li><li class="inactive"><a href="id-upgrading-suse-caas-platform.html"><span class="number">5 </span><span class="name">Upgrading SUSE CaaS Platform</span></a></li><li class="inactive"><a href="id-security.html"><span class="number">6 </span><span class="name">Security</span></a></li><li class="inactive"><a href="id-logging.html"><span class="number">7 </span><span class="name">Logging</span></a></li><li class="inactive"><a href="id-monitoring.html"><span class="number">8 </span><span class="name">Monitoring</span></a></li><li class="inactive"><a href="id-storage.html"><span class="number">9 </span><span class="name">Storage</span></a></li><li class="inactive"><a href="id-integration.html"><span class="number">10 </span><span class="name">Integration</span></a></li><li class="inactive"><a href="id-gpu-dependent-workloads.html"><span class="number">11 </span><span class="name">GPU-Dependent Workloads</span></a></li><li class="inactive"><a href="id-cluster-disaster-recovery.html"><span class="number">12 </span><span class="name">Cluster Disaster Recovery</span></a></li><li class="inactive"><a href="backup-and-restore-with-velero.html"><span class="number">13 </span><span class="name">Backup and Restore with Velero</span></a></li><li class="inactive"><a href="id-miscellaneous.html"><span class="number">14 </span><span class="name">Miscellaneous</span></a></li><li class="inactive"><a href="id-troubleshooting-3.html"><span class="number">15 </span><span class="name">Troubleshooting</span></a></li><li class="inactive"><a href="id-glossary.html"><span class="number">16 </span><span class="name">Glossary</span></a></li><li class="inactive"><a href="id-contributors.html"><span class="number">A </span><span class="name">Contributors</span></a></li><li class="inactive"><a href="id-gnu-licenses.html"><span class="number">B </span><span class="name">GNU Licenses</span></a></li></ol></div><div class="clearme"></div></div></div></div><div id="_nav-area" class="inactive"><div class="tool"><span class="nav-inner"><span class="tool-label">Navigation</span><a accesskey="p" class="tool-spacer" title="Chapter 7. Logging" href="id-logging.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 9. Storage" href="id-storage.html"><span class="next-icon">→</span></a></span></div></div></div></div><div id="_fixed-header-wrap" style="background-color: #E11;" class="inactive"><div id="_fixed-header"><div class="crumbs"><a class="book-link" href="index.html" title="Administration Guide"><span class="book-icon">Administration Guide</span></a><span> › </span><a class="crumb" href="id-monitoring.html">Monitoring</a></div><div class="buttons"><a class="top-button button" href="#">Top</a><div class="button"><a accesskey="p" class="tool-spacer" title="Chapter 7. Logging" href="id-logging.html"><span class="prev-icon">←</span></a><a accesskey="n" class="tool-spacer" title="Chapter 9. Storage" href="id-storage.html"><span class="next-icon">→</span></a></div><div class="clearme"></div></div><div class="clearme"></div></div></div><div id="_content" class="draft "><div class="documentation"><div class="chapter " id="id-monitoring"><div class="titlepage"><div><div class="version-info">Applies to  <span class="productname ">SUSE CaaS Platform</span> <span class="productnumber ">4.5.2</span></div><div><h1 class="title"><span class="number">8 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Monitoring</span> <a title="Permalink" class="permalink" href="id-monitoring.html#">#</a></h1></div></div></div><div class="line"><div class="toc"><dl><dt><span class="section"><a href="id-monitoring.html#monitoring-stack"><span class="number">8.1 </span><span class="name">Monitoring Stack</span></a></span></dt><dt><span class="section"><a href="id-monitoring.html#id-health-checks"><span class="number">8.2 </span><span class="name">Health Checks</span></a></span></dt><dt><span class="section"><a href="id-monitoring.html#horizontal-pod-autoscaler"><span class="number">8.3 </span><span class="name">Horizontal Pod Autoscaler</span></a></span></dt><dt><span class="section"><a href="id-monitoring.html#id-stratos-web-console"><span class="number">8.4 </span><span class="name">Stratos Web Console</span></a></span></dt></dl></div></div><div class="sect1" id="monitoring-stack"><div class="titlepage"><div><div><h2 class="title"><span class="number">8.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Monitoring Stack</span> <a title="Permalink" class="permalink" href="id-monitoring.html#monitoring-stack">#</a></h2></div></div></div><div id="id-1.10.2.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>The described monitoring approach in this document is a generalized example of one way of monitoring a SUSE CaaS Platform cluster.</p><p>Please apply best practices to develop your own monitoring approach using the described examples and available health checking endpoints.</p></div><div class="sect2" id="id-introduction-3"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Introduction</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-introduction-3">#</a></h3></div></div></div><p>This document aims to describe monitoring in a Kubernetes cluster.</p><p>The monitoring stack consists of a monitoring/trending system and a visualization platform.
+Additionally you can use the in-memory metrics-server to perform automatic scaling (Refer to: <a class="xref" href="id-monitoring.html#horizontal-pod-autoscaler" title="8.3. Horizontal Pod Autoscaler">Section 8.3, “Horizontal Pod Autoscaler”</a>).</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>Prometheus</strong></span></p><p>Prometheus is an open-source monitoring and trending system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
+The time series collection happens via a pull mode over HTTP.</p><p>Prometheus consists of multiple components:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Prometheus server: scrapes and stores data to time series database</p></li><li class="listitem "><p><a class="link" href="https://prometheus.io/docs/alerting/alertmanager/" target="_blank">Alertmanager</a> handles client alerts, sanitizes duplicates and noise and routes them to configurable receivers.</p></li><li class="listitem "><p><a class="link" href="https://prometheus.io/docs/practices/pushing/" target="_blank">Pushgateway</a> is an intermediate service which allows you to push metrics from jobs which cannot be scraped.</p></li></ul></div><div id="id-1.10.2.3.4.1.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>Deploying Prometheus <a class="link" href="https://prometheus.io/docs/practices/pushing/" target="_blank">Pushgateway</a> is out of the scope of this document.</p></div><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><a class="link" href="https://prometheus.io/docs/instrumenting/exporters/" target="_blank">Exporters</a> are libraries which help to exports existing metrics from 3rd-party system as Prometheus metric.</p></li></ul></div></li><li class="listitem "><p><span class="strong"><strong>Grafana</strong></span></p><p>Grafana is an open-source system for querying, analysing and visualizing metrics.</p></li></ul></div></div><div class="sect2" id="id-prerequisites-4"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prerequisites</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-prerequisites-4">#</a></h3></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>NGINX Ingress Controller</p><p>Please refer to <a class="xref" href="id-security.html#nginx-ingress" title="6.8. NGINX Ingress Controller">Section 6.8, “NGINX Ingress Controller”</a> on how to configure ingress in your cluster.
+Deploying NGINX Ingress Controller also allows us to provide TLS termination to our services and to provide basic authentication to the Prometheus Expression browser/API.</p></li><li class="listitem "><p>Monitoring namespace</p><p>We will deploy our monitoring stack in its own namespace and therefore create one.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace monitoring</pre></div></li><li class="listitem "><p>Configure Authentication</p><p>We need to create a <code class="literal">basic-auth</code> secret so the NGINX Ingress Controller can perform authentication.</p><p>Install <code class="literal">apache2-utils</code>, which contains <code class="literal">htpasswd</code>, on your local workstation.</p><div class="verbatim-wrap highlight bash"><pre class="screen">zypper in apache2-utils</pre></div><p>Create the secret file <code class="literal">auth</code></p><div class="verbatim-wrap highlight bash"><pre class="screen">htpasswd -c auth admin
+New password:
+Re-type new password:
+Adding password for user admin</pre></div><div id="id-1.10.2.4.2.3.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>It is very important that the filename is <code class="literal">auth</code>.
+During creation, a key in the configuration containing the secret is created that is named after the used filename.
+The ingress controller will expect a key named <code class="literal">auth</code>. And when you access the monitoring WebUI, you need to enter the username and password.</p></div><p>Create secret in Kubernetes cluster</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create secret generic -n monitoring prometheus-basic-auth --from-file=auth</pre></div></li></ol></div></div><div class="sect2" id="id-installation"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.1.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Installation</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-installation">#</a></h3></div></div></div><p>There will be two different ways of using ingress for accessing the monitoring system.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><a class="xref" href="id-monitoring.html#installation-for-subdomains" title="8.1.3.1. Installation For Subdomains">Section 8.1.3.1, “Installation For Subdomains”</a>: Using <code class="literal">subdomains</code> for accessing monitoring system such as <code class="literal">prometheus.example.com</code>, <code class="literal">prometheus-alertmanager.example.com</code>, and <code class="literal">grafana.example.com</code>.</p></li><li class="listitem "><p><a class="xref" href="id-monitoring.html#installation-for-subpaths" title="8.1.3.3. Installation For Subpaths">Section 8.1.3.3, “Installation For Subpaths”</a>: Using <code class="literal">subpaths</code> for accessing monitoring system such as <code class="literal">example.com/prometheus</code>, <code class="literal">example.com/alertmanager</code>, and <code class="literal">example.com/grafana</code>.</p></li></ul></div><div class="sect3" id="installation-for-subdomains"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.1.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Installation For Subdomains</span> <a title="Permalink" class="permalink" href="id-monitoring.html#installation-for-subdomains">#</a></h4></div></div></div><p>This installation example shows how to install and configure Prometheus and Grafana using subdomains such as <code class="literal">prometheus.example.com</code>, <code class="literal">prometheus-alertmanager.example.com</code>, and <code class="literal">grafana.example.com</code>.</p><div id="id-1.10.2.5.4.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>In order to provide additional security by using TLS certificates, please make sure you have the <a class="xref" href="id-security.html#nginx-ingress" title="6.8. NGINX Ingress Controller">Section 6.8, “NGINX Ingress Controller”</a> installed and configured.</p><p>If you don’t need TLS, you may use other methods for exposing these web services as native <code class="literal">LBaaS</code> in OpenStack, haproxy service or k8s native methods as port-forwarding or NodePort but this is out of scope of this document.</p></div></div><div class="sect3" id="id-create-dns-entries-2"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.1.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Create DNS entries</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-create-dns-entries-2">#</a></h4></div></div></div><p>In this example, we will use a master node with IP <code class="literal">10.86.4.158</code> in the case of NodePort service of the Ingress Controller.</p><div id="id-1.10.2.5.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>You should configure proper DNS names in any production environment.
+These values are only for example purposes.</p></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Configure the DNS server</p><div class="verbatim-wrap"><pre class="screen">monitoring.example.com                      IN  A       10.86.4.158
+prometheus.example.com                      IN  CNAME   monitoring.example.com
+prometheus-alertmanager.example.com         IN  CNAME   monitoring.example.com
+grafana.example.com                         IN  CNAME   monitoring.example.com</pre></div></li><li class="listitem "><p>Configure the management workstation <code class="literal">/etc/hosts</code> (optional)</p><div class="verbatim-wrap"><pre class="screen">10.86.4.158 prometheus.example.com prometheus-alertmanager.example.com grafana.example.com</pre></div></li></ol></div><div class="sect4" id="id-tls-certificate"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">TLS Certificate</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-tls-certificate">#</a></h5></div></div></div><p>You must configure your certificates for the components as secrets in the Kubernetes cluster.
+Get certificates from your certificate authority.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Individual certificate</p><p>Single-name TLS certificate protects a single sub-domain, and it means each sub-domain owns its private key. From the security perspective, it is recommended to use individual certificates. However, you have to manage the private key and the certificate rotation separately.</p><div id="id-1.10.2.5.5.5.3.1.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important: Note Down Secret Names For Configuration</h6><p>When you choose to secure each service with an individual certificate, you must repeat the step below for each component and adjust the name for the individual secret each time. Please note down the names of the secrets you have created.</p><p>In this example, the secret name is <code class="literal">monitoring-tls</code>.</p></div></li><li class="listitem "><p>Wildcard certificate</p><p>Wildcard TLS allows you to secure multiple sub-domains with one certificate and it means multiple sub-domains share the same private key. You can then add more sub-domains without having to redeploy the certificate and moreover, save the additional certificate costs.</p></li></ol></div><p>Refer to <a class="xref" href="id-security.html#trusted-server-certificate" title="6.9.9.1.1. Trusted Server Certificate">Section 6.9.9.1.1, “Trusted Server Certificate”</a> on how to sign the trusted certificate or refer to <a class="xref" href="id-security.html#self-signed-server-certificate" title="6.9.9.2.2. Self-signed Server Certificate">Section 6.9.9.2.2, “Self-signed Server Certificate”</a> on how to sign the self-signed certificate. The <code class="literal">server.conf</code> for DNS.1 is <code class="literal">prometheus.example.com</code> and <code class="literal">prometheus-alertmanager.example.com</code> <code class="literal">grafana.example.com</code> for individual certificates separately. The <code class="literal">server.conf</code> for DNS.1 is <code class="literal">*.example.com</code> for a wildcard certificate.</p><p>Then, import your certificate and key pair into the Kubernetes cluster secret name <code class="literal">monitoring-tls</code>. In this example, the certificate and key are <code class="literal">monitoring.crt</code> and <code class="literal">monitoring.key</code>.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create -n monitoring secret tls monitoring-tls  \
+--key  ./monitoring.key \
+--cert ./monitoring.crt</pre></div></div><div class="sect4" id="id-prometheus"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prometheus</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-prometheus">#</a></h5></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Create a configuration file <code class="literal">prometheus-config-values.yaml</code></p><p>We need to configure the storage for our deployment.
+Choose among the options and uncomment the line in the config file.
+In production environments you must configure persistent storage.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Use an existing <code class="literal">PersistentVolumeClaim</code></p></li><li class="listitem "><p>Use a <code class="literal">StorageClass</code> (preferred)</p></li></ul></div><div class="verbatim-wrap"><pre class="screen"># Alertmanager configuration
+alertmanager:
+  enabled: true
+  ingress:
+    enabled: true
+    hosts:
+    -  prometheus-alertmanager.example.com
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/auth-type: basic
+      nginx.ingress.kubernetes.io/auth-secret: prometheus-basic-auth
+      nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+    tls:
+      - hosts:
+        - prometheus-alertmanager.example.com
+        secretName: monitoring-tls
+  persistentVolume:
+    enabled: true
+    ## Use a StorageClass
+    storageClass: my-storage-class
+    ## Create a PersistentVolumeClaim of 2Gi
+    size: 2Gi
+    ## Use an existing PersistentVolumeClaim (my-pvc)
+    #existingClaim: my-pvc
+
+## Alertmanager is configured through alertmanager.yml. This file and any others
+## listed in alertmanagerFiles will be mounted into the alertmanager pod.
+## See configuration options https://prometheus.io/docs/alerting/configuration/
+#alertmanagerFiles:
+#  alertmanager.yml:
+
+# Create a specific service account
+serviceAccounts:
+  nodeExporter:
+    name: prometheus-node-exporter
+
+# Node tolerations for node-exporter scheduling to nodes with taints
+# Allow scheduling of node-exporter on master nodes
+nodeExporter:
+  hostNetwork: false
+  hostPID: false
+  podSecurityPolicy:
+    enabled: true
+    annotations:
+      apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+      apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
+      seccomp.security.alpha.kubernetes.io/allowedProfileNames: runtime/default
+      seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
+  tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
+
+# Disable Pushgateway
+pushgateway:
+  enabled: false
+
+# Prometheus configuration
+server:
+  ingress:
+    enabled: true
+    hosts:
+    - prometheus.example.com
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/auth-type: basic
+      nginx.ingress.kubernetes.io/auth-secret: prometheus-basic-auth
+      nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+    tls:
+      - hosts:
+        - prometheus.example.com
+        secretName: monitoring-tls
+  persistentVolume:
+    enabled: true
+    ## Use a StorageClass
+    storageClass: my-storage-class
+    ## Create a PersistentVolumeClaim of 8Gi
+    size: 8Gi
+    ## Use an existing PersistentVolumeClaim (my-pvc)
+    #existingClaim: my-pvc
+
+## Prometheus is configured through prometheus.yml. This file and any others
+## listed in serverFiles will be mounted into the server pod.
+## See configuration options
+## https://prometheus.io/docs/prometheus/latest/configuration/configuration/
+#serverFiles:
+#  prometheus.yml:</pre></div></li><li class="listitem "><p>Add SUSE helm charts repository</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm repo add suse https://kubernetes-charts.suse.com</pre></div></li><li class="listitem "><p>Deploy SUSE <code class="literal">prometheus</code> helm chart and pass our configuration values file.</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install prometheus suse/prometheus \
+--namespace monitoring \
+--values prometheus-config-values.yaml</pre></div><p>There need to be 3 pods running (3 node-exporter pods because we have 3 nodes).</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl -n monitoring get pod | grep prometheus
+NAME                                             READY     STATUS    RESTARTS   AGE
+prometheus-alertmanager-5487596d54-kcdd6         2/2       Running   0          2m
+prometheus-kube-state-metrics-566669df8c-krblx   1/1       Running   0          2m
+prometheus-node-exporter-jnc5w                   1/1       Running   0          2m
+prometheus-node-exporter-qfwp9                   1/1       Running   0          2m
+prometheus-node-exporter-sc4ls                   1/1       Running   0          2m
+prometheus-server-6488f6c4cd-5n9w8               2/2       Running   0          2m</pre></div><p>There need to be be 2 ingresses configured</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get ingress -n monitoring
+NAME                      HOSTS                                 ADDRESS   PORTS     AGE
+prometheus-alertmanager   prometheus-alertmanager.example.com             80, 443   87s
+prometheus-server         prometheus.example.com                          80, 443   87s</pre></div></li><li class="listitem "><p>At this stage, the Prometheus Expression browser/API should be accessible, depending on your network configuration</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>NodePort</strong></span>: <code class="literal">https://prometheus.example.com:32443</code></p></li><li class="listitem "><p><span class="strong"><strong>External IPs</strong></span>: <code class="literal">https://prometheus.example.com</code></p></li><li class="listitem "><p><span class="strong"><strong>LoadBalancer</strong></span>: <code class="literal">https://prometheus.example.com</code></p></li></ul></div></li></ol></div></div><div class="sect4" id="alertmanager-configuration-example"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Alertmanager Configuration Example</span> <a title="Permalink" class="permalink" href="id-monitoring.html#alertmanager-configuration-example">#</a></h5></div></div></div><p>The configuration example sets one "receiver" to get notified by email when one of below conditions is met:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Node is unschedulable: severity is <code class="literal">critical</code> because the node cannot accept new pods</p></li><li class="listitem "><p>Node runs out of disk space: severity is <code class="literal">critical</code> because the node cannot accept new pods</p></li><li class="listitem "><p>Node has memory pressure: severity is <code class="literal">warning</code></p></li><li class="listitem "><p>Node has disk pressure: severity is <code class="literal">warning</code></p></li><li class="listitem "><p>Certificates is going to expire in 7 days: severity is <code class="literal">critical</code></p></li><li class="listitem "><p>Certificates is going to expire in 30 days: severity is <code class="literal">warning</code></p></li><li class="listitem "><p>Certificates is going to expire in 3 months: severity is <code class="literal">info</code></p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Configure alerting receiver in Alertmanager</p><p>The Alertmanager handles alerts sent by Prometheus server, it takes care of deduplicating, grouping, and routing them to the correct receiver integration such as email. It also takes care of silencing and inhibition of alerts.</p><p>Add the <code class="literal">alertmanagerFiles</code> section to your Prometheus configuration file <code class="literal">prometheus-config-values.yaml</code>.</p><p>For more information on how to configure Alertmanager, refer to <a class="link" href="https://prometheus.io/docs/alerting/configuration" target="_blank">Prometheus: Alerting - Configuration</a>.</p><div class="verbatim-wrap"><pre class="screen">alertmanagerFiles:
+  alertmanager.yml:
+    global:
+      # The smarthost and SMTP sender used for mail notifications.
+      smtp_from: alertmanager@example.com
+      smtp_smarthost: smtp.example.com:587
+      smtp_auth_username: admin@example.com
+      smtp_auth_password: &lt;PASSWORD&gt;
+      smtp_require_tls: true
+
+    route:
+      # The labels by which incoming alerts are grouped together.
+      group_by: ['node']
+
+      # When a new group of alerts is created by an incoming alert, wait at
+      # least 'group_wait' to send the initial notification.
+      # This way ensures that you get multiple alerts for the same group that start
+      # firing shortly after another are batched together on the first
+      # notification.
+      group_wait: 30s
+
+      # When the first notification was sent, wait 'group_interval' to send a batch
+      # of new alerts that started firing for that group.
+      group_interval: 5m
+
+      # If an alert has successfully been sent, wait 'repeat_interval' to
+      # resend them.
+      repeat_interval: 3h
+
+      # A default receiver
+      receiver: admin-example
+
+    receivers:
+    - name: 'admin-example'
+      email_configs:
+      - to: 'admin@example.com'</pre></div></li><li class="listitem "><p>Configures alerting rules in Prometheus server</p><p>Replace the <code class="literal">serverFiles</code> section of the Prometheus configuration file <code class="literal">prometheus-config-values.yaml</code>.</p><p>For more information on how to configure alerts, refer to: <a class="link" href="https://prometheus.io/docs/alerting/notification_examples/" target="_blank">Prometheus: Alerting - Notification Template Examples</a></p><div class="verbatim-wrap"><pre class="screen">serverFiles:
+  alerts: {}
+  rules:
+    groups:
+    - name: caasp.node.rules
+      rules:
+      - alert: NodeIsNotReady
+        expr: kube_node_status_condition{condition="Ready",status="false"} == 1 or kube_node_status_condition{condition="Ready",status="unknown"} == 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          description: '{{ $labels.node }} is not ready'
+      - alert: NodeIsOutOfDisk
+        expr: kube_node_status_condition{condition="OutOfDisk",status="true"} == 1
+        labels:
+          severity: critical
+        annotations:
+          description: '{{ $labels.node }} has insufficient free disk space'
+      - alert: NodeHasDiskPressure
+        expr: kube_node_status_condition{condition="DiskPressure",status="true"} == 1
+        labels:
+          severity: warning
+        annotations:
+          description: '{{ $labels.node }} has insufficient available disk space'
+      - alert: NodeHasInsufficientMemory
+        expr: kube_node_status_condition{condition="MemoryPressure",status="true"} == 1
+        labels:
+          severity: warning
+        annotations:
+          description: '{{ $labels.node }} has insufficient available memory'
+    - name: caasp.certs.rules
+      rules:
+      - alert: KubernetesCertificateExpiry3Months
+        expr: (cert_exporter_cert_expires_in_seconds / 86400) &lt; 90
+        labels:
+          severity: info
+        annotations:
+          description: 'The cert for {{ $labels.filename }} on {{ $labels.nodename }} node is going to expire in 3 months'
+      - alert: KubernetesCertificateExpiry30Days
+        expr: (cert_exporter_cert_expires_in_seconds / 86400) &lt; 30
+        labels:
+          severity: warning
+        annotations:
+          description: 'The cert for {{ $labels.filename }} on {{ $labels.nodename }} node is going to expire in 30 days'
+      - alert: KubernetesCertificateExpiry7Days
+        expr: (cert_exporter_cert_expires_in_seconds / 86400) &lt; 7
+        labels:
+          severity: critical
+        annotations:
+          description: 'The cert for {{ $labels.filename }} on {{ $labels.nodename }} node is going to expire in 7 days'
+      - alert: KubeconfigCertificateExpiry3Months
+        expr: (cert_exporter_kubeconfig_expires_in_seconds / 86400) &lt; 90
+        labels:
+          severity: info
+        annotations:
+          description: 'The cert for {{ $labels.filename }} on {{ $labels.nodename }} node is going to expire in 3 months'
+      - alert: KubeconfigCertificateExpiry30Days
+        expr: (cert_exporter_kubeconfig_expires_in_seconds / 86400) &lt; 30
+        labels:
+          severity: warning
+        annotations:
+          description: 'The cert for {{ $labels.filename }} on {{ $labels.nodename }} node is going to expire in 30 days'
+      - alert: KubeconfigCertificateExpiry7Days
+        expr: (cert_exporter_kubeconfig_expires_in_seconds / 86400) &lt; 7
+        labels:
+          severity: critical
+        annotations:
+          description: 'The cert for {{ $labels.filename }} on {{ $labels.nodename }} node is going to expire in 7 days'
+      - alert: AddonCertificateExpiry3Months
+        expr: (cert_exporter_secret_expires_in_seconds / 86400) &lt; 90
+        labels:
+          severity: info
+        annotations:
+          description: 'The cert for {{ $labels.secret_name }} is going to expire in 3 months'
+      - alert: AddonCertificateExpiry30Days
+        expr: (cert_exporter_secret_expires_in_seconds / 86400) &lt; 30
+        labels:
+          severity: warning
+        annotations:
+          description: 'The cert for {{ $labels.secret_name }} is going to expire in 30 days'
+      - alert: AddonCertificateExpiry7Days
+        expr: (cert_exporter_secret_expires_in_seconds / 86400) &lt; 7
+        labels:
+          severity: critical
+        annotations:
+          description: 'The cert for {{ $labels.secret_name }} is going to expire in 7 days'</pre></div></li><li class="listitem "><p>To apply the changed configuration, run:</p><div class="verbatim-wrap"><pre class="screen">helm upgrade prometheus suse/prometheus --namespace monitoring --values prometheus-config-values.yaml</pre></div></li><li class="listitem "><p>You should now be able to see your Alertmanager, depending on your network configuration</p></li></ol></div></li><li class="listitem "><p><span class="strong"><strong>NodePort</strong></span>: <code class="literal">https://prometheus-alertmanager.example.com:32443</code></p></li><li class="listitem "><p><span class="strong"><strong>External IPs</strong></span>: <code class="literal">https://prometheus-alertmanager.example.com</code></p></li><li class="listitem "><p><span class="strong"><strong>LoadBalancer</strong></span>: <code class="literal">https://prometheus-alertmanager.example.com</code></p></li></ul></div></div><div class="sect4" id="recording-rules-configuration-example"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Recording Rules Configuration Example</span> <a title="Permalink" class="permalink" href="id-monitoring.html#recording-rules-configuration-example">#</a></h5></div></div></div><p>Recording rules allow you to precompute frequently needed or computationally
+expensive expressions and save their result as a new set of time series.
+Querying the precomputed result will then often be much faster than executing
+the original expression every time it is needed. This is especially useful for
+dashboards, which need to query the same expression repeatedly every time they
+refresh. Another common use case is federation where precomputed metrics are
+scraped from one Prometheus instance by another.</p><p>For more information on how to configure recording rules, refer to
+<a class="link" href="https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/#recording-rules" target="_blank">Prometheus:Recording Rules - Configuration</a>.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Configuring recording rules</p><p>Add the following group of rules in the <code class="literal">serverFiles</code> section of the <code class="literal">prometheus-config-values.yaml</code> configuration file.</p><div class="verbatim-wrap"><pre class="screen">serverFiles:
+  alerts: {}
+  rules:
+    groups:
+    - name: node-exporter.rules
+      rules:
+      - expr: count by (instance) (count without (mode) (node_cpu_seconds_total{component="node-exporter"}))
+        record: instance:node_num_cpu:sum
+      - expr: 1 - avg by (instance) (rate(node_cpu_seconds_total{component="node-exporter",mode="idle"}[5m]))
+        record: instance:node_cpu_utilisation:rate5m
+      - expr: node_load1{component="node-exporter"} / on (instance) instance:node_num_cpu:sum
+        record: instance:node_load1_per_cpu:ratio
+      - expr: node_memory_MemAvailable_bytes / on (instance) node_memory_MemTotal_bytes
+        record: instance:node_memory_utilisation:ratio
+      - expr: rate(node_vmstat_pgmajfault{component="node-exporter"}[5m])
+        record: instance:node_vmstat_pgmajfault:rate5m
+      - expr: rate(node_disk_io_time_seconds_total{component="node-exporter", device=~"nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+|dasd.+"}[5m])
+        record: instance_device:node_disk_io_time_seconds:rate5m
+      - expr: rate(node_disk_io_time_weighted_seconds_total{component="node-exporter", device=~"nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+|dasd.+"}[5m])
+        record: instance_device:node_disk_io_time_weighted_seconds:rate5m
+      - expr: sum by (instance) (rate(node_network_receive_bytes_total{component="node-exporter", device!="lo"}[5m]))
+        record: instance:node_network_receive_bytes_excluding_lo:rate5m
+      - expr: sum by (instance) (rate(node_network_transmit_bytes_total{component="node-exporter", device!="lo"}[5m]))
+        record: instance:node_network_transmit_bytes_excluding_lo:rate5m
+      - expr: sum by (instance) (rate(node_network_receive_drop_total{component="node-exporter", device!="lo"}[5m]))
+        record: instance:node_network_receive_drop_excluding_lo:rate5m
+      - expr: sum by (instance) (rate(node_network_transmit_drop_total{component="node-exporter", device!="lo"}[5m]))
+        record: instance:node_network_transmit_drop_excluding_lo:rate5m</pre></div></li><li class="listitem "><p>To apply the changed configuration, run:</p><div class="verbatim-wrap"><pre class="screen">helm upgrade prometheus suse/prometheus --namespace monitoring --values prometheus-config-values.yaml</pre></div></li><li class="listitem "><p>You should now be able to see your configured rules, depending on your network configuration</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>NodePort</strong></span>: <code class="literal">https://prometheus.example.com:32443/rules</code></p></li><li class="listitem "><p><span class="strong"><strong>External IPs</strong></span>: <code class="literal">https://prometheus.example.com/rules</code></p></li><li class="listitem "><p><span class="strong"><strong>LoadBalancer</strong></span>: <code class="literal">https://prometheus.example.com/rules</code></p></li></ul></div></li></ol></div></div><div class="sect4" id="id-grafana"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.2.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Grafana</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-grafana">#</a></h5></div></div></div><p>Starting from Grafana 5.0, it is possible to dynamically provision the data sources and dashboards via files.
+In a Kubernetes cluster, these files are provided via the utilization of <code class="literal">ConfigMap</code>, editing a <code class="literal">ConfigMap</code> will result by the modification of the configuration without having to delete/recreate the pod.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Configure Grafana provisioning</p><p>Create the default datasource configuration file <code class="literal">grafana-datasources.yaml</code> which point to our Prometheus server</p><div class="verbatim-wrap"><pre class="screen">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
+  labels:
+     grafana_datasource: "1"
+data:
+  datasource.yaml: |-
+    apiVersion: 1
+    deleteDatasources:
+      - name: Prometheus
+        orgId: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.monitoring.svc.cluster.local:80
+      access: proxy
+      orgId: 1
+      isDefault: true</pre></div></li><li class="listitem "><p>Create the <code class="literal">ConfigMap</code> in Kubernetes cluster</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create -f grafana-datasources.yaml</pre></div></li><li class="listitem "><p>Configure storage for the deployment</p><p>Choose among the options and uncomment the line in the config file.
+In production environments you must configure persistent storage.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Use an existing <code class="literal">PersistentVolumeClaim</code></p></li><li class="listitem "><p>Use a <code class="literal">StorageClass</code> (preferred)</p><p>Create a file <code class="literal">grafana-config-values.yaml</code> with the appropriate values</p><div class="verbatim-wrap"><pre class="screen"># Configure admin password
+adminPassword: &lt;PASSWORD&gt;
+
+# Ingress configuration
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - grafana.example.com
+  tls:
+    - hosts:
+      - grafana.example.com
+      secretName: monitoring-tls
+
+# Configure persistent storage
+persistence:
+  enabled: true
+  accessModes:
+    - ReadWriteOnce
+  ## Use a StorageClass
+  storageClassName: my-storage-class
+  ## Create a PersistentVolumeClaim of 10Gi
+  size: 10Gi
+  ## Use an existing PersistentVolumeClaim (my-pvc)
+  #existingClaim: my-pvc
+
+# Enable sidecar for provisioning
+sidecar:
+  datasources:
+    enabled: true
+    label: grafana_datasource
+  dashboards:
+    enabled: true
+    label: grafana_dashboard</pre></div></li></ul></div></li><li class="listitem "><p>Add SUSE helm charts repository</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm repo add suse https://kubernetes-charts.suse.com</pre></div></li><li class="listitem "><p>Deploy SUSE grafana helm chart and pass our configuration values file</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install grafana suse/grafana \
+--namespace monitoring \
+--values grafana-config-values.yaml</pre></div></li><li class="listitem "><p>The result should be a running Grafana pod</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl -n monitoring get pod | grep grafana
+NAME                                             READY     STATUS    RESTARTS   AGE
+grafana-dbf7ddb7d-fxg6d                          3/3       Running   0          2m</pre></div></li><li class="listitem "><p>At this stage, Grafana should be accessible, depending on your network configuration</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>NodePort</strong></span>: <code class="literal">https://grafana.example.com:32443</code></p></li><li class="listitem "><p><span class="strong"><strong>External IPs</strong></span>: <code class="literal">https://grafana.example.com</code></p></li><li class="listitem "><p><span class="strong"><strong>LoadBalancer</strong></span>: <code class="literal">https://grafana.example.com</code></p></li></ul></div></li><li class="listitem "><p>Now you can add Grafana dashboards.</p></li></ol></div></div><div class="sect4" id="adding-grafana-dashboards"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.2.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adding Grafana Dashboards</span> <a title="Permalink" class="permalink" href="id-monitoring.html#adding-grafana-dashboards">#</a></h5></div></div></div><p>There are three ways to add dashboards to Grafana:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Deploy an existing dashboard from <a class="link" href="https://grafana.com/dashboards" target="_blank">Grafana dashboards</a></p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Open the deployed Grafana in your browser and log in.</p></li><li class="listitem "><p>On the home page of Grafana, hover your mousecursor over the + button on the left sidebar and click on the import menuitem.</p></li><li class="listitem "><p>Select an existing dashboard for your purpose from Grafana dashboards. Copy the URL to the clipboard.</p></li><li class="listitem "><p>Paste the URL (for example) <code class="literal">https://grafana.com/dashboards/3131</code> into the first input field to import the "Kubernetes All Nodes" Grafana Dashboard.
+After pasting in the url, the view will change to another form.</p></li><li class="listitem "><p>Now select the "Prometheus" datasource in the <code class="literal">prometheus</code> field and click on the import button.</p></li><li class="listitem "><p>The browser will redirect you to your newly created dashboard.</p></li></ol></div></li><li class="listitem "><p>Use our <a class="link" href="https://github.com/SUSE/caasp-monitoring" target="_blank">pre-built dashboards</a> to monitor the SUSE CaaS Platform system</p><div class="verbatim-wrap highlight bash"><pre class="screen"># monitor SUSE CaaS Platform cluster
+kubectl apply -f https://raw.githubusercontent.com/SUSE/caasp-monitoring/master/grafana-dashboards-caasp-cluster.yaml
+# monitor SUSE CaaS Platform etcd cluster
+kubectl apply -f https://raw.githubusercontent.com/SUSE/caasp-monitoring/master/grafana-dashboards-caasp-etcd-cluster.yaml
+# monitor SUSE CaaS Platform nodes
+kubectl apply -f https://raw.githubusercontent.com/SUSE/caasp-monitoring/master/grafana-dashboards-caasp-nodes.yaml
+# monitor SUSE CaaS Platform namespaces
+kubectl apply -f https://raw.githubusercontent.com/SUSE/caasp-monitoring/master/grafana-dashboards-caasp-namespaces.yaml
+# monitor SUSE CaaS Platform pods
+kubectl apply -f https://raw.githubusercontent.com/SUSE/caasp-monitoring/master/grafana-dashboards-caasp-pods.yaml
+# monitor SUSE CaaS Platform certificates
+kubectl apply -f https://raw.githubusercontent.com/SUSE/caasp-monitoring/master/grafana-dashboards-caasp-certificates.yaml</pre></div></li><li class="listitem "><p>Build your own dashboard
+Deploy your own dashboard by configuration file containing the dashboard definition.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Create your dashboard definition file as a <code class="literal">ConfigMap</code>, for example <code class="literal">grafana-dashboards-caasp-cluster.yaml</code>.</p><div class="verbatim-wrap"><pre class="screen">---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-caasp-cluster
+  namespace: monitoring
+  labels:
+     grafana_dashboard: "1"
+data:
+  caasp-cluster.json: |-
+    {
+      "__inputs": [
+        {
+          "name": "DS_PROMETHEUS",
+          "label": "Prometheus",
+          "description": "",
+          "type": "datasource",
+          "pluginId": "prometheus",
+          "pluginName": "Prometheus"
+        }
+      ],
+      "__requires": [
+        {
+          "type": "grafana",
+[...]
+continues with definition of dashboard JSON
+[...]</pre></div></li><li class="listitem "><p>Apply the <code class="literal">ConfigMap</code> to the cluster.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl apply -f grafana-dashboards-caasp-cluster.yaml</pre></div></li></ol></div></li></ul></div></div></div><div class="sect3" id="installation-for-subpaths"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.1.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Installation For Subpaths</span> <a title="Permalink" class="permalink" href="id-monitoring.html#installation-for-subpaths">#</a></h4></div></div></div><p>This installation example shows how to install and configure Prometheus and Grafana using subpaths such as example.com/prometheus, example.com/alertmanager, and example.com/grafana.</p><div id="id-1.10.2.5.6.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>Overlapped instructions from subdomains will be omitted. Refer to the instruction from subdomains.</p></div></div><div class="sect3" id="id-create-dns-entries-3"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.1.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Create DNS entries</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-create-dns-entries-3">#</a></h4></div></div></div><p>In this example, we will use a master node with IP <code class="literal">10.86.4.158</code> in the case of NodePort service of the Ingress Controller.</p><div id="id-1.10.2.5.7.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>You should configure proper DNS names in any production environment.
+These values are only for example purposes.</p></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Configure the DNS server</p><div class="verbatim-wrap"><pre class="screen">example.com                      IN  A       10.86.4.158</pre></div></li><li class="listitem "><p>Configure the management workstation <code class="literal">/etc/hosts</code> (optional)</p><div class="verbatim-wrap"><pre class="screen">10.86.4.158 example.com</pre></div></li></ol></div><div class="sect4" id="id-tls-certificate-2"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">TLS Certificate</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-tls-certificate-2">#</a></h5></div></div></div><p>You must configure your certificates for the components as secrets in the Kubernetes cluster.
+Get certificates from your certificate authority.</p><p>Refer to <a class="xref" href="id-security.html#trusted-server-certificate" title="6.9.9.1.1. Trusted Server Certificate">Section 6.9.9.1.1, “Trusted Server Certificate”</a> on how to sign the trusted certificate or refer to <a class="xref" href="id-security.html#self-signed-server-certificate" title="6.9.9.2.2. Self-signed Server Certificate">Section 6.9.9.2.2, “Self-signed Server Certificate”</a> on how to sign the self-signed certificate. The <code class="literal">server.conf</code> for DNS.1 is <code class="literal">example.com</code>.</p><p>Then, import your certificate and key pair into the Kubernetes cluster secret name <code class="literal">monitoring-tls</code>. In this example, the certificate and key are <code class="literal">monitoring.crt</code> and <code class="literal">monitoring.key</code>.</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create -n monitoring secret tls monitoring-tls  \
+--key  ./monitoring.key \
+--cert ./monitoring.crt</pre></div></div><div class="sect4" id="id-prometheus-2"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prometheus</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-prometheus-2">#</a></h5></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Create a configuration file <code class="literal">prometheus-config-values.yaml</code></p><p>We need to configure the storage for our deployment.
+Choose among the options and uncomment the line in the config file.
+In production environments you must configure persistent storage.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Use an existing <code class="literal">PersistentVolumeClaim</code></p></li><li class="listitem "><p>Use a <code class="literal">StorageClass</code> (preferred)</p></li><li class="listitem "><p>Add the external URL to <code class="literal">baseURL</code> at which the server can be accessed. The <code class="literal">baseURL</code> depends on your network configuration.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>NodePort: <a class="link" href="https://example.com:32443/prometheus" target="_blank">https://example.com:32443/prometheus</a> and <a class="link" href="https://example.com:32443/alertmanager" target="_blank">https://example.com:32443/alertmanager</a></p></li><li class="listitem "><p>External IPs: <a class="link" href="https://example.com/prometheus" target="_blank">https://example.com/prometheus</a> and <a class="link" href="https://example.com/alertmanager" target="_blank">https://example.com/alertmanager</a></p></li><li class="listitem "><p>LoadBalancer: <a class="link" href="https://example.com/prometheus" target="_blank">https://example.com/prometheus</a> and <a class="link" href="https://example.com/alertmanager" target="_blank">https://example.com/alertmanager</a></p></li></ul></div></li></ul></div><div class="verbatim-wrap"><pre class="screen"># Alertmanager configuration
+alertmanager:
+  enabled: true
+  baseURL: https://example.com:32443/alertmanager
+  prefixURL: /alertmanager
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/auth-type: basic
+      nginx.ingress.kubernetes.io/auth-secret: prometheus-basic-auth
+      nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+    hosts:
+      - example.com/alertmanager
+    tls:
+      - secretName: monitoring-tls
+        hosts:
+        - example.com
+  persistentVolume:
+    enabled: true
+    ## Use a StorageClass
+    storageClass: my-storage-class
+    ## Create a PersistentVolumeClaim of 2Gi
+    size: 2Gi
+    ## Use an existing PersistentVolumeClaim (my-pvc)
+    #existingClaim: my-pvc
+
+## Alertmanager is configured through alertmanager.yml. This file and any others
+## listed in alertmanagerFiles will be mounted into the alertmanager pod.
+## See configuration options https://prometheus.io/docs/alerting/configuration/
+#alertmanagerFiles:
+#  alertmanager.yml:
+
+# Create a specific service account
+serviceAccounts:
+  nodeExporter:
+    name: prometheus-node-exporter
+
+# Node tolerations for node-exporter scheduling to nodes with taints
+# Allow scheduling of node-exporter on master nodes
+nodeExporter:
+  hostNetwork: false
+  hostPID: false
+  podSecurityPolicy:
+    enabled: true
+    annotations:
+      apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+      apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
+      seccomp.security.alpha.kubernetes.io/allowedProfileNames: runtime/default
+      seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
+  tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
+
+# Disable Pushgateway
+pushgateway:
+  enabled: false
+
+# Prometheus configuration
+server:
+  baseURL: https://example.com:32443/prometheus
+  prefixURL: /prometheus
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/auth-type: basic
+      nginx.ingress.kubernetes.io/auth-secret: prometheus-basic-auth
+      nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+    hosts:
+      - example.com/prometheus
+    tls:
+      - secretName: monitoring-tls
+        hosts:
+        - example.com
+  persistentVolume:
+    enabled: true
+    ## Use a StorageClass
+    storageClass: my-storage-class
+    ## Create a PersistentVolumeClaim of 8Gi
+    size: 8Gi
+    ## Use an existing PersistentVolumeClaim (my-pvc)
+    #existingClaim: my-pvc
+
+## Prometheus is configured through prometheus.yml. This file and any others
+## listed in serverFiles will be mounted into the server pod.
+## See configuration options
+## https://prometheus.io/docs/prometheus/latest/configuration/configuration/
+#serverFiles:
+#  prometheus.yml:</pre></div></li><li class="listitem "><p>Add SUSE helm charts repository</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm repo add suse https://kubernetes-charts.suse.com</pre></div></li><li class="listitem "><p>Deploy SUSE prometheus helm chart and pass our configuration values file.</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install prometheus suse/prometheus \
+--namespace monitoring \
+--values prometheus-config-values.yaml</pre></div><p>There need to be 3 pods running (3 node-exporter pods because we have 3 nodes).</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl -n monitoring get pod | grep prometheus
+NAME                                             READY     STATUS    RESTARTS   AGE
+prometheus-alertmanager-5487596d54-kcdd6         2/2       Running   0          2m
+prometheus-kube-state-metrics-566669df8c-krblx   1/1       Running   0          2m
+prometheus-node-exporter-jnc5w                   1/1       Running   0          2m
+prometheus-node-exporter-qfwp9                   1/1       Running   0          2m
+prometheus-node-exporter-sc4ls                   1/1       Running   0          2m
+prometheus-server-6488f6c4cd-5n9w8               2/2       Running   0          2m</pre></div></li></ol></div></div><div class="sect4" id="id-alertmanager-configuration-example"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.4.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Alertmanager Configuration Example</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-alertmanager-configuration-example">#</a></h5></div></div></div><p>Refer to <a class="xref" href="id-monitoring.html#alertmanager-configuration-example" title="8.1.3.2.3. Alertmanager Configuration Example">Section 8.1.3.2.3, “Alertmanager Configuration Example”</a></p></div><div class="sect4" id="id-recording-rules-configuration-example"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.4.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Recording Rules Configuration Example</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-recording-rules-configuration-example">#</a></h5></div></div></div><p>Refer to <a class="xref" href="id-monitoring.html#recording-rules-configuration-example" title="8.1.3.2.4. Recording Rules Configuration Example">Section 8.1.3.2.4, “Recording Rules Configuration Example”</a></p></div><div class="sect4" id="id-grafana-2"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.4.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Grafana</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-grafana-2">#</a></h5></div></div></div><p>Starting from Grafana 5.0, it is possible to dynamically provision the data sources and dashboards via files.
+In Kubernetes cluster, these files are provided via the utilization of <code class="literal">ConfigMap</code>, editing a <code class="literal">ConfigMap</code> will result by the modification of the configuration without having to delete/recreate the pod.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Configure Grafana provisioning</p><p>Create the default datasource configuration file <code class="literal">grafana-datasources.yaml</code> which point to our Prometheus server</p><div class="verbatim-wrap"><pre class="screen">---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
+  labels:
+     grafana_datasource: "1"
+data:
+  datasource.yaml: |-
+    apiVersion: 1
+    deleteDatasources:
+      - name: Prometheus
+        orgId: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.monitoring.svc.cluster.local:80
+      access: proxy
+      orgId: 1
+      isDefault: true</pre></div></li><li class="listitem "><p>Create the <code class="literal">ConfigMap</code> in Kubernetes cluster</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create -f grafana-datasources.yaml</pre></div></li><li class="listitem "><p>Configure storage for the deployment</p><p>Choose among the options and uncomment the line in the config file.
+In production environments you must configure persistent storage.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Use an existing <code class="literal">PersistentVolumeClaim</code></p></li><li class="listitem "><p>Use a <code class="literal">StorageClass</code> (preferred)</p></li><li class="listitem "><p>Add the external URL to <code class="literal">root_url</code> at which the server can be accessed. The <code class="literal">root_url</code> depends on your network configuration.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>NodePort: <a class="link" href="https://example.com:32443/grafana" target="_blank">https://example.com:32443/grafana</a></p></li><li class="listitem "><p>External IPs: <a class="link" href="https://example.com/grafana" target="_blank">https://example.com/grafana</a></p></li><li class="listitem "><p>LoadBalancer: <a class="link" href="https://example.com/grafana" target="_blank">https://example.com/grafana</a></p></li></ul></div></li></ul></div><p>Create a file <code class="literal">grafana-config-values.yaml</code> with the appropriate values</p><p>+</p><div class="verbatim-wrap"><pre class="screen"># Configure admin password
+adminPassword: &lt;PASSWORD&gt;
+
+# Ingress configuration
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - example.com
+  path: /grafana
+  tls:
+    - secretName: monitoring-tls
+      hosts:
+      - example.com
+
+# subpath for grafana
+grafana.ini:
+  server:
+    root_url: https://example.com:32443/grafana
+
+# Configure persistent storage
+persistence:
+  enabled: true
+  accessModes:
+    - ReadWriteOnce
+  ## Use a StorageClass
+  storageClassName: my-storage-class
+  ## Create a PersistentVolumeClaim of 10Gi
+  size: 10Gi
+  ## Use an existing PersistentVolumeClaim (my-pvc)
+  #existingClaim: my-pvc
+
+# Enable sidecar for provisioning
+sidecar:
+  datasources:
+    enabled: true
+    label: grafana_datasource
+  dashboards:
+    enabled: true
+    label: grafana_dashboard</pre></div></li><li class="listitem "><p>Add SUSE helm charts repository</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm repo add suse https://kubernetes-charts.suse.com</pre></div></li><li class="listitem "><p>Deploy SUSE grafana helm chart and pass our configuration values file</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install grafana suse/grafana \
+--namespace monitoring \
+--values grafana-config-values.yaml</pre></div></li><li class="listitem "><p>The result should be a running Grafana pod</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl -n monitoring get pod | grep grafana
+NAME                                             READY     STATUS    RESTARTS   AGE
+grafana-dbf7ddb7d-fxg6d                          3/3       Running   0          2m</pre></div></li><li class="listitem "><p>Access Prometheus, Alertmanager, and Grafana</p><p>At this stage, the Prometheus Expression browser/API, Alertmanager, and Grafana should be accessible, depending on your network configuration</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Prometheus Expression browser/API</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>NodePort</strong></span>: <code class="literal">https://example.com:32443/prometheus</code></p></li><li class="listitem "><p><span class="strong"><strong>External IPs</strong></span>: <code class="literal">https://example.com/prometheus</code></p></li><li class="listitem "><p><span class="strong"><strong>LoadBalancer</strong></span>: <code class="literal">https://example.com/prometheus</code></p></li></ul></div></li><li class="listitem "><p>Alertmanager</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>NodePort</strong></span>: <code class="literal">https://example.com:32443/alertmanager</code></p></li><li class="listitem "><p><span class="strong"><strong>External IPs</strong></span>: <code class="literal">https://example.com/alertmanager</code></p></li><li class="listitem "><p><span class="strong"><strong>LoadBalancer</strong></span>: <code class="literal">https://example.com/alertmanager</code></p></li></ul></div></li><li class="listitem "><p>Grafana</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>NodePort</strong></span>: <code class="literal">https://example.com:32443/grafana</code></p></li><li class="listitem "><p><span class="strong"><strong>External IPs</strong></span>: <code class="literal">https://example.com/grafana</code></p></li><li class="listitem "><p><span class="strong"><strong>LoadBalancer</strong></span>: <code class="literal">https://example.com/grafana</code></p></li></ul></div></li></ul></div></li><li class="listitem "><p>Now you can add the Grafana dashboards.</p></li></ol></div></div><div class="sect4" id="id-adding-grafana-dashboards"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.1.3.4.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adding Grafana Dashboards</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-adding-grafana-dashboards">#</a></h5></div></div></div><p>Refer to <a class="xref" href="id-monitoring.html#adding-grafana-dashboards" title="8.1.3.2.6. Adding Grafana Dashboards">Section 8.1.3.2.6, “Adding Grafana Dashboards”</a></p></div></div></div><div class="sect2" id="id-monitoring-2"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.1.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Monitoring</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-monitoring-2">#</a></h3></div></div></div><div class="sect3" id="id-prometheus-jobs"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.1.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prometheus Jobs</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-prometheus-jobs">#</a></h4></div></div></div><p>The Prometheus SUSE helm chart includes the following predefined jobs that will scrape metrics from these jobs using service discovery.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>prometheus: Get metrics from prometheus server</p></li><li class="listitem "><p>kubernetes-apiservers: Get metrics from Kubernetes apiserver</p></li><li class="listitem "><p>kubernetes-nodes: Get metrics from Kubernetes nodes</p></li><li class="listitem "><p>kubernetes-service-endpoints: Get metrics from Services which have annotation <code class="literal">prometheus.io/scrape=true</code> in the metadata</p></li><li class="listitem "><p>kubernetes-pods: Get metrics from Pods which have annotation <code class="literal">prometheus.io/scrape=true</code> in the metadata</p></li></ul></div><p>If you want to monitor new pods and services, you don’t need to change <code class="literal">prometheus.yaml</code> but add annotation <code class="literal">prometheus.io/scrape=true</code>, <code class="literal">prometheus.io/port=&lt;TARGET_PORT&gt;</code> and <code class="literal">prometheus.io/path=&lt;METRIC_ENDPOINT&gt;</code> to your pods and services metadata. Prometheus will automatically scrape the target.</p></div><div class="sect3" id="id-etcd-cluster"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.1.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">ETCD Cluster</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-etcd-cluster">#</a></h4></div></div></div><p>ETCD server exposes metrics on the <code class="literal">/metrics</code> endpoint. Prometheus jobs do not scrape it by default. Edit the <code class="literal">prometheus.yaml</code> file if you want to monitor the etcd cluster. Since the etcd cluster runs on https, we need to create a certificate to access the endpoint.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Create a new etcd client certificate signed by etcd CA cert/key pair:</p><div class="verbatim-wrap highlight bash"><pre class="screen">cat &lt;&lt; EOF &gt; &lt;CLUSTER_NAME&gt;/pki/etcd/openssl-monitoring-client.conf
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+
+[v3_req]
+keyUsage = digitalSignature,keyEncipherment
+extendedKeyUsage = clientAuth
+
+[req_distinguished_name]
+O = system:masters
+CN = kube-etcd-monitoring-client
+EOF
+
+openssl req -nodes -new -newkey rsa:2048 -config &lt;CLUSTER_NAME&gt;/pki/etcd/openssl-monitoring-client.conf -out &lt;CLUSTER_NAME&gt;/pki/etcd/monitoring-client.csr -keyout &lt;CLUSTER_NAME&gt;/pki/etcd/monitoring-client.key
+openssl x509 -req -days 365 -CA &lt;CLUSTER_NAME&gt;/pki/etcd/ca.crt -CAkey &lt;CLUSTER_NAME&gt;/pki/etcd/ca.key -CAcreateserial -in &lt;CLUSTER_NAME&gt;/pki/etcd/monitoring-client.csr -out &lt;CLUSTER_NAME&gt;/pki/etcd/monitoring-client.crt -sha256 -extfile &lt;CLUSTER_NAME&gt;/pki/etcd/openssl-monitoring-client.conf -extensions v3_req</pre></div></li><li class="listitem "><p>Create the etcd client certificate to secret in monitoring namespace:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl -n monitoring create secret generic etcd-certs --from-file=&lt;CLUSTER_NAME&gt;/pki/etcd/ca.crt --from-file=&lt;CLUSTER_NAME&gt;/pki/etcd/monitoring-client.crt --from-file=&lt;CLUSTER_NAME&gt;/pki/etcd/monitoring-client.key</pre></div></li><li class="listitem "><p>Get all etcd cluster private IP address:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get pods -n kube-system -l component=etcd -o wide
+NAME           READY   STATUS    RESTARTS   AGE   IP             NODE      NOMINATED NODE   READINESS GATES
+etcd-master0   1/1     Running   2          21h   192.168.0.6    master0   &lt;none&gt;           &lt;none&gt;
+etcd-master1   1/1     Running   2          21h   192.168.0.20   master1   &lt;none&gt;           &lt;none&gt;</pre></div></li><li class="listitem "><p>Edit the configuration file <code class="literal">prometheus-config-values.yaml</code>, add <code class="literal">extraSecretMounts</code> and <code class="literal">extraScrapeConfigs</code> parts, change the extraScrapeConfigs targets IP address(es) as your environment and change the target numbers if you have different etcd cluster members:</p><div class="verbatim-wrap"><pre class="screen"># Prometheus configuration
+server:
+  ...
+  extraSecretMounts:
+  - name: etcd-certs
+    mountPath: /etc/secrets
+    secretName: etcd-certs
+    readOnly: true
+
+extraScrapeConfigs: |
+  - job_name: etcd
+    static_configs:
+    - targets: ['192.168.0.32:2379','192.168.0.17:2379','192.168.0.5:2379']
+    scheme: https
+    tls_config:
+      ca_file: /etc/secrets/ca.crt
+      cert_file: /etc/secrets/monitoring-client.crt
+      key_file: /etc/secrets/monitoring-client.key</pre></div></li><li class="listitem "><p>Upgrade prometheus helm deployment:</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm upgrade prometheus suse/prometheus \
+--namespace monitoring \
+--values prometheus-config-values.yaml</pre></div></li></ol></div></div></div></div><div class="sect1" id="id-health-checks"><div class="titlepage"><div><div><h2 class="title"><span class="number">8.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Health Checks</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-health-checks">#</a></h2></div></div></div><p>Although Kubernetes cluster takes care of a lot of the traditional deployment
+problems on its own, it is good practice to monitor the availability
+and health of your services and applications in order to react
+to problems should they go beyond the automated measures.</p><p>There are three levels of health checks.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Cluster</p></li><li class="listitem "><p>Node</p></li><li class="listitem "><p>Service / Application</p></li></ul></div><div class="sect2" id="id-cluster-health-checks"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Cluster Health Checks</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-cluster-health-checks">#</a></h3></div></div></div><p>The basic check if a cluster is working correctly is based on a few criteria:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Are all services running as expected?</p></li><li class="listitem "><p>Is there at least one Kubernetes master fully working? Even if the deployment is
+configured to be highly available, it’s useful to know if
+<code class="literal">kube-controller-manager</code> is down on one of the machines.</p></li></ul></div><div id="id-1.10.3.5.4" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>For further understanding cluster health information, consider reading
+<a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/" target="_blank">https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/</a></p></div><div class="sect3" id="id-kubernetes-master"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.2.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Kubernetes master</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-kubernetes-master">#</a></h4></div></div></div><p>All components in Kubernetes cluster expose a <code class="literal">/healthz</code> endpoint. The expected
+(healthy) HTTP response status code is <code class="literal">200</code>.</p><p>The minimal services for the master to work properly are:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>kube-apiserver:</p><p>The component that receives your requests from <code class="literal">kubectl</code> and from the rest of
+the Kubernetes components. The URL is <a class="link" href="https://&lt;CONTROL_PLANE_IP/FQDN&gt;:6443/healthz" target="_blank">https://&lt;CONTROL_PLANE_IP/FQDN&gt;:6443/healthz</a></p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Local Check</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -k -i https://localhost:6443/healthz</pre></div></li><li class="listitem "><p>Remote Check</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -k -i https://&lt;CONTROL_PLANE_IP/FQDN&gt;:6443/healthz</pre></div></li></ul></div></li><li class="listitem "><p>kube-controller-manager:</p><p>The component that contains the control loop, driving current state to the
+desired state. The URL is <a class="link" href="http://&lt;CONTROL_PLANE_IP/FQDN&gt;:10252/healthz" target="_blank">http://&lt;CONTROL_PLANE_IP/FQDN&gt;:10252/healthz</a></p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Local Check</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -i http://localhost:10252/healthz</pre></div></li><li class="listitem "><p>Remote Check</p><p>Make sure firewall allows port <code class="literal">10252</code>.</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -i http://&lt;CONTROL_PLANE_IP/FQDN&gt;:10252/healthz</pre></div></li></ul></div></li><li class="listitem "><p>kube-scheduler:</p><p>The component that schedules workloads to nodes. The URL is
+<a class="link" href="http://&lt;CONTROL_PLANE_IP/FQDN&gt;:10251/healthz" target="_blank">http://&lt;CONTROL_PLANE_IP/FQDN&gt;:10251/healthz</a></p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Local Check</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -i http://localhost:10251/healthz</pre></div></li><li class="listitem "><p>Remote Check</p><p>Make sure firewall allows port <code class="literal">10251</code>.</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -i http://&lt;CONTROL_PLANE_IP/FQDN&gt;:10251/healthz</pre></div></li></ul></div></li></ul></div><div id="id-1.10.3.5.5.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note: High-Availability Environments</h6><p>In a HA environment you can monitor <code class="literal">kube-apiserver</code> on
+<code class="literal"><a class="link" href="https://&lt;LOAD_BALANCER_IP/FQDN&gt;:6443/healthz" target="_blank">https://&lt;LOAD_BALANCER_IP/FQDN&gt;:6443/healthz</a></code>.</p><p>If any one of the master nodes is running correctly, you will receive a valid response.</p><p>This does, however, not mean that all master nodes necessarily work correctly.
+To ensure that all master nodes work properly, the health checks must be
+repeated individually for each deployed master node.</p><p>This endpoint will return a successful HTTP response if the cluster is
+operational; otherwise it will fail.
+It will for example check that it can access <code class="literal">etcd</code>.
+This should not be used to infer that the overall cluster health is ideal.
+It will return a successful response even when only minimal operational
+cluster health exists.</p><p>To probe for full cluster health, you must perform individual health
+checking for all machines.</p></div></div><div class="sect3" id="id-etcd-cluster-2"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.2.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">ETCD Cluster</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-etcd-cluster-2">#</a></h4></div></div></div><p>The etcd cluster exposes an endpoint <code class="literal">/health</code>. The expected (healthy)
+HTTP response body is <code class="literal">{"health":"true"}</code>. The etcd cluster is accessed through
+HTTPS only, so be sure to have etcd certificates.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Local Check</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl --cacert /etc/kubernetes/pki/etcd/ca.crt
+--cert /etc/kubernetes/pki/etcd/healthcheck-client.crt
+--key /etc/kubernetes/pki/etcd/healthcheck-client.key https://localhost:2379/health</pre></div></li><li class="listitem "><p>Remote Check</p><p>Make sure firewall allows port <code class="literal">2379</code>.</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl --cacert &lt;ETCD_ROOT_CA_CERT&gt; --cert &lt;ETCD_CLIENT_CERT&gt;
+--key &lt;ETCD_CLIENT_KEY&gt; https://&lt;CONTROL_PLANE_IP/FQDN&gt;:2379/health</pre></div></li></ul></div></div></div><div class="sect2" id="id-node-health-checks"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Node Health Checks</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-node-health-checks">#</a></h3></div></div></div><p>This basic node health check consists of two parts. It checks:</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>The <span class="strong"><strong>kubelet endpoint</strong></span></p></li><li class="listitem "><p><span class="strong"><strong>CNI (Container Networking Interface) pod state</strong></span></p></li></ol></div><div class="sect3" id="id-kubelet"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.2.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">kubelet</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-kubelet">#</a></h4></div></div></div><p>First, determine if kubelet is up and working on the node.</p><p>Kubelet has two ports exposed on all machines:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Port https/10250: exposes kubelet services to the entire cluster and
+is available from all nodes through authentication.</p></li><li class="listitem "><p>Port http/10248: is only available on local host.</p></li></ul></div><p>You can send an HTTP request to the endpoint to find out if
+kubelet is healthy on that machine. The expected (healthy) HTTP response
+status code is <code class="literal">200</code>.</p><div class="sect4" id="id-local-check"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.2.2.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Local Check</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-local-check">#</a></h5></div></div></div><p>If there is an agent running on each node, this agent can simply
+fetch the local healthz port:</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -i http://localhost:10248/healthz</pre></div></div><div class="sect4" id="id-remote-check"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.2.2.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Remote Check</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-remote-check">#</a></h5></div></div></div><p>There are two ways to fetch endpoints remotely (metrics, healthz, etc.).
+Both methods use HTTPS and a token.</p><p><span class="strong"><strong>The first method</strong></span> is executed against the APIServer and mostly used with Prometheus
+and Kubernetes discovery <code class="literal">kubernetes_sd_config</code>.
+It allows automatic discovery of the nodes and avoids the task of defining monitoring
+for each node. For more information see the Kubernetes documentation:
+<a class="link" href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config" target="_blank">https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config</a></p><p><span class="strong"><strong>The second method</strong></span> directly talks to kubelet and can be used in more traditional
+monitoring where one must configure each node to be checked.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>Configuration and Token retrieval:</strong></span></p><p>Create a Service Account (<code class="literal">monitoring</code>) with an associated secondary Token
+(<code class="literal">monitoring-secret-token</code>). The token will be used in HTTP requests to authenticate
+against the API server.</p><p>This Service Account can only fetch information about nodes and pods.
+Best practice is not to use the token that has been created default. Using a secondary
+token is also easier for management. Create a file <code class="literal">kubelet.yaml</code> with
+the following as content.</p><div class="verbatim-wrap"><pre class="screen">---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: monitoring
+  namespace: kube-system
+secrets:
+- name: monitoring-secret-token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: monitoring-secret-token
+  namespace: kube-system
+  annotations:
+    kubernetes.io/service-account.name: monitoring
+type: kubernetes.io/service-account-token
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: monitoring-clusterrole
+  namespace: kube-system
+rules:
+- apiGroups: [""]
+  resources:
+  - nodes/metrics
+  - nodes/proxy
+  - pods
+  verbs: ["get", "list"]
+- nonResourceURLs: ["/metrics", "/healthz", "/healthz/*"]
+  verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: monitoring-clusterrole-binding
+  namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: monitoring-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: monitoring
+  namespace: kube-system</pre></div><p>Apply the yaml file:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl apply -f kubelet.yaml</pre></div><p>Export the token to an environment variable:</p><div class="verbatim-wrap highlight bash"><pre class="screen">TOKEN=$(kubectl -n kube-system get secrets monitoring-secret-token
+-o jsonpath='{.data.token}' | base64 -d)</pre></div><p>This token can now be passed through the <code class="literal">--header</code> argument as: "Authorization: Bearer $TOKEN".</p><p>Now export important values as environment variables:</p></li><li class="listitem "><p><span class="strong"><strong>Environment Variables Setup</strong></span></p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Choose a Kubernetes master node or worker node. The <code class="literal">NODE_IP_FQDN</code> here must
+be a node’s IP address or FQDN. The <code class="literal">NODE_NAME</code> here must be a node name in
+your Kubernetes cluster. Export the variables <code class="literal">NODE_IP_FQDN</code> and <code class="literal">NODE_NAME</code>
+so it can be reused.</p><div class="verbatim-wrap highlight bash"><pre class="screen">NODE_IP_FQDN="10.86.4.158"
+NODE_NAME=worker0</pre></div></li><li class="listitem "><p>Retrieve the TOKEN with kubectl.</p><div class="verbatim-wrap highlight bash"><pre class="screen">TOKEN=$(kubectl -n kube-system get secrets monitoring-secret-token
+-o jsonpath='{.data.token}' | base64 -d)</pre></div></li><li class="listitem "><p>Get the control plane &lt;IP/FQDN&gt; from the configuration file. You can skip this
+step if you only want to use the kubelet endpoint.</p><div class="verbatim-wrap highlight bash"><pre class="screen">CONTROL_PLANE=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")</pre></div><p>Now the key information to retrieve data from the endpoints should be available
+in the environment and you can poll the endpoints.</p></li></ol></div></li><li class="listitem "><p><span class="strong"><strong>Fetching Information from kubelet Endpoint</strong></span></p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Make sure firewall allows port <code class="literal">10250</code>.</p></li><li class="listitem "><p>Fetching metrics</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -k https://$NODE_IP_FQDN:10250/metrics --header "Authorization: Bearer $TOKEN"</pre></div></li><li class="listitem "><p>Fetching healthz</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -k https://$NODE_IP_FQDN:10250/healthz --header "Authorization: Bearer $TOKEN"</pre></div></li></ol></div></li><li class="listitem "><p><span class="strong"><strong>Fetching Information from APISERVER Endpoint</strong></span></p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Fetching metrics</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -k $CONTROL_PLANE/api/v1/nodes/$NODE_NAME/proxy/metrics --header
+"Authorization: Bearer $TOKEN"</pre></div></li><li class="listitem "><p>Fetching healthz</p><div class="verbatim-wrap highlight bash"><pre class="screen">curl -k $CONTROL_PLANE/api/v1/nodes/$NODE_NAME/proxy/healthz --header
+"Authorization: Bearer $TOKEN"</pre></div></li></ol></div></li></ul></div></div></div><div class="sect3" id="id-cni"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.2.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">CNI</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-cni">#</a></h4></div></div></div><p>You can check if the CNI (Container Networking Interface) is working as expected
+by check if the <code class="literal">coredns</code> service is running. If CNI has some kind of trouble
+<code class="literal">coredns</code> will not be able to start:</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl get deployments -n kube-system
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+cilium-operator   1/1     1            1           8d
+coredns           2/2     2            2           8d
+oidc-dex          1/1     1            1           8d
+oidc-gangway      1/1     1            1           8d</pre></div><p>If <code class="literal">coredns</code> is running and you are able to create pods then you can be certain
+that CNI and your CNI plugin are working correctly.</p><p>There’s also the <a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/debug-application-cluster/monitor-node-health/" target="_blank">Monitor Node Health</a> check.
+This is a <code class="literal">DaemonSet</code> that runs on every node, and reports to the <code class="literal">apiserver</code> back as
+<code class="literal">NodeCondition</code> and <code class="literal">Events</code>.</p></div></div><div class="sect2" id="id-serviceapplication-health-checks"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.2.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Service/Application Health Checks</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-serviceapplication-health-checks">#</a></h3></div></div></div><p>If the deployed services contain a health endpoint, or if they contain an endpoint
+that can be used to determine if the service is up, you can use <code class="literal">livenessProbes</code>
+and/or <code class="literal">readinessProbes</code>.</p><div id="id-1.10.3.7.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note: Health check endpoints vs. functional endpoints</h6><p>A proper health check is always preferred if designed correctly.</p><p>Despite the fact that any endpoint could potentially be used to infer if your
+application is up, it is better to have an endpoint specifically for health in
+your application.
+Such an endpoint will only respond affirmatively when all your setup code on
+the server has finished and the application is running in a desired state.</p></div><p>The <code class="literal">livenessProbes</code> and <code class="literal">readinessProbes</code> share configuration options and probe types.</p><div class="variablelist "><dl class="variablelist"><dt id="id-1.10.3.7.5.1"><span class="term ">initialDelaySeconds</span></dt><dd><p>Number of seconds to wait before performing the very first liveness probe.</p></dd><dt id="id-1.10.3.7.5.2"><span class="term ">periodSeconds</span></dt><dd><p>Number of seconds that the kubelet should wait between liveness probes.</p></dd><dt id="id-1.10.3.7.5.3"><span class="term ">successThreshold</span></dt><dd><p>Number of minimum consecutive successes for the probe to be considered successful (Default: 1).</p></dd><dt id="id-1.10.3.7.5.4"><span class="term ">failureThreshold</span></dt><dd><p>Number of times this probe is allowed to fail in order to assume that the service
+is not responding (Default: 3).</p></dd><dt id="id-1.10.3.7.5.5"><span class="term ">timeoutSeconds</span></dt><dd><p>Number of seconds after which the probe times out (Default: 1).</p></dd></dl></div><p>There are different options for the <code class="literal">livenessProbes</code> to check:</p><div class="variablelist "><dl class="variablelist"><dt id="id-1.10.3.7.7.1"><span class="term ">Command</span></dt><dd><p>A command executed within a container; a return code of 0 means success.
+All other return codes mean failure.</p></dd><dt id="id-1.10.3.7.7.2"><span class="term ">TCP</span></dt><dd><p>If a TCP connection can be established is considered success.</p></dd><dt id="id-1.10.3.7.7.3"><span class="term ">HTTP</span></dt><dd><p>Any HTTP response between <code class="literal">200</code> and <code class="literal">400</code> indicates success.</p></dd></dl></div><div class="sect3" id="id-livenessprobe"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.2.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">livenessProbe</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-livenessprobe">#</a></h4></div></div></div><p>livenessProbes are used to detect running but misbehaving pods/a service that might be running
+(the process didn’t die), but that is not responding as expected.
+You can find out more about livenessProbes here:
+<a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/" target="_blank">https://v1-18.docs.kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/</a></p><p>Probes are executed by each <code class="literal">kubelet</code> against the pods that define them and that
+are running in that specific node. When a <code class="literal">livenessProbe</code> fails, Kubernetes will automatically
+restart the pod and increase the <code class="literal">RESTARTS</code> count for that pod. These probes will be
+executed every <code class="literal">periodSeconds</code> starting from <code class="literal">initialDelaySeconds</code>.</p></div><div class="sect3" id="id-readinessprobe"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.2.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">readinessProbe</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-readinessprobe">#</a></h4></div></div></div><p>readinessProbes are used to wait for processes that take some time to start.
+Find out more about readinessProbes here: <a class="link" href="https://v1-18.docs.kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes" target="_blank">https://v1-18.docs.kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-readiness-probes</a>
+Despite the container running, it might be performing some time consuming initialization operations.
+During this time, you don’t want Kubernetes to route traffic to that specific pod.
+You also don’t want that container to be restarted because it will appear unresponsive.</p><p>These probes will be executed every <code class="literal">periodSeconds</code> starting from <code class="literal">initialDelaySeconds</code>
+until the service is ready.</p><p>Both probe types can be used at the same time. If a service is running, but  misbehaving,
+the <code class="literal">livenessProbe</code> will ensure that it’s restarted, and the <code class="literal">readinessProbe</code>
+will ensure that Kubernetes  won’t route traffic to that specific pod until it’s considered
+to be fully functional and running again.</p></div></div><div class="sect2" id="id-general-health-checks"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.2.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">General Health Checks</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-general-health-checks">#</a></h3></div></div></div><p>We recommend to apply other best practices from system administration to your
+monitoring and health checking approach. These steps are not specific to SUSE CaaS Platform
+and are beyond the scope of this document.</p></div></div><div class="sect1" id="horizontal-pod-autoscaler"><div class="titlepage"><div><div><h2 class="title"><span class="number">8.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Horizontal Pod Autoscaler</span> <a title="Permalink" class="permalink" href="id-monitoring.html#horizontal-pod-autoscaler">#</a></h2></div></div></div><p>Horizontal Pod Autoscaler (HPA) is a tool that automatically increases or decreases the number of pods in a replication controller, deployment, replica set or stateful set, based on metrics collected from pods.</p><p>In order to leverage HPA, <code class="literal">skuba</code> now supports an addon <code class="literal">metrics-server</code>.
+The <a class="link" href="https://github.com/kubernetes-sigs/metrics-server" target="_blank">metrics-server</a> addon is first installed into the Kubernetes cluster. After that, HPA fetches metrics from the aggregated API <code class="literal">metrics.k8s.io</code> and according to the user configuration determines whether to increase or decrease the scale of a replication controller, deployment, replica set or stateful set.</p><p>The HPA <code class="literal">metrics.target.type</code> can be one of the following:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p><span class="strong"><strong>Utilization</strong></span>: the value returned from the metrics server API is calculated as the average resource utilization across all relevant pods and subsequently compared with the <code class="literal">metrics.target.averageUtilization</code>.</p></li><li class="listitem "><p><span class="strong"><strong>AverageValue</strong></span>: the value returned from the metrics server API is divided by the number of all relevant pods, then compared to the <code class="literal">metrics.target.averageValue</code>.</p></li><li class="listitem "><p><span class="strong"><strong>Value</strong></span>: the value returned from the metrics server API is directly compared to the <code class="literal">metrics.target.value</code>.</p></li></ul></div><div id="id-1.10.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>The metrics supported by <code class="literal">metrics-server</code> are the <span class="strong"><strong>CPU</strong></span> and <span class="strong"><strong>memory</strong></span> of a pod or node.</p></div><div id="id-1.10.4.7" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>API versions supported by the HPA:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>CPU metric: <code class="literal">autoscaling/v1</code>,<code class="literal">autoscaling/v2beta2</code></p></li><li class="listitem "><p>Memory metric: <code class="literal">autoscaling/v2beta2</code>.</p></li></ul></div></div><div class="sect2" id="id-usage"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Usage</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-usage">#</a></h3></div></div></div><p>It is useful to first find out about the available resources of your cluster.</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>To display resource (CPU/Memory) usage for nodes, run:</p><div class="verbatim-wrap highlight bash"><pre class="screen">$ kubectl top node</pre></div><p>the expected output should look like the following:</p><div class="verbatim-wrap highlight bash"><pre class="screen">NAME        CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+master000   207m         10%    1756Mi          45%
+worker000   100m         10%    602Mi           31%</pre></div></li><li class="listitem "><p>To display resource (CPU/Memory) usage for pods, run:</p><div class="verbatim-wrap highlight bash"><pre class="screen">$ kubectl top pod</pre></div><p>the expected output should look like the following:</p><div class="verbatim-wrap highlight bash"><pre class="screen">NAME                                CPU(cores)   MEMORY(bytes)
+cilium-9fjw2                        32m          216Mi
+cilium-cqnq5                        43m          227Mi
+cilium-operator-7d6ddddbf5-2jwgr    1m           46Mi
+coredns-69c4947958-2br4b            2m           11Mi
+coredns-69c4947958-kb6dq            3m           11Mi
+etcd-master000                      21m          584Mi
+kube-apiserver-master000            20m          325Mi
+kube-controller-manager-master000   6m           105Mi
+kube-proxy-x2965                    0m           24Mi
+kube-proxy-x9zlv                    0m           19Mi
+kube-scheduler-master000            2m           46Mi
+kured-45rc2                         1m           25Mi
+kured-cptk4                         0m           25Mi
+metrics-server-79b8658cd7-gjvhs     1m           21Mi
+oidc-dex-55fc689dc-f6cfg            1m           20Mi
+oidc-gangway-7b7fbbdbdf-85p6t       1m           18Mi</pre></div><div id="id-1.10.4.8.3.2.5" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>The option flag <code class="literal">--sort-by=cpu</code>/<code class="literal">--sort-by=memory</code> has an sorting issue at the moment. It will be fixed in the future.</p></div></li></ul></div><div class="sect3" id="id-using-horizontal-pod-autoscaler-hpa"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.3.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Using Horizontal Pod Autoscaler (HPA)</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-using-horizontal-pod-autoscaler-hpa">#</a></h4></div></div></div><p>You can set the HPA to scale according to various metrics.
+These include <span class="strong"><strong>average CPU utilization</strong></span>, <span class="strong"><strong>average CPU value</strong></span>, <span class="strong"><strong>average memory utilization</strong></span> and <span class="strong"><strong>average memory value</strong></span>. The following sections show the recommended configuration for each of the aforementioned options.</p><div class="sect4" id="id-creating-an-hpa-using-average-cpu-utilization"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.3.1.1.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating an HPA Using Average CPU Utilization</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-creating-an-hpa-using-average-cpu-utilization">#</a></h5></div></div></div><p>The following code is an example of what this type of HPA can look like.
+You will have to run the code on your admin node or user local machine.
+Note that you need a kubeconfig file with RBAC permission that allow setting up autoscale rules into your Kubernetes cluster.</p><div class="verbatim-wrap"><pre class="screen"># deployment
+kubectl autoscale deployment &lt;DEPLOYMENT_NAME&gt; \
+    --min=&lt;MIN_REPLICAS_NUMBER&gt; \
+    --max=&lt;MAX_REPLICAS_NUMBER&gt; \
+    --cpu-percent=&lt;PERCENT&gt;
+
+# replication controller
+kubectl autoscale replicationcontrollers &lt;REPLICATIONCONTROLLERS_NAME&gt; \
+    --min=&lt;MIN_REPLICAS_NUMBER&gt; \
+    --max=&lt;MAX_REPLICAS_NUMBER&gt; \
+    --cpu-percent=&lt;PERCENT&gt;</pre></div><p>You could for example use the following values:</p><div class="verbatim-wrap"><pre class="screen">kubectl autoscale deployment oidc-dex \
+    --name=avg-cpu-util \
+    --min=1 \
+    --max=10 \
+    --cpu-percent=50</pre></div><p>The example output below shows autoscaling works in case of the oidc-dex deployment.
+The HPA increases the minimum number of pods to 1 and will increase the pods up to 10, if the average CPU utilization of the pods reaches 50%. For more details about the inner workings of the scaling, refer to <a class="link" href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details" target="_blank">The Kubernetes documentation on the horizontal pod autoscale algorithm</a>.</p><p>To check the current status of the HPA run:</p><div class="verbatim-wrap"><pre class="screen">kubectl get hpa</pre></div><p>Example output:</p><div class="verbatim-wrap"><pre class="screen">NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+oidc-dex   Deployment/oidc-dex   0%/50%          1         10        3          115s</pre></div><div id="id-1.10.4.8.4.3.11" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>To calculate pod CPU utilization HPA divides the total CPU usage of all containers by the total number of CPU requests:</p><p>POD CPU UTILIZATION = TOTAL CPU USAGE OF ALL CONTAINERS / NUMBER OF CPU REQUESTS</p><p>For example:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>Container1 requests 0.5 CPU and uses 0 CPU.</p></li><li class="listitem "><p>Container2 requests 1 CPU and uses 2 CPU.</p></li></ul></div><p>The CPU utilization will be (0+2)/(0.5+1)*100 (%)=133 (%)</p><p>If a replication controller, deployment, replica set or stateful set does not specify the CPU request, the output of <code class="literal">kubectl get hpa</code> TARGETS will be unknown.</p></div></div><div class="sect4" id="id-creating-an-hpa-using-the-average-cpu-value"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.3.1.1.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating an HPA Using the Average CPU Value</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-creating-an-hpa-using-the-average-cpu-value">#</a></h5></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Create a yaml manifest file <code class="literal">hpa-avg-cpu-value.yaml</code> with the following content:</p><div class="verbatim-wrap"><pre class="screen">apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: avg-cpu-value <span id="CO28-1"></span><span class="callout">1</span>
+  namespace: kube-system <span id="CO28-2"></span><span class="callout">2</span>
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment <span id="CO28-3"></span><span class="callout">3</span>
+    name: example <span id="CO28-4"></span><span class="callout">4</span>
+  minReplicas: 1 <span id="CO28-5"></span><span class="callout">5</span>
+  maxReplicas: 10 <span id="CO28-6"></span><span class="callout">6</span>
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: AverageValue
+        averageValue: 500Mi <span id="CO28-7"></span><span class="callout">7</span></pre></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>Name of the HPA.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>Namespace of the HPA.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>Specifies the kind of object to scale (a replication controller, deployment, replica set or stateful set).</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>Specifies the name of the object to scale.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>Specifies the minimum number of replicas.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>Specifies the maximum number of replicas.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO28-7"><span class="callout">7</span></a> </p></td><td valign="top" align="left"><p>The average value of the requested CPU that each pod uses.</p></td></tr></table></div></li><li class="listitem "><p>Apply the yaml manifest by running:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f hpa-avg-cpu-value.yaml</pre></div></li><li class="listitem "><p>Check the current status of the HPA:</p><div class="verbatim-wrap"><pre class="screen">kubectl get hpa
+
+NAME            REFERENCE               TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+avg-cpu-value   Deployment/php-apache   1m/500Mi   1         10        1          39s</pre></div></li></ol></div></div><div class="sect4" id="id-creating-an-hpa-using-average-memory-utilization"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.3.1.1.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating an HPA Using Average Memory Utilization</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-creating-an-hpa-using-average-memory-utilization">#</a></h5></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Create a yaml manifest file <code class="literal">hpa-avg-memory-util.yaml</code> with the following content:</p><div class="verbatim-wrap"><pre class="screen">apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: avg-memory-util <span id="CO29-1"></span><span class="callout">1</span>
+  namespace: kube-system <span id="CO29-2"></span><span class="callout">2</span>
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment <span id="CO29-3"></span><span class="callout">3</span>
+    name: example <span id="CO29-4"></span><span class="callout">4</span>
+  minReplicas: 1 <span id="CO29-5"></span><span class="callout">5</span>
+  maxReplicas: 10 <span id="CO29-6"></span><span class="callout">6</span>
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 50 <span id="CO29-7"></span><span class="callout">7</span></pre></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>Name of the HPA.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>Namespace of the HPA.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>Specifies the kind of object to scale (a replication controller, deployment, replica set or stateful set).</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>Specifies the name of the object to scale.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>Specifies the minimum number of replicas.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>Specifies the maximum number of replicas.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO29-7"><span class="callout">7</span></a> </p></td><td valign="top" align="left"><p>The average utilization of the requested memory that each pod uses.</p></td></tr></table></div></li><li class="listitem "><p>Apply the yaml manifest by running:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f hpa-avg-memory-util.yaml</pre></div></li><li class="listitem "><p>Check the current status of the HPA:</p><div class="verbatim-wrap"><pre class="screen">kubectl get hpa
+
+NAME              REFERENCE            TARGETS          MINPODS   MAXPODS   REPLICAS   AGE
+avg-memory-util   Deployment/example   5%/50%           1         10        1          4m54s</pre></div><div id="id-1.10.4.8.4.5.2.3.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>HPA calculates pod memory utilization as: total memory usage of all containers / total memory requests.
+If a deployment or replication controller does not specify the memory request, the ouput of <code class="literal">kubectl get hpa</code> TARGETS is &lt;unknown&gt;.</p></div></li></ol></div></div><div class="sect4" id="id-creating-an-hpa-using-average-memory-value"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.3.1.1.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Creating an HPA Using Average Memory Value</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-creating-an-hpa-using-average-memory-value">#</a></h5></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Create a yaml manifest file <code class="literal">hpa-avg-memory-value.yaml</code> with the following content:</p><div class="verbatim-wrap"><pre class="screen">apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: avg-memory-value <span id="CO30-1"></span><span class="callout">1</span>
+  namespace: kube-system <span id="CO30-2"></span><span class="callout">2</span>
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment <span id="CO30-3"></span><span class="callout">3</span>
+    name: example <span id="CO30-4"></span><span class="callout">4</span>
+  minReplicas: 1 <span id="CO30-5"></span><span class="callout">5</span>
+  maxReplicas: 10 <span id="CO30-6"></span><span class="callout">6</span>
+  metrics:
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 500Mi <span id="CO30-7"></span><span class="callout">7</span></pre></div><div class="calloutlist "><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#CO30-1"><span class="callout">1</span></a> </p></td><td valign="top" align="left"><p>Name of the HPA.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO30-2"><span class="callout">2</span></a> </p></td><td valign="top" align="left"><p>Namespace of the HPA.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO30-3"><span class="callout">3</span></a> </p></td><td valign="top" align="left"><p>Specifies the kind of object to scale (a replication controller, deployment, replica set or stateful set).</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO30-4"><span class="callout">4</span></a> </p></td><td valign="top" align="left"><p>Specifies the name of the object to scale.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO30-5"><span class="callout">5</span></a> </p></td><td valign="top" align="left"><p>Specifies the minimum number of replicas.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO30-6"><span class="callout">6</span></a> </p></td><td valign="top" align="left"><p>Specifies the maximum number of replicas.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#CO30-7"><span class="callout">7</span></a> </p></td><td valign="top" align="left"><p>The average value of the requested memory that each pod uses.</p></td></tr></table></div></li><li class="listitem "><p>Apply the yaml manifest by running:</p><div class="verbatim-wrap"><pre class="screen">kubectl apply -f hpa-avg-memory-value.yaml</pre></div></li><li class="listitem "><p>Check the current status of the HPA:</p><div class="verbatim-wrap"><pre class="screen">kubectl get hpa
+
+NAME                     REFERENCE            TARGETS          MINPODS   MAXPODS   REPLICAS   AGE
+avg-memory-value         Deployment/example   11603968/500Mi   1         10        1          6m24s</pre></div></li></ol></div></div></div></div></div><div class="sect1" id="id-stratos-web-console"><div class="titlepage"><div><div><h2 class="title"><span class="number">8.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Stratos Web Console</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-stratos-web-console">#</a></h2></div></div></div><div id="id-1.10.5.2" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>This feature is offered as a "tech preview".</p><p>We release this as a tech-preview in order to get early feedback from our customers.
+Tech previews are largely untested, unsupported, and thus not ready for production use.</p><p>That said, we strongly believe this technology is useful at this stage in order to make the right improvements based on your feedback.
+A fully supported, production-ready release is planned for a later point in time.</p></div><div id="id-1.10.5.3" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>If you plan to deploy SUSE Cloud Application Platform on your SUSE CaaS Platform
+cluster please skip this section of the documentation and refer
+to the official SUSE Cloud Application Platform instructions. This will include Stratos.</p><p><a class="link" href="https://documentation.suse.com/suse-cap/1.5.2/single-html/cap-guides/#cha-cap-depl-caasp" target="_blank">https://documentation.suse.com/suse-cap/1.5.2/single-html/cap-guides/#cha-cap-depl-caasp</a></p></div><div class="sect2" id="id-introduction-4"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Introduction</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-introduction-4">#</a></h3></div></div></div><p>The Stratos user interface (UI) is a modern web-based management application for
+Kubernetes and for Cloud Foundry distributions based on Kubernetes like SUSE Cloud Application Platform.</p><p>Stratos provides a graphical management console for both developers and system
+administrators.</p><p>A single Stratos instance can be used to monitor multiple Kubernetes clusters
+as long as it is granted access to their Kubernetes API endpoint.</p><p>This document aims to describe how to install Stratos in a SUSE CaaS Platform cluster
+that doesn’t plan to run any SUSE Cloud Application Platform components.</p><p>The Stratos stack is deployed using helm charts and consists of its web
+UI POD and a MariaDB one that is used to store configuration values.</p></div><div class="sect2" id="id-prerequisites-5"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Prerequisites</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-prerequisites-5">#</a></h3></div></div></div><div class="sect3" id="id-helm"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.2.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Helm</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-helm">#</a></h4></div></div></div><p>The deployment of Stratos is performed using a helm chart. Your remote
+administration machine must have Helm installed.</p></div><div class="sect3" id="id-persistent-storage"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.2.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Persistent Storage</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-persistent-storage">#</a></h4></div></div></div><p>The MariaDB instance used by Stratos requires a persistent storage to store
+its data.</p><p>The cluster must have a Kubernetes Storage Class defined.</p></div></div><div class="sect2" id="id-installation-2"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.4.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Installation</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-installation-2">#</a></h3></div></div></div><div class="sect3" id="id-adding-helm-chart-repository-and-default-values"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.3.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Adding helm chart repository and default values</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-adding-helm-chart-repository-and-default-values">#</a></h4></div></div></div><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>Add SUSE helm charts repository</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm repo add suse https://kubernetes-charts.suse.com</pre></div></li><li class="listitem "><p>Obtain the default <code class="literal">values.yaml</code> file of the helm chart</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm inspect values suse/console &gt; stratos-values.yaml</pre></div></li><li class="listitem "><p>Create the <code class="literal">stratos</code> namespace</p><div class="verbatim-wrap highlight bash"><pre class="screen">kubectl create namespace stratos</pre></div></li></ol></div></div><div class="sect3" id="id-define-admin-user-password"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.3.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Define <code class="literal">admin</code> user password</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-define-admin-user-password">#</a></h4></div></div></div><p>Create a secure password for your admin user and write that into the
+<code class="literal">stratos-values.yaml</code> as value of the <code class="literal">console.localAdminPassword</code> key.</p><div id="id-1.10.5.6.3.3" class="admonition important normal"><img class="symbol" alt="Important" title="Important" src="static/images/icon-important.png" /><h6>Important</h6><p>This step is required to allow the installation of Stratos without
+having any SUSE Cloud Application Platform components deployed on the cluster.</p></div></div><div class="sect3" id="id-define-the-storage-class-to-be-used"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.3.3 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Define the Storage Class to be used</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-define-the-storage-class-to-be-used">#</a></h4></div></div></div><p>If your cluster does not have a default storage class configured, or you want
+to use a different one, follow these instructions.</p><p>Open the <code class="literal">stratos-values.yaml</code> file and look for the <code class="literal">storageClass</code> entry
+defined at the global level, uncomment the line and provide the name of your
+Storage Class.</p><p>The values file will have something like that:</p><div class="verbatim-wrap highlight yaml"><pre class="screen"># Specify which storage class should be used for PVCs
+storageClass: default</pre></div><div id="id-1.10.5.6.4.6" class="admonition note normal"><img class="symbol" alt="Note" title="Note" src="static/images/icon-note.png" /><h6>Note</h6><p>The file has other <code class="literal">storageClass</code> keys defined inside of some of
+its resources. These can be left empty to rely on the global Storage Class that
+has just been defined.</p></div></div><div class="sect3" id="id-exposing-the-web-ui"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.3.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Exposing the Web UI</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-exposing-the-web-ui">#</a></h4></div></div></div><p>The web interface of Stratos can be exposed either via a Ingress resource or
+by using a Service of type <code class="literal">LoadBalancer</code> or even both at the same time.</p><p>An Ingress controller must be deployed on the cluster to be able to expose
+the service using an Ingress resource.</p><p>The cluster must be deployed on a platform that can handle <code class="literal">LoadBalancer</code>
+objects and must have the Cloud Provider Integration (CPI) enabled. This
+can be achieved, for example, when deploying SUSE CaaS Platform on top of OpenStack.</p><p>The behavior is defined inside of the <code class="literal">console.service</code> stanza of the yaml file:</p><div class="verbatim-wrap highlight yaml"><pre class="screen">console:
+  service:
+    annotations: []
+    externalIPs: []
+    loadBalancerIP:
+    loadBalancerSourceRanges: []
+    servicePort: 443
+    # nodePort: 30000
+    type: ClusterIP
+    externalName:
+    ingress:
+      ## If true, Ingress will be created
+      enabled: false
+
+      ## Additional annotations
+      annotations: {}
+
+      ## Additional labels
+      extraLabels: {}
+
+      ## Host for the ingress
+      # Defaults to console.[env.Domain] if env.Domain is set and host is not
+      host:
+
+      # Name of secret containing TLS certificate
+      secretName:
+
+      # crt and key for TLS Certificate (this chart will create the secret based on these)
+      tls:
+        crt:
+        key:</pre></div><div class="sect4" id="id-expose-the-web-ui-using-a-loadbalancer"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.4.3.4.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Expose the web UI using a LoadBalancer</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-expose-the-web-ui-using-a-loadbalancer">#</a></h5></div></div></div><p>The service can be exposes as a <code class="literal">LoadBalancer</code> one by setting the value of
+<code class="literal">console.service.type</code> to be <code class="literal">LoadBalancer</code>.</p><p>The <code class="literal">LoadBalancer</code> resource can be tuned by changing the values of the other
+<code class="literal">loadBalancer*</code> params specified inside of the <code class="literal">console.service</code> stanza.</p></div><div class="sect4" id="id-expose-the-web-ui-using-an-ingress"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.4.3.4.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Expose the web UI using an Ingress</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-expose-the-web-ui-using-an-ingress">#</a></h5></div></div></div><p>The Ingress resource can be created by setting
+<code class="literal">console.service.ingress.enabled</code> to be <code class="literal">true</code>.</p><p>Stratos is exposed by the Ingress using a dedicated host rule. Hence
+you must specify the FQDN of the host as a value of the
+<code class="literal">console.service.ingress.host</code> key.</p><p>The behavior of the Ingress object can be fine tuned by using the
+other keys inside of the <code class="literal">console.service.ingress</code> stanza.</p></div></div><div class="sect3" id="id-securing-stratos"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.3.5 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Securing Stratos</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-securing-stratos">#</a></h4></div></div></div><p>It’s highly recommended to secure Stratos' web interface using TLS encryption.</p><p>This can be done by creating a TLS certificate for Stratos.</p><div class="sect4" id="id-secure-stratos-web-ui"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.4.3.5.1 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Secure Stratos web UI</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-secure-stratos-web-ui">#</a></h5></div></div></div><p>It’s highly recommended to secure the web interface of Stratos by using TLS
+encryption. This can be easily done when exposing the web interface using an
+Ingress resource.</p><p>Inside of the <code class="literal">console.service.ingress</code> stanza ensure the Ingress resource is
+enabled and then specify values for <code class="literal">console.service.ingress.tls.crt</code> and
+<code class="literal">console.service.ingress.tls.key</code>. These keys hold the base64 encoded TLS
+certificate and key.</p><p>The TLS certificate and key can be base64 encoded by using the following command:</p><div class="verbatim-wrap highlight bash"><pre class="screen">base64 tls.crt
+base64 tls.key</pre></div><p>The output produced by the two commands has to be copied into the
+<code class="literal">stratos-values.yaml</code> file, resulting in something like that:</p><div class="verbatim-wrap highlight yaml"><pre class="screen">console:
+  service:
+    ingress:
+      enabled: true
+      tls: |
+        &lt;output of base64 tls.crt&gt;
+      key: |
+        &lt;output of base64 tls.key&gt;</pre></div></div><div class="sect4" id="id-change-mariadb-password"><div class="titlepage"><div><div><h5 class="title"><span class="number">8.4.3.5.2 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Change MariaDB password</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-change-mariadb-password">#</a></h5></div></div></div><p>The helm chart provisions the MariaDB database with a default weak password.
+A stronger password can be specified by altering the value of <code class="literal">mariadb.mariadbPassword</code>.</p></div></div><div class="sect3" id="id-enable-tech-preview-features"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.3.6 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Enable tech preview features</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-enable-tech-preview-features">#</a></h4></div></div></div><p>You can enable tech preview features of Stratos by changing the value of
+<code class="literal">console.techPreview</code> from <code class="literal">false</code> to <code class="literal">true</code>.</p></div><div class="sect3" id="id-deploying-stratos"><div class="titlepage"><div><div><h4 class="title"><span class="number">8.4.3.7 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Deploying Stratos</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-deploying-stratos">#</a></h4></div></div></div><p>Now Stratos can be deployed using helm and the values specified inside of the
+<code class="literal">stratos-values.yaml</code> file:</p><div class="verbatim-wrap highlight bash"><pre class="screen">helm install stratos-console suse/console \
+  --namespace stratos \
+  --values stratos-values.yaml</pre></div><p>You can monitor the status of your Stratos deployment with the watch command:</p><div class="verbatim-wrap highlight bash"><pre class="screen">watch --color 'kubectl get pods --namespace stratos'</pre></div><p>When Stratos is successfully deployed, the following is observed:</p><div class="itemizedlist "><ul class="itemizedlist"><li class="listitem "><p>For the volume-migration pod, the STATUS is Completed and the READY column is at 0/1.</p></li><li class="listitem "><p>All other pods have a Running STATUS and a READY value of n/n.</p></li></ul></div><p>Press <code class="literal">Ctrl–C</code> to exit the watch command.</p><div class="orderedlist "><ol class="orderedlist" type="1"><li class="listitem "><p>At this stage Stratos web UI should be accessible. You can log into that using
+the <code class="literal">admin</code> user and the password you specified inside of your <code class="literal">stratos-values.yaml</code>
+file.</p></li></ol></div></div></div><div class="sect2" id="id-stratos-configuration"><div class="titlepage"><div><div><h3 class="title"><span class="number">8.4.4 </span><span xmlns:dm="urn:x-suse:ns:docmanager" class="name">Stratos configuration</span> <a title="Permalink" class="permalink" href="id-monitoring.html#id-stratos-configuration">#</a></h3></div></div></div><p>Now that Stratos is up and running you can log into it and configure it to
+connect to your Kubernetes cluster(s).</p><p>Please refer to the <a class="link" href="https://documentation.suse.com/suse-cap/1.5.2/single-html/cap-guides/#book-cap-guides" target="_blank">SUSE Cloud Application Platform documentation</a> for more information.</p></div></div></div></div><div class="page-bottom"><div id="_bottom-navigation"><a class="nav-link" href="id-storage.html"><span class="next-icon">→</span><span class="nav-label"><span class="number">Chapter 9 </span>Storage</span></a><a class="nav-link" href="id-logging.html"><span class="prev-icon">←</span><span class="nav-label"><span class="number">Chapter 7 </span>Logging</span></a></div><div class="_share-print"><div class="online-contents share"><strong>Share this page: </strong><span class="share-buttons"><span class="_share-fb bottom-button">Facebook</span><span class="spacer"> • </span><span class="_share-in bottom-button">LinkedIn</span><span class="spacer"> • </span><span class="_share-tw bottom-button">Twitter</span><span class="spacer"> • </span><span class="_share-mail bottom-button">E-Mail</span></span></div><div class="print"><span class="_print-button bottom-button">Print this page</span></div><div class="clearme"></div></div></div></div><div id="_inward"></div></div><div id="_footer-wrap"><div id="_footer"><p>©
+        2021 
+        SUSE</p><ul><li><a href="https://jobs.suse.com/" target="_top">Careers</a></li><li><a href="https://www.suse.com/company/legal/" target="_top">Legal</a></li><li><a href="https://www.suse.com/company/about/" target="_top">About</a></li><li><a href="https://www.suse.com/contact/" target="_top">Contact Us</a></li></ul></div></div></body></html>
